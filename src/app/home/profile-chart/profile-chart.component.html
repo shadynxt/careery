@@ -1,0 +1,10 @@
+<div id="pointContents" class="graphModal">
+    <div class="user-details">
+      <ul>
+        <li><small>{{ 'PROFILE.NAME' |translate }}</small> <span>{{ (userDetails.first_name+' '+userDetails.last_name) }}</span></li>
+        <li><small>{{ 'PROFILE.CPP' |translate }}</small> <span>{{ (userDetails.cpp) }}</span></li>
+      </ul>
+    </div>
+    <canvas baseChart id="pointCanvas" [data]="pieChartData" [labels]="pieChartLabels" [colors]="pieChartColors"
+      [chartType]="pieChartType" [options]="pieOptions"></canvas>
+  </div>

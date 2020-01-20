@@ -1,0 +1,10 @@
+
+<div class="commonWrap">
+
+  <h2 class="withLine"> <span>{{page_title}}</span></h2>
+  <div class="cms-banner" *ngIf="page_banner">
+    <img src="{{ page_banner| picturepath:'cms'  }}"  />
+  </div>
+  <div class="cms-content" [innerHTML]="page_content |sanitizeHtml"></div>
+
+</div>

@@ -1,0 +1,10 @@
+<div class="logoHolder clearfix">
+  <div class="logo"><a [routerLink]="['/']"><img src="assets/images/logo{{ (activeLang=='AR')?'-ar':'' }}.png" alt=""></a></div>
+  <div class="logoLand" *ngIf="allLanguage">
+    <div class="langChange">
+      {{ activeLang }}
+      <span (click)="langChange((activeLang == 'EN')? 'AR':'EN')">{{ (activeLang == 'EN')? 'AR':'EN' }}</span>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>

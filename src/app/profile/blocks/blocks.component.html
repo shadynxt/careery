@@ -1,0 +1,72 @@
+<div class="searchWrap">
+    <div class="row">
+  
+      <div class="col-xl-9 col-lg-8">
+        <h2 class="withLine"><span>{{ 'LISTPAGES.CONNECTIONS' |translate }}</span></h2>
+        <div class="row searchResult">
+          <div class="col-xl-3 col-lg-4 col-md-4 col-6 searchCol" *ngFor="let connection of connectionList" >
+            <div class="searchResultSingle">
+              <span class="searchClose" (click)="removeConnection(connection, i)"></span>
+              <div (click)="gotoProfile(connection.friend_cpp)">
+              <div class="profileDescImg" [class.inactive]="(currentTime - connection.friend_last_active_time) > (5*60) ">
+              <img *ngIf="connection.friend_profile_pic" alt="" [src]="connection.friend_profile_pic| picturepath:'users'">
+              <img  *ngIf="connection && !connection.friend_profile_pic && connection.friend_gender && connection.friend_experience_level" src="assets/images/charachter/{{ connection.friend_gender+'_'+connection.friend_experience_level }}.png" alt="">
+            </div>
+              <h2>{{ connection.friend_first_name }}  {{ connection.friend_last_name }}</h2>
+              <h3>{{ connection.friend_position_local_name }}</h3>
+              <h4><i class="fa fa-users" aria-hidden="true"></i> {{ connection.mutualFriendCount }} {{'LISTPAGES.MUTUAL_CONNECTION'|translate}}</h4>
+            </div>
+              
+              <button *ngIf='connection.already_block==1' class="blockBtn" type="button" (click)="unblock(connection.friend_id)">{{ 'BLOCKS.UNBLOCK'|translate }}</button>
+
+              <button *ngIf='!connection.already_block || connection.already_block==0' class="blockBtn" type="button" (click)="openBlock(connection.friend_id)">{{ 'BLOCKS.BLOCK'|translate }}</button>
+           
+            </div>
+          </div>
+          
+          <div class="col-xl-12 col-lg-12 col-md-12 col-12 searchCol" *ngIf="connectionList.length == 0">
+            {{"PROFILEEDIT.NO_RECORD_FOUND" | translate}}
+          </div>
+        </div>
+  
+        <app-pagination *ngIf="paginationConfig && connectionList.length>0" [config]="paginationConfig" (pager)="clickPager($event)"></app-pagination>
+  
+  
+      </div>
+  
+      <div class="col-xl-3 col-lg-4">
+  
+        <app-notifications></app-notifications>
+      </div>
+    </div>
+  </div>
+ <!-- tell us reasone model start --> 
+ <app-blocksmodal></app-blocksmodal>
+
+  <!-- <ng-template #content let-modal>
+    <h2><span>Tell Us Why:</span></h2>
+    <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+    <div class="modal-body">
+      <div>
+     
+        <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+      </div>
+
+      <div class="proEdit">
+        <div class="formWrap alt">
+         
+          <ng-select class="inpField fullWidth" [items]="reasonList" [(ngModel)]="blockForm.block_reason_id" bindLabel="name" bindValue="id"></ng-select>
+        </div>
+        <div class="txtOr">OR:</div>
+        <div class="formWrap alt">
+           <textarea class="inpField fullWidth" [(ngModel)]="blockForm.block_comment" placeholder="Type Blocking Reson......"></textarea>
+        </div>
+        <div class="buttonGr">
+          <div class="text-center">
+            <button type="button" class="btnOrange" name="button" (click)=submitBlockReasonFrom()>Confirm Blocking</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template> -->
+  

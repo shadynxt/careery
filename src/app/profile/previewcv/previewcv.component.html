@@ -1,0 +1,292 @@
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+  @page { size: A4 }
+  *, *::before, *::after { box-sizing: border-box;}
+* {padding:0px; margin:0px; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased;}
+html{line-height:1.15; -ms-text-size-adjust:100%; -webkit-text-size-adjust:100%;}
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #1D1D1D;}
+.clearfix::after { display: block; clear: both; content: "";}
+h1, h1 a, h2, h2 a, h3, h4, h5, h6 { margin:0; padding:0; font-weight:400;}
+.sheet { margin: 0; overflow: hidden; position: relative; box-sizing: border-box; page-break-after: always;}
+
+/** Paper sizes **/
+.A4 {
+  padding: 5px;
+}
+.main-container {
+  width: 210mm;
+  margin: 0 auto;
+}
+.A4 .sheet { width: 208mm;  } /** height: 296mm; **/
+body.A4.landscape .sheet { width: 297mm; height: 209mm; }
+body.A5 .sheet { width: 148mm; height: 209mm; }
+body.A5.landscape .sheet { width: 210mm; height: 147mm; }
+body.letter .sheet { width: 216mm; height: 279mm; }
+body.letter.landscape .sheet { width: 280mm; height: 215mm; }
+body.legal .sheet { width: 216mm; height: 356mm; }
+body.legal.landscape .sheet { width: 357mm; height: 215mm; }
+
+@media print {
+  .A4 .sheet { width: 100%;  }
+}
+/** Padding area **/
+.sheet.padding-5mm{ padding: 5mm; padding-bottom: 0;}
+.sheet.padding-10mm { padding: 10mm; }
+.sheet.padding-15mm { padding: 15mm;}
+.sheet.padding-20mm { padding: 20mm; }
+.sheet.padding-25mm { padding: 25mm; }
+
+/** For screen preview **/
+@media screen {
+  body { background: #e0e0e0; }
+  .sheet { background: white; box-shadow: 0 .5mm 2mm rgba(0,0,0,.3); margin: 5mm auto;}
+}
+
+/** Fix for Chrome issue #273306 **/
+@media print {
+body.A3.landscape { width: 420mm; }
+  body.A3, body.A4.landscape { width: 297mm;}
+  body.A4, body.A5.landscape { width: 210mm; }
+  body.A5 { width: 148mm; }
+  body.letter, body.legal { width: 216mm; }
+  body.letter.landscape { width: 280mm; }
+  body.legal.landscape{ width: 357mm; }
+}
+
+h2{ font-size: 17pt; font-weight: 600; font-family: 'Open Sans', sans-serif;}
+
+.cv-left{ width: 30%; float: left;}
+.cv-left-border{ border: 8pt solid #4AC200; height: 16pt; width: 100%; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; display: block;}
+.cv-img{ width: 180px; margin: 0 auto; margin-top: 8pt; text-align: center;}
+.cv-img img{ width: 150px; height: 150px; border-radius: 50%; border: 5px solid #4AC200;}
+
+.cv-left-sec{ padding: 30px 0 0 0;}
+.cv-left-sec.contactme h3{ font-family: 'Montserrat', sans-serif;}
+.sec-about p{ color: #424246; padding-top: 10pt; line-height: 16pt; font-size: 11pt; font-family: 'Montserrat', sans-serif;}
+.cv-left-sec h2{ 
+  position: relative; 
+  /* border-bottom: 12pt solid #707070;  */
+  padding: 0 0 12px 0; height: 30pt;
+}
+  .cv-left-sec-border {
+    height: 2pt;
+    background: #707070;
+    width: 100%;
+    display: block;
+    position: relative;
+  }
+.cv-left-sec-border span{ 
+  width: 50%; 
+  height: 2pt; 
+  background: #4AC200;
+  /* border-bottom: 4px solid #4AC200;  */
+  position: absolute; left: 50%; bottom: 0; margin-left: -25%; display: block;}
+
+.contactme h3{ color: #0A0944; font-weight: 600; position: relative; padding: 0 0 0 30pt; font-size: 12pt; line-height: 18pt; margin: 15px 0 0 0;}
+.contactme h3 span{ position: absolute; left: 0; top: 50%; margin-top: -16px;}
+.contactme h3 span img{ height: 18pt;}
+.contactme h3.forEmail span img{ height: 13pt;}
+.contactme h3 small{ font-weight: 400;  font-size: 100%; font-size: 9pt;}
+
+.scmedia ul{ padding-top: 8px; padding-bottom: 8px;}
+.scmedia ul li{ color: #707070; margin: 22px 0 0 0; list-style-type: none;}
+.scmedia ul li img{ display: inline-block; vertical-align: middle; margin-right: 8px;}
+
+.personalSkills ul{ padding-top: 8px; padding-bottom: 8px;}
+.personalSkills ul li{ color: #151923; font-weight: 700; margin: 15px 0 0 0; text-transform: uppercase; width: 50%; float: left; list-style-type: none; font-size: 9pt;}
+
+.cv-right{ width: 70%; float: left; padding-left: 30px;}
+.cvName{ padding: 58pt 0 0 0; position: relative; height: 140pt;}
+.cvName-main{ display: inline-block; text-align: center; font-family: 'Open Sans', sans-serif;}
+.logo-trans{ position: absolute; right: 0; bottom: -74px;}
+.logo-trans img{ height: 120pt;}
+.cvName h1{ font-size: 25pt; text-transform: uppercase;  color: #151923; letter-spacing: 1pt;}
+.cvName h5{ font-size: 12pt; color: #151923; text-transform: uppercase; letter-spacing: 1pt; padding-top: 8pt;}
+
+.textBlock{ overflow: hidden; margin-left: -10px; margin-right: -10px;}
+.textBlock h3{ color: #151923; font-size: 11pt;}
+.textBlock h4{ color: #151923; font-size: 14pt;}
+.textBlock p{ color: #424246; font-size: 9pt; line-height: 12pt; padding: 4pt 0 0 0;}
+.textBlock-left, .textBlock-right{ width: 50%; padding-left: 10px; padding-right: 10px; float: left; margin-top: 17pt; position: relative;}
+.blockIcon{ background-image: url('assets/images/cv_assets/icon-sm.svg');background-size: contain;background-repeat: no-repeat;display: inline-block;height: 16px;margin-right: 5px;width: 19px;}
+.blockIcon img{ height: 12pt;}
+.textBlock-main h3 {
+  display: inline-block;
+}
+.textBlock-main{ padding-left: 15pt; }
+
+.forExperience .textBlock h3, .forProject .textBlock h3{ color: #151923; font-weight: 700; font-size: 13pt;}
+.forExperience .textBlock h4, .forProject .textBlock h4{ color: #151923; font-size: 11pt; padding-top: 4pt;}
+.forProject .textBlock h4{ color: #424246; text-decoration: underline;}
+
+.textBlock-left ul{ overflow: hidden; margin-left: -10px; margin-right: -10px;}
+.textBlock-left ul li{ width: 50%; float: left; padding: 0 10px; list-style-type: none; font-size: 9pt; color: #151923; font-weight: 700;}
+.status{ width: 100%; height: 10pt; border: 5pt solid #E5E5E5; border-radius: 25px; position: relative;}
+.progress{ position: absolute; left: -5pt; top: -5pt; height: 10pt; border: 5pt solid #4AC200; border-radius: 25px;}
+
+.footer{ padding: 10pt 0 0 0; position: relative;}
+.footer-txt{ position: absolute; right: 0; bottom: 30pt; font-family: 'Open Sans', sans-serif;}
+.footer-txt p{ font-weight: 700;}
+.footer-logo img{ height: 110pt;}
+.footer-border{ border: 11pt solid #4AC200; height: 20pt; margin-top: -6pt; margin-left: -10mm; margin-right: -10mm;}
+.btnCVPrint {
+  border: none;
+    font-size: 16px;
+    color: #eef2ff;
+    text-transform: uppercase;
+    padding: 4px 25px;
+    cursor: pointer;
+    box-shadow: 4px 4px 8px rgba(0,0,5,.1);
+    background: #84ce0d;
+    background: linear-gradient(to right,#84ce0d 0,#4ac200 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200', GradientType=1 );
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+  </style>
+  <a class="btnCVPrint" href="javascript:void(0)" (click)="captureScreen()"><i class="fa fa-print"></i></a>
+
+
+  <div class="A4" id="contentToConvert">
+
+
+  <section class="sheet ">
+    
+    <div class="cv-left">
+      <div class="cv-left-border">&nbsp;</div>
+      <div class="cv-img"><img src="assets/images/cv_assets/face.png" id="img-1" alt=""></div>
+      <div class="cv-left-sec sec-about">
+        <h2>{{ 'PROFILEEDIT.ABOUT_ME'|translate }}  </h2>
+        <div class="cv-left-sec-border"><span></span></div>
+        <p>{{ userData?.about_me }}</p>
+      </div>
+      <div class="cv-left-sec contactme">
+        <h2>{{ 'COMMON.CONTACT_ME'|translate }} </h2>
+        <div class="cv-left-sec-border"><span></span></div>
+        <h3><span><img src="assets/images/cv_assets/phone.svg" alt=""> </span> {{ 'LANDING.MOBILE'| translate }} <br> <small>{{ userData?.mobile_code+' '+userData?.mobile_no }}</small> </h3>
+        <h3><span><img src="assets/images/cv_assets/address.svg" alt=""> </span> {{ 'PROFILE.ADDRESS'| translate }}  <br> <small>{{ userData?.address+', '+userData?.city.details[0].name+','+userData?.country.details[0].name }}</small> </h3>
+        <h3 class="forEmail"><span><img src="assets/images/cv_assets/email.svg" alt=""> </span> {{ 'PROFILE.EMAIL'| translate }} <br> <small>{{ userData?.email }}</small> </h3>
+      </div>
+      <div class="cv-left-sec scmedia">
+        <h2>Social media</h2>
+        <div class="cv-left-sec-border"><span></span></div>
+        <ul>
+          <li *ngIf="userData?.website"><img src="assets/images/cv_assets/telegram.svg" alt=""> / {{ userData?.website }}</li>
+          <li *ngIf="userData?.twitter_link"><img src="assets/images/cv_assets/twitter.svg" alt=""> / {{userData?.twitter_link }}</li>
+          <li *ngIf="userData?.behance_link"><img src="assets/images/cv_assets/behence.svg" alt=""> / {{ userData?.behance_link }}</li>
+        </ul>
+      </div>
+      <div class="cv-left-sec personalSkills" *ngIf="userData?.skills">
+        <h2>{{ 'COMMON.PERSONAL_SKILLS' | translate }}</h2>
+        <div class="cv-left-sec-border"><span></span></div>
+        <ul>
+          <li *ngFor="let skill of userData.skills">
+            {{ skill.details[0].name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="cv-right">
+      <div class="cvName">
+        <div class="cvName-main">
+          <h1>{{ userData?.first_name }} {{ userData?.last_name }}</h1>
+          <h5 *ngIf="userData?.title">{{ userData?.title }}</h5>
+          <div class="logo-trans"><img src="assets/images/cv_assets/logo-trans.svg" alt=""></div>
+        </div>
+      </div>
+      <div class="cv-left-sec forEducation" *ngIf="userData?.degree">
+        <h2>{{ 'PROFILE.EDUCATION' | translate }} </h2>
+        <div class="cv-left-sec-border"><span></span></div>
+        <div class="textBlock">
+
+          <div class="textBlock-left" *ngFor="let degree of userData?.degree">
+            <div class="textBlock-main">
+              <span class="blockIcon"></span>
+              <h3>{{ degree.from_year }} <span *ngIf="degree.to_year">- {{ degree.to_year }}</span></h3>
+              <h4 *ngIf="degree.university_id">{{ degree.university.details[0].name }}</h4>
+              <p >
+                <span *ngIf="degree.degreeDetails">{{ degree.degreeDetails.details[0].name }}</span>
+                <span *ngIf="degree.degreeFieldDetails">, {{ degree.degreeFieldDetails.details[0].name }}</span>
+              </p>
+              
+            </div>
+          </div>
+  
+        </div>
+
+      </div>
+      <div class="cv-left-sec forExperience" *ngIf="userData?.experience">
+        <h2>{{ 'PROFILE.EXPERIENCE' | translate }} </h2>
+        <div class="cv-left-sec-border"><span></span></div>
+        <div class="textBlock">
+          <div class="textBlock-left" *ngFor="let experience of userData.experience" >
+            <div class="textBlock-main">
+              <span class="blockIcon"></span>
+              <h3>{{ experience.position.details[0].name }}</h3>
+              <h4 *ngIf="experience.is_current == 1">{{ 'COMMON.PRESENT'| translate }}</h4>
+              <h4 *ngIf="!experience.is_current || experience.is_current == 0">{{ experience.from_year }}
+                <span *ngIf="experience.to_year"> - {{ experience.to_year }}</span>
+              </h4>
+              <p *ngIf="experience.company_name">{{ experience.company_name }}</p>
+              <p *ngIf="experience.company_id">{{ experience.company.details[0].name }}</p>
+            </div>
+          </div>
+          
+        </div>
+
+      </div>
+      <div class="cv-left-sec forProject" *ngIf="userData?.projects">
+        <h2>{{ 'PROFILE.PROJECT' | translate }} </h2>
+        <div class="cv-left-sec-border"><span></span></div>
+        <div class="textBlock">
+          <div class="textBlock-left" *ngFor="let project of userData.projects" >
+            <div class="textBlock-main">
+              <span class="blockIcon">
+                <!-- <img src="assets/images/cv_assets/icon-sm.svg" alt=""> -->
+              </span>
+              <h3>{{ project.name }}</h3>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="cv-left-sec forSkills" *ngIf="userData?.skills">
+        <h2>{{ 'PROFILE.SKILLS' | translate }}</h2>
+        <div class="cv-left-sec-border"><span></span></div>
+        <div class="textBlock">
+          <div class="textBlock-left" *ngFor="let skill of userData.skills">
+            <ul>
+              <li>{{skill.details[0].name}}</li>
+              <li>
+                <div class="status">
+                  <div *ngIf="skill.status==1" class="progress" style="width:100%;"></div>
+                  <div *ngIf="skill.status==2" class="progress" style="width:75%;"></div>
+                  <div *ngIf="skill.status==3" class="progress" style="width:50%;"></div>
+                  <div *ngIf="skill.status==4" class="progress" style="width:25%;"></div>
+                </div>
+                
+
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="footer">
+      <div class="footer-logo"><img src="assets/images/cv_assets/footer-logo.svg" alt=""></div>
+      <div class="footer-txt">
+        <p>Generated by</p>
+        <p>www.carerry.com</p>
+      </div>
+      <div class="footer-border"></div>
+    </div>
+  </section>
+
+  
+</div>

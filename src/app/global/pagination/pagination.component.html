@@ -1,0 +1,9 @@
+<div class="defaultPagination">
+  <ul>
+    <li><a [class.disabled]="currentPage==1" href="javascript:void(0)" (click)="pageClick(currentPage-1)" ><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+    <li *ngFor="let p of pages">
+      <a [class.active]="currentPage==p" href="javascript:void(0)" (click)="pageClick(p)">{{ p }}</a>
+    </li>
+    <li><a [class.disabled]="currentPage==totalPage" href="javascript:void(0)" (click)="pageClick(currentPage+1)"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+  </ul>
+</div>

@@ -1,0 +1,54 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~@ngx-share/button/themes/default/default-theme';
+@font-face {
+  font-family: 'Droid Arabic Kufi';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/DroidKufi-Regular.eot');
+  src: url('assets/fonts/DroidKufi-Regular.eot?#iefix') format('embedded-opentype'),
+       url('assets/fonts/DroidKufi-Regular.woff2') format('woff2'),
+       url('assets/fonts/DroidKufi-Regular.woff') format('woff'),
+       url('assets/fonts/DroidKufi-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Droid Arabic Kufi';
+  font-style: normal;
+  font-weight: 700;
+  src: url('assets/fonts/DroidKufi-Bold.eot');
+  src: url('assets/fonts/DroidKufi-Bold.eot?#iefix') format('embedded-opentype'),
+       url('assets/fonts/DroidKufi-Bold.woff2') format('woff2'),
+       url('assets/fonts/DroidKufi-Bold.woff') format('woff'),
+       url('assets/fonts/DroidKufi-Bold.ttf') format('truetype');
+}
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,400i,700');
+
+@import "~font-awesome/css/font-awesome.css";
+//@import "assets/scss/font-awesome-rtl";
+@import "~owl.carousel/dist/assets/owl.carousel.min.css";
+
+@import "assets/scss/custom-mixin";
+@import "assets/scss/header";
+@import "assets/scss/page";
+@import "assets/scss/footer";
+
+@import "assets/scss/login";
+@import "assets/scss/profile";
+@import "assets/scss/profile-edit";
+@import "assets/scss/privacy";
+@import "assets/scss/search";
+@import "assets/scss/testimonial";
+@import "assets/scss/public-profile";
+@import "assets/scss/card-builder";
+@import "assets/scss/development";
+@import "assets/scss/all-pages";
+@import "assets/scss/_circle";
+
+@import "assets/scss/rtl";
+@import "assets/scss/responsive";
+
+@import "assets/images/card_assets/css/card-print";
+@import "assets/images/card_assets/css/card-print-ar";
+
+@import "~ngx-pager/themes/ngx-pager";

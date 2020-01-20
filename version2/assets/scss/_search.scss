@@ -1,0 +1,81 @@
+.searchWrap{ padding: 20px 0 30px 0;
+  .row.searchResult{ margin-left: -8px; margin-right: -8px;}
+  .searchCol{ padding-top: 20px;}
+  .searchCol{ padding-left: 8px; padding-right: 8px;}
+}
+
+.searchResult{
+  .searchResultSingle{ background: #F5F6FA; padding: 15px 15px; border-radius: 5px; @include box-shadow(0, 5px, 10px, rgba(0, 0, 5px, 0.1)); text-align: center; position: relative; position: relative; height: 100%;
+    .profileDescImg{ width: 78px; height: 78px; border-radius: 50%; background: rgba(82,196,2,0.4); padding: 5px; margin: 0 auto; position: relative; cursor: pointer;
+      img{ border-radius: 50%; width: 68px; height: 68px;}
+      &:after{ content: ''; width: 17px; height: 17px; background: url(assets/images/symbol-1.png) no-repeat; position: absolute; right: 3px; bottom: 8px;}
+      &.inactive:after{ background: url(assets/images/symbol-5.png) no-repeat;}
+    }
+    h2{ font-size: 16px; color: #1E272E; padding: 12px 0 0 0; cursor: pointer;}
+    h3{ font-size: 11px; color: #808080; padding: 3px 0 0 0; cursor: pointer;}
+    h4{ font-size: 13px; color: #1E272E; padding: 12px 0 0 0; cursor: pointer;}
+    .searchClose{ width: 13px; height: 13px; background: url(assets/images/close-modal2.png) no-repeat; background-size: 100% auto; cursor: pointer; position: absolute; right: -5px; top: -5px;}
+    button{ border: none; color: #EEF2FF; font-size: 11px; padding: 3px 15px; display: inline-block; cursor: pointer; margin: 15px 5px 0 5px;
+      background: #84ce0d;
+      background: -moz-linear-gradient(left, #84ce0d 0%, #4ac200 100%);
+      background: -webkit-linear-gradient(left, #84ce0d 0%,#4ac200 100%);
+      background: linear-gradient(to right, #84ce0d 0%,#4ac200 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200',GradientType=1 );
+      &:focus{ outline: none;}
+      &.blockBtn{ background: #F94151;}
+    }
+    &.alt{
+      .profileDescImg:after{ background: url(assets/images/symbol-5.png) no-repeat !important;}
+    }
+    .search-result-loader-container {position: absolute;top: 0;left: 0;background: rgba(0,0,0,0.8);color: #FFF;width: 100%;height: 100%;z-index: 9;border-radius: 4px;
+      .loader-content {position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);
+        i {display: block;}
+      }
+    }
+  }
+}
+
+// .recentSearch{ height: 248px; background: url(assets/images/bg.jpg) no-repeat; margin: 25px 0 0 0; position: relative;
+  .recentSearch{ height: 248px; background: #DCE0EC;border-radius: 0 30px 0 0; margin: 25px 0 0 0; position: relative;
+  &:after{ content: ''; position: absolute; left: -50vw; top: 0; width: 50vw; height: 100%; background: #dde1ed;}
+  .searchCol{ padding-top: 0;}
+  .titleSearch{ font-size: 26px; color: #3E4E59; padding: 40px 0 0 0;}
+}
+
+.carousalWrapSearch{ padding-right: 15px;
+  .item{ padding-left: 8px; padding-right: 8px; padding-top: 12px; padding-bottom: 12px;}
+  .owl-nav{
+    position: absolute; top: 130px;
+    button{ width: 32px; height: 32px; border: 1px solid #707070 !important; color: #3E4E59 !important; position: relative; font-size: 15px !important;
+      &.owl-next{ position: absolute; left: -200px; top: 50%;
+        &:before{content: '\f054'; font-family: FontAwesome; position: absolute; left: 10px; top: 5px;}
+      }
+      &.owl-prev{ position: absolute; left: -236px; top: 50%;
+        &:before{ content: '\f053'; font-family: FontAwesome; position: absolute; left: 10px; top: 5px;}
+      }
+      span{ display: none;}
+      &:focus{ outline: none;}
+      &:hover{ color: #FFF !important; background: #84ce0d; border: 1px solid #4ac200 !important;
+      background: -moz-linear-gradient(left, #84ce0d 0%, #4ac200 100%);
+      background: -webkit-linear-gradient(left, #84ce0d 0%,#4ac200 100%);
+      background: linear-gradient(to right, #84ce0d 0%,#4ac200 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200',GradientType=1 );}
+    }
+  }
+}
+
+.defaultPagination{ text-align: center; padding: 25px 0 0 0;
+  li{ display: inline-block; margin: 0 4px;
+    a{ display: block; width: 26px; height: 26px; border: 1px solid #707070; text-align: center; color: #3E4E59; font-size: 14px; line-height: 24px;
+      &:hover{ color: #FFF; border: 1px solid #84ce0d;
+        background: #84ce0d;
+        background: -moz-linear-gradient(left, #84ce0d 0%, #4ac200 100%);
+        background: -webkit-linear-gradient(left, #84ce0d 0%,#4ac200 100%);
+        background: linear-gradient(to right, #84ce0d 0%,#4ac200 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200',GradientType=1 );
+      }
+    }
+  }
+}
+
+.profileDescImg.inactive:after, .boxSingleImg.inactive:after{ background: url(assets/images/symbol-5.png) no-repeat !important; background-size: 100% auto !important;}

@@ -1,0 +1,54 @@
+<div class="proEdit privacyWrap">
+  <h2 class="withLine"><span>{{ 'SETTINGS.NOTIFICATION_SETTINGS' | translate }}</span></h2>
+  <div class="alert alert-success text-center" *ngIf="settingsSuccessMessage">{{ settingsSuccessMessage }}</div>
+  <div class="alert alert-danger text-center" *ngIf="settingsErrMessage">{{ settingsErrMessage }}</div>
+
+
+  <form [formGroup]="settingsForm" novalidate (submit)="saveNotificationSettings()">
+      <div >
+          <div  class="formWrap inlineAll">
+              <label class="col-md-3" for="">{{ 'SETTINGS.VIEWING_PROFILE' | translate }}</label>
+              <label class="switch" >
+                <input type="checkbox" formControlName="viewing_profile"   [value]="1">
+                <span class="slider"></span>
+              </label>
+          </div>
+          <div  class="formWrap inlineAll">
+              <label class="col-md-3" for="">{{ 'SETTINGS.TESTIMONIAL' | translate }}</label>
+              <label class="switch" >
+                <input type="checkbox" formControlName="testimonial"  [value]="1">
+                <span class="slider"></span>
+              </label>
+          </div>
+          <div  class="formWrap inlineAll">
+              <label class="col-md-3" for="">{{ 'SETTINGS.SEND_REQUEST' | translate }}</label>
+              <label class="switch" >
+                <input type="checkbox" formControlName="send_request"  [value]="1">
+                <span class="slider"></span>
+              </label>
+          </div>
+          <div  class="formWrap inlineAll">
+              <label class="col-md-3" for="">{{ 'SETTINGS.ACCEPT_REQUEST' | translate }}</label>
+              <label class="switch" >
+                <input type="checkbox" formControlName="accept_request"  [value]="1">
+                <span class="slider"></span>
+              </label>
+          </div>
+          <div  class="formWrap inlineAll">
+              <label class="col-md-3" for="">{{ 'SETTINGS.MY_CONNECTION_BIRTHDAY_DAY' | translate }}</label>
+              <label class="switch" >
+                <input type="checkbox" formControlName="my_connection_birth_day"  [value]="1">
+                <span class="slider"></span>
+              </label>
+          </div>
+
+      </div>
+    <div class="buttonGr">
+      <div class="text-right">
+        <button class="btnGreen" name="button" type="submit">{{ 'PROFILE.SAVE_BUTTON' | translate }}</button>
+      </div>
+    </div>
+  </form>
+
+
+</div>

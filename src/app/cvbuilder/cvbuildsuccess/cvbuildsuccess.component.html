@@ -1,0 +1,17 @@
+<div class="commonWrap">
+    <h2 class="withLine"><span>{{ 'CV.CV_BUILD'| translate }}</span></h2>
+    <div class="wrapPagenotFound">
+      <h3>{{ 'COMMON.SUCCESS'| translate }}!</h3>
+      <div>
+        <p *ngFor="let msg of cvMessage" [innerHTML]="msg"></p>&nbsp;
+      </div>
+      <div *ngIf="cvResponseData.type==0">
+        <a [routerLink]="['/cv/build']" class="cv-action-btn">{{ 'CV.MY_CV_LIST'| translate }}</a>
+        <a download="mycv.pdf" [href]="cvResponseData.fileName| picturepath:'cv'" target="_blank" class="cv-action-btn">{{ 'CV.DOWNLOAD'| translate }}</a>
+      </div>
+      <div *ngIf="cvResponseData.type==1">
+        <a [routerLink]="['/cv/build']" class="cv-action-btn">{{ 'CV.MY_CV_LIST'| translate }}</a>
+      </div>
+    </div>
+  </div>
+  

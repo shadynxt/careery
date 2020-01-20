@@ -1,0 +1,39 @@
+<div class="searchWrap">
+  <div class="row">
+
+    <div class="col-xl-9 col-lg-8">
+      <h2 class="withLine"><span>{{"RECOMMENDATIONS.RECOMMENDATIONS" | translate}}</span></h2>
+      <div class="row searchResult">
+        <div class="col-xl-3 col-lg-4 col-md-4 col-6 searchCol" *ngFor="let recommendation of recommendationList">
+          <div class="searchResultSingle" >
+            <div (click)="gotoProfile(recommendation.recommend_user_cpp)">
+            <div class="profileDescImg" [class.inactive]="(currentTime - recommendation.recommend_user_last_active_time) > (5*60) ">
+            <img *ngIf="recommendation.recommend_user_profile_pic" alt="" [src]="recommendation.recommend_user_profile_pic| picturepath:'users'">
+            <img  *ngIf="recommendation && !recommendation.recommend_user_profile_pic && recommendation.recommend_user_gender && recommendation.recommend_user_experience_level" src="assets/images/charachter/{{ recommendation.recommend_user_gender+'_'+recommendation.recommend_user_experience_level }}.png" alt="">
+          </div>
+            <h2>{{ recommendation.recommend_user_first_name }}  {{ recommendation.recommend_user_last_name }}</h2>
+            <h3>{{ recommendation.recommend_user_position_local_name }}</h3>
+            <h4><i class="fa fa-users" aria-hidden="true"></i>{{ recommendation.mutualFriendCount }}  {{'LISTPAGES.MUTUAL_CONNECTION'|translate}}</h4>
+          </div>
+            <!-- <button class="blockBtn" type="button" (click)="openLg(content)">Block</button> -->
+            
+          </div>
+        </div>
+        
+      </div>
+      <ngx-pager  [config]="paginationConfig"  [totalrow]='totalRows' class="defaultPagination"></ngx-pager>
+    
+      <div class="col-xl-12 col-lg-12 col-md-12 col-12 searchCol" *ngIf="recommendationList.length == 0">
+          {{"PROFILEEDIT.NO_RECORD_FOUND" | translate}}
+      </div>
+      
+
+    </div>
+
+    <div class="col-xl-3 col-lg-4">
+
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+

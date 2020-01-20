@@ -1,0 +1,37 @@
+<div class="proEdit forAllInvitations">
+  <h2 class="withLine"><span>{{ 'COMMON.ALL_MESSAGES'|translate }}</span></h2>
+
+  <div class="inviteBlock">
+    <div *ngIf="messagesList.length > 0">
+      <div class="notification-row alt" *ngFor="let message of messagesList; let i = index"
+        [ngClass]="((i%2==0)?'noBg':'')">
+
+              <div class="notificationImg" *ngIf="message?.profile_pic"><img *ngIf="message?.profile_pic" [src]="(message?.profile_pic) | picturepath:'users'" alt=""></div>
+              <div class="notificationImg" *ngIf="!message?.profile_pic" >
+                  
+                  <img  *ngIf="message && !message.profile_pic && message.gender && message.experience_level" src="assets/images/charachter/{{ message.gender+'_'+message.experience_level }}.png" alt="">
+              </div>
+              <div class="notificationBody">
+                <h3>{{message?.first_name + ' '+ message?.last_name}}</h3>
+                <p class="tXt">
+                  <span *ngIf="message.type == 0">{{ message.message }}</span>
+                  <span *ngIf="message.type == 1 && message.is_image == 1"><i class="fa fa-camera-retro"></i> photo</span>
+                  <span *ngIf="message.type == 1 && !message.is_image"><i class="fa fa-file"></i> media</span>
+                </p>
+              </div>
+              <div class="notificationTime">
+                  <p class="time">{{ (message?.posted_on) | amTimeAgo:true   }} {{ 'NOTIFICATIONS.AGO' | translate }}</p>
+                  
+                
+                      <div class="inviteBlockBtn">
+                          <a class="green" href="javascript:void(0);" class="green" (click)="setChatPerson(message.room)" >{{ 'COMMON.MESSAGE' | translate }}</a>
+                      </div>
+                      
+                    
+              </div>
+
+      </div>
+    </div>
+    <ngx-pager [config]="paginationConfig" [totalrow]='totalRows' class="defaultPagination"></ngx-pager>
+  </div>
+</div>

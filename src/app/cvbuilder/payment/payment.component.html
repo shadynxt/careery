@@ -1,0 +1,153 @@
+<div class="proEdit forCardBuilder" *ngIf="!this.alertPopupMsg.detailsMessage">
+  <div class="formWrap withSelect">
+    <h2 class="withLine">
+      <span *ngIf="!cvDetails">{{ 'CV.CHOOSE_TEMPLATE'|translate }}</span>
+      <span *ngIf="cvDetails">{{ 'CV.CHANGE_TEMPLATE'|translate }}</span>
+    </h2>
+    <div class="alert alert-danger" *ngIf="cvGenerateError">{{ cvGenerateError }}</div>
+    <span class="selectAbs">
+      <select class="inpField" name="" [(ngModel)]="activeCurrency" (change)="setActiveCurrency()">
+        <option value="">{{ 'CV.CURRENCY'|translate }}</option>
+        <option *ngFor="let currency of currencyList" [value]="currency.name">{{ currency.name }}</option>
+      </select>
+    </span>
+  </div>
+
+  <div class="cardSelect">
+    <p class="loader-p" *ngIf="loader.template">
+      <i class="fa fa-cog fa-spin"></i>
+    </p>
+    
+  </div>
+
+  <div class="cardSelect carouselNext">
+    <div class="cardSelectRow alt" *ngIf="templateList.length > 0">
+      <owl-carousel [options]="myCarouselOptions" [carouselClasses]="['owl-theme', 'sliding']" >
+       <div class="item"  *ngFor="let template of templateList">
+        <div class="singleCardSelect" [class.active]="activeTemplate==template.id"
+        (click)="setActiveTemplate(template)">
+          <img src="{{ template.picture | picturepath:'templates' }}" alt="">
+          <div class="cardTxt" *ngIf="template.price>0">
+
+            <span>{{ activeCurrenySymbol }}</span>
+            {{ priceConversionRate*template.price }}
+          </div>
+          <div class="cardTxt" *ngIf="template.price==0">
+            {{ 'CV.FREE'|translate }}
+          </div>
+        </div>
+       </div>
+       </owl-carousel>
+    </div>
+  </div>
+
+  <div class="cardForm">
+    <div class="formWrap">
+      <input class="inpField withBdr fullWidth noBg" [(ngModel)]="cvForm.name" name="cvName"
+        placeholder="{{ 'CV.CV_NAME'| translate }}">
+      <div class="alert alert-danger" *ngIf="cvForm.submit && !cvForm.name">{{ 'CV.CV_NAME_REQUIRED'| translate }}</div>
+    </div>
+    <div class="formWrap">
+      <textarea class="inpField withBdr fullWidth noBg" [(ngModel)]="cvForm.comment" name="cvComment"
+        placeholder="{{ 'CV.CV_DESCRIPTION'| translate }}"></textarea>
+      <div class="alert alert-danger" *ngIf="cvForm.submit && !cvDetails && !cvForm.comment && cvType == 'consult'">{{ 'CV.CV_COMMENT_REQUIRED'| translate }}
+      </div>
+    </div>
+
+    <!-- <div class="row justify-content-center">
+
+      <div class="col-lg-6">
+        <div class="loader-container pay" *ngIf="loader.pay">
+          <div class="loader-content" >
+            <i class="fa fa-cog fa-spin"></i><br />
+            {{ 'CV.TRANSACTION_LOAD_MSG' | translate }}
+          </div>
+        </div>
+        <div class="paymentOpt">
+          <div class="alert alert-danger text-center"
+            *ngIf="cvForm.submit && cvType == 'consult' && cvForm.payStatus==false">
+            {{ 'CV.CV_PAYMENT_REQUIRED'| translate }}</div>
+
+            <div class="alert alert-success text-center"
+            *ngIf="payForm.successMsg">{{ payForm.successMsg }}</div>
+
+            <div class="alert alert-danger text-center"
+            *ngIf="payForm.errorMsg">{{ payForm.errorMsg }}</div>
+
+          <div class="formWrap inlineAll">
+            <label class="col-xl-4 noGap" for="">{{ 'CV.PAY_ACCEPTED_CARD'| translate }} :</label>
+            <span><img src="assets/images/card.png" alt=""></span>
+          </div>
+          <div class="formWrap">
+            <label class="col-xl-4 noGap" for="">{{ 'CV.PAY_CARD_HOLDER_NAME'| translate }} :</label>
+            <input type="text" [(ngModel)]="payForm.cardHolderName" name="cardHolderName"
+              class="col-xl-8 inpField fullWidth" value="">
+              <div class="alert alert-danger" *ngIf="payForm.submit && !payForm.cardHolderName">{{ 'CV.PAY_NAME_REQUIRED'| translate }}
+                </div>
+          </div>
+          <div class="formWrap">
+            <label class="col-xl-4 noGap" for="">{{ 'CV.PAY_CARD_NUMBER'| translate }} :</label>
+            <input type="text" [(ngModel)]="payForm.cardNumber" name="cardNumber" class="col-xl-8 inpField fullWidth"
+              value="" maxlength="16" (keydown)="onlyNumberCheck($event)">
+              <div class="alert alert-danger" *ngIf="payForm.submit && !payForm.cardNumber">{{ 'CV.PAY_CARD_REQUIRED'| translate }}
+                </div>
+                <div class="alert alert-danger" *ngIf="payForm.submit && payForm.cardNumber && payForm.cardNumber.length != 16">{{ 'CV.PAY_CARD_LENGTH'| translate }}
+                  </div>
+          </div>
+          <div class="formWrap inlineAll">
+            <label class="col-xl-4 noGap" for="">{{ 'CV.PAY_EXP_DATE'| translate }} :</label>
+            
+            <select class="inpField autoWidth withSpace" [(ngModel)]="payForm.expMonth" name="expMonth">
+              <option *ngFor="let month of months" value="{{ month }}">{{ ((month<10)?'0'+month:month) }}</option>
+            </select>
+            
+
+            <select class="inpField autoWidth withSpace" [(ngModel)]="payForm.expYear" name="expYear">
+              <option *ngFor="let year of years" value="{{ year }}">{{ year }}</option>
+            </select>
+            
+            
+            <label for="" >CVV :</label>
+            <input class="inpField cvcInp" type="text" [(ngModel)]="payForm.cvvCode" name="cvvCode" value="" maxlength="3" pattern= "[0-9]" (keydown)="onlyNumberCheck($event)">
+            <div class="alert alert-danger" *ngIf="payForm.submit && !payForm.cvvCode">{{ 'CV.PAY_CVV_REQUIRED'| translate }}
+                </div>
+            
+          </div>
+          <div class="formWrap alt">
+            <div class="text-center">
+              <input class="submBtn" type="submit" name="" (click)="resetPayForm()" value="{{ 'CV.CANCEL'| translate }}">
+              <input class="submBtn black" type="submit" name="" value="{{ 'CV.PAY'| translate }}" (click)="submitPayForm()">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+
+  <div class="buttonGr">
+    <div class="row">
+      <!-- <div class="col-6">
+        <a class="btnWhite" href="#">Help Me To Creat My CV</a>
+      </div> -->
+      <div class="col-12">
+        <div class="text-right">
+          <a id="finishCVBtn"></a>
+          <button class="btnOrange" type="button" name="button" (click)="gobackToCVUpdate()" [disabled]="loader.pay"><i aria-hidden="true" class="fa fa-arrow-left"></i> {{ 'PROFILEEDIT.BACK'|translate }}</button>
+          <button class="btnGreen" name="button" (click)="generateCV($event)" [disabled]="loader.pay">{{ 'COMMON.FINISH'|translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<ng-template #alertPopup let-modal>
+  <!-- <span class="modalClose" (click)="modal.dismiss('Cross click')"></span> -->
+  <div class="modal-body" style="text-align:center">
+    {{alertPopupMsg.message}}
+    {{ alertPopupMsg.detailsMessage }}
+    <div class="profileDesc" *ngIf="alertPopupMsg.page && alertPopupMsg.page == 'cv_build'">
+      <a class="modBtn" [routerLink]="['/cv/build']">{{ 'CV.CV_BUILD'|translate }}</a>
+    </div>
+  </div>
+</ng-template>

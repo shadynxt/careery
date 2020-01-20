@@ -1,0 +1,9 @@
+.rTl {
+	
+ .sheet{ direction: rtl;}
+ .card-left{ float: right;}
+ .card-social li{ padding-left: 0px; padding-right: 25px;}
+ .card-social li span{ left: inherit; right: 0;}
+
+ .card-right{ right: inherit; left: 0;}
+}

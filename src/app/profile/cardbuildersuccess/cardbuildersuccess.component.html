@@ -1,0 +1,14 @@
+<div class="commonWrap">
+  <h2 class="withLine"><span>{{ 'CARD.CARD_BUILDER'| translate }}</span></h2>
+  <div class="wrapPagenotFound">
+    <h3>{{ 'COMMON.SUCCESS'| translate }}!</h3>
+    <div>
+      {{ 'CARD.SUCCESS_MSG' | translate }}
+    </div>
+    
+    <div >
+      <a [routerLink]="['/card/build']" class="cv-action-btn">{{ 'CARD.MY_CARDS'| translate }}</a>
+      <a download="mycard.pdf" [href]="cardDetails?.card_file| picturepath:'card'" target="_blank" class="cv-action-btn">{{ 'CV.DOWNLOAD'| translate }}</a>
+    </div>
+  </div>
+</div>

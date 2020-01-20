@@ -1,0 +1,204 @@
+@media (max-width: 1279px) {
+  // .container{ max-width: 1140px;}
+}
+
+@media (max-width: 1139px) {
+  // .container{ max-width: 1000px;}
+}
+
+@media (max-width: 1365px) {
+  .loginfoot .logoprovider{ display: block;}
+  .loginfoot .footSocial{  display: block; overflow: hidden; margin: 20px 0 0 0;}
+  .loginfoot .footSocial ul li{ float: none; display: inline-block;}
+  .loginfoot .footSocial ul li img{ width: 35px;}
+  .logoprovider img{ width: 80px;}
+
+  .inviteBlockSingle{ padding-left: 125px; min-height: 120px;}
+  .inviteBlockSingle .inviteBlockImg{ width: 90px; height: 90px;}
+  .inviteBlockSingle .inviteBlockImg img{ width: 80px; height: 80px;}
+  .inviteBlockSingle.alt .inviteBlockImg { width: 65px; height: 65px;}
+  .inviteBlockSingle.alt .inviteBlockImg img{ width: 55px; height: 55px;}
+  .inviteBlockSingle h3{ font-size: 20px; padding-top: 0;}
+  .inviteBlockSingle p{ font-size: 16px;}
+  .inviteBlockSingle h4{ font-size: 15px;}
+  .inviteBlockSingle .inviteBlockBtn{ margin-top: -18px;}
+  .inviteBlockSingle .inviteBlockBtn a{ font-size: 15px; padding: 3px 25px 6px 25px;}
+  .inviteBlockSingle p.tXt{ font-size: 14px;}
+}
+
+@media (max-width: 1199px) {
+  // .container{ max-width: 960px;}
+  .loginSearch .loginSearchRight .searchBox{ margin-left: 0;}
+  .loginSearch{ padding-top: 40px;}
+  .logo{ margin-top: 40px;}
+  .loginBg{ padding-bottom: 0;}
+  .loginSearch{ padding-bottom: 250px;}
+
+  .orderFirst{ order: 1;}
+  .orderThird{ order: 3;}
+
+  .proEdit .formWrap label{ display: block; margin-bottom: 5px; font-size: 13px;}
+  .proEdit .formWrap .inpField{ font-size: 13px;}
+  .proEdit .formWrap label.noGap{ margin-left: -15px;}
+  .proEdit .formWrap{ margin-bottom: 15px;}
+
+  .recentSearch{ height: auto; background: #dde1ed;}
+  .recentSearch .titleSearch{ font-size: 20px;}
+  .carousalWrapSearch .owl-nav {
+    position: absolute; top: 0; right: 0;
+  }
+  .carousalWrapSearch .owl-nav button.owl-prev{ left: -165px;}
+  .carousalWrapSearch .owl-nav button.owl-next{ left: -125px;}
+
+  .formWrap.inlineAll{
+    label{ display: inline-block;}
+  }
+
+  .privacyWrap .blockBtn{ max-width: 370px;}
+  .formTabs{ margin-top: 25px;}
+}
+
+@media (max-width: 991px) {
+  .loginfoot{ position: static;}
+  .searchResultContainer ul{ position: static; margin-top: 5px;}
+  .loginSearch .loginSearchRight .searchBox{ margin-top: 30px;}
+  .loginfoot .copyrightTxt{ display: block; margin-left: 0;}
+  .loginfoot .loginfootLink li{ margin-left: 10px;}
+  .loginfoot .footLang{ margin-left: 10px;}
+  .loginBg{ width: 100%; float: left;}
+  .logo{ margin: 0 auto; margin-top: 30px; float: none;}
+  .loginSearch{ padding-bottom: 150px;}
+
+  .proEdit .formWrap .inpField{ width: 100%;}
+  .proEdit .formWrap .autoWidth{ width: auto;}
+  .proEdit .formWrap .width200{ width: auto;}
+  .carousalWrapSearch .owl-nav {
+    position: absolute; top: 0; right: 0;
+  }
+  .carousalWrapSearch .owl-nav button.owl-prev{ left: inherit; right: 42px; top: -45px;}
+  .carousalWrapSearch .owl-nav button.owl-next{ left: inherit; right: 0; top: -45px;}
+  .recentSearch .titleSearch{ padding: 12px 0 0 10px;}
+  .recentSearch{ margin-bottom: 30px; padding-bottom: 15px;}
+
+  .forPublicProfile{
+    .cvReview .withRightBdr{ border: none;}
+    .formTabs{ margin: 15px 0 0 0;}
+  }
+
+  .privacyWrap .formWrap.inlineAll label{ padding-left: 0 !important;}
+  .privacyWrap .specific-connections{ margin-top: 15px;}
+  .search-connections-privacy{ right: inherit; left: 0;}
+  .search-connections-privacy::before{ right: inherit; left: 30px;}
+  .search-connections-privacy::after{ right: inherit; left: 31px;}
+  .siteWrap{ padding-bottom: 0;}
+
+  .tabDispNone{ display: none;}
+  .logoForMob{ display: block;}
+
+  .logoHolder{ position: relative;}
+  .logoLand { margin: 0px 0 0; position: absolute; top: 0; right: 0;}
+}
+
+@media (max-width: 767px) {
+  // .container{ max-width: 100%;}
+  .loginfoot{ position: static;}
+  .loginSearch{ padding-bottom: 80px;}
+  .loginSearch .loginSearchLeft .forLogin .tab-content{ padding: 15px;}
+  .loginSearch .loginSearchLeft .forLogin .nav-tabs .nav-link{ font-size: 18px;}
+  .loginfoot .loginfootLink{ display: block; overflow: hidden; text-align: center;}
+  .loginfoot .loginfootLink li{ float: none; display: inline-block; margin-left: 5px; margin-right: 5px;}
+
+  .proHeaderTopBarRight{ padding-top: 8px;}
+  .proHeaderLogout{ margin-right: 0;}
+  .cvReview .withRightBdr{ border: none;}
+  .cvReview{ margin-bottom: 16px;}
+  .cvReview .cppNum{ margin: 16px 0 0 0;}
+  .leftNoti .profileMainBox{ margin-bottom: 16px;}
+  .formTabs .nav-tabs .nav-item{ display: block; width: 100%; padding: 1px 0; border: none;}
+  .formTabs .nav-tabs .nav-item:first-child .nav-link{ border: none;}
+  .formTabs .nav-tabs .nav-link{ border-left: none; border-top: 1px solid #d0d0d0;}
+  .formTabs .nav-tabs{ display: block;}
+  .testimonialCarousal p{ padding-left: 20px; padding-right: 20px;}
+  .testimonialCarousal .testimonialHeadRight{ display: block; text-align: center;}
+  .testimonialCarousal .owl-nav button.owl-next{ right: -20px;}
+  .testimonialCarousal .owl-nav button.owl-prev{ left: -20px;}
+  .testimonialCarousal h2{ text-align: center;}
+
+  .editImage{ margin-bottom: 25px;}
+  .proEdit .nav li a{ padding-left: 10px; padding-right: 10px;}
+  .proEdit .formTable{ overflow-x: auto; border: 1px solid #B2E1C4;}
+  .proEdit .formSocial h2{ background: #B2E1C4; padding: 5px;}
+  .proEdit{ padding-bottom: 25px;}
+  .proEdit .buttonGr{ margin-top: 25px;}
+  .proEdit .formSocial{ margin-top: 25px;}
+  .proEdit .formTable table td{ white-space: nowrap;}
+
+  .testiTabs ul.nav{ margin: 40px 0 0 0; float: none;}
+  .testiTabs .tab-content{ padding-left: 0;}
+  .testiTabs .settingsSingle p{ padding-right: 0;}
+  .testiTabs .settingsSingle { background: rgba(245, 246, 250, 0.3); box-shadow: 0px 0px 20px rgba(0, 0, 8, 0.1); padding-top: 15px; padding-bottom: 15px;}
+  .testiTabs .settingsSingle.alt{ margin-bottom: 25px; border-radius: 5px; border-bottom: none; padding-top: 15px; padding-bottom: 15px;}
+  .testiTabs .settingsSingle .posTed{ position: static; padding: 10px 0 0 0; font-style: italic;}
+  .testiWrap{ padding-top: 30px; padding-bottom: 0;}
+
+  .testiCollapse{ width: 97%;}
+
+  .proHeaderNotification .dropdown-menu{ left: -15px !important;}
+  .proHeaderNotification .dropdown-menu:before{ right: inherit; left: 9px;}
+  .proHeaderNotification .dropdown-menu:after{ right: inherit; left: 10px;}
+
+  .proHeaderEmail .dropdown-menu{ left: -54px !important;}
+  .proHeaderEmail .dropdown-menu:before{ right: inherit; left: 52px;}
+  .proHeaderEmail .dropdown-menu:after{ right: inherit; left: 53px;}
+
+  .forPublicProfile{
+    .testimonialCarousal h2{ text-align: left;}
+    .addTestiBtn{ top: 20px;}
+  }
+
+  .cardSelect .singleCardSelect{ margin-bottom: 12px; width: 96%;}
+  .cardSelect .cardSelectRow li{ width: 100%;}
+  .privacyWrap .formWrap{ margin-left: 0;}
+
+  .inviteBlockSingle .inviteBlockBtn{ position: static; margin: 15px 0 0 -12px;}
+  .inviteBlockSingle{ padding-left: 90px;}
+  .inviteBlockSingle .inviteBlockImg{ width: 60px; height: 60px;}
+  .inviteBlockSingle .inviteBlockImg img{ width: 50px; height: 50px;}
+  .inviteBlockSingle.alt .inviteBlockImg{ width: 40px; height: 40px;}
+  .inviteBlockSingle.alt .inviteBlockImg img{ width: 30px; height: 30px;}
+  .inviteBlockSingle .inviteBlockBtn a{ padding-left: 14px; padding-right: 14px; font-size: 13px;}
+  .inviteBlockSingle h3{ font-size: 15px;}
+  .inviteBlockSingle p{ font-size: 12px; font-weight: 400;}
+  .inviteBlockSingle h4{ font-size: 12px;}
+  .inviteBlockTop p{font-size: 13px;}
+  .inviteBlockTop p span{ font-size: 15px;}
+
+  .chat-content{ width: 100% !important; margin: 0 !important;}
+  .chat-content .chat-message-body{ height: calc(100vh - 87px) !important;}
+  .chat-content .chat-message-body ul.chat-text-ul{ height: calc(100vh - 100px) !important; max-height: calc(100vh - 100px) !important;}
+}
+
+@media (max-width: 567px) {
+  .loginSearch .loginSearchRight .searchBox input[type="submit"]{ font-size: 14px; min-width: 74px; padding-left: 0; padding-right: 0;}
+  .loginSearch .loginSearchRight .searchBox input[type="text"]{ padding-left: 45px; font-size: 11px;}
+  .loginSearch .loginSearchRight .searchBox .faIcon { left: 18px; top: 21px; font-size: 20px;}
+  .proEdit .formSocial li{ width: 100%;}
+
+  .buttonGr .col-6{ width: 100% !important; max-width: 100%; display: block; flex: 0 0 100%;}
+  .proEdit .buttonGr .btnWhite{ width: 100%;}
+  .proEdit .buttonGr .btnGreen{ width: 100%; margin: 10px 0 0 0;}
+  .proEdit .buttonGr .btnOrange{ width: 100%; margin: 10px 0 0 0;}
+  .proEdit .formSocial li{ padding: 0; margin: 15px 0 0 0;}
+  .proEdit .nav{ margin-top: -22px;}
+  .proEdit .nav li{ margin-top: 22px;}
+  .proEdit .uploadPic img{ width: 160px; height: 119px;}
+
+  .searchResult .col-6{ flex: 0 0 100%; max-width: 100%;}
+
+  .testiTabs ul.nav li a{ padding-left: 8px !important; padding-right: 8px !important;}
+  h2.withLine{ font-size: 22px;}
+  .testiTabs  .settingsSingleButton{ top: -12px; right: 0;}
+
+  .privacyWrap .blockBtn{ display: block; margin: 15px 0 0 0;}
+
+}

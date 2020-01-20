@@ -1,0 +1,154 @@
+
+    <div class="leftNoti" *ngIf="nonvisable.indexOf('notification') == -1">
+     <div class="profileMainBox">
+       <div class="rightTitle">
+         <h2>{{ 'NOTIFICATIONS.NOTIFICATION'|translate }}</h2>
+         <a class="iconSettings" [routerLink]="['/notification-settings']"><i class="fa fa-cog" aria-hidden="true"></i></a>
+       </div>
+       <div class="defaultScroll" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" >
+        <div *ngFor="let sender of senderDetails">
+         <div class="boxSingle" >
+           <div class="boxSingleImg" *ngIf="!sender.testimonial || (sender.testimonial && sender.testimonial.is_anonymous != 1)" [class.inactive]="(currentTime - sender?.sender.last_active_time) > (5*60) ">
+             <img *ngIf="sender?.sender.profile_pic" [src]="(sender?.sender.profile_pic) | picturepath:'users'" alt="">
+             <img  class="no-pro-pic" *ngIf="sender?.sender && !sender?.sender.profile_pic && sender?.sender.gender && sender?.sender.experience_level" src="assets/images/charachter/{{ sender?.sender.gender+'_'+sender?.sender.experience_level }}.png" alt="">
+
+            </div>
+            <div class="boxSingleImg" *ngIf="sender.testimonial && sender.testimonial.is_anonymous == 1">
+                <img class="no-pro-pic"  src="assets/images/testimonial_no_img.jpg" alt="">
+            </div>
+           <div class="timeNotific">{{ (sender?.posted_on*1000) | amTimeAgo:true }} {{ 'NOTIFICATIONS.AGO' |translate }}</div>
+           <h2>
+             
+             <a *ngIf="sender.testimonial && sender.testimonial.is_anonymous == 1" >
+                {{ 'TESTIMONIALS.ANONYMOUS'|translate }}
+             </a>
+             <a *ngIf="!sender.testimonial || (sender.testimonial && sender.testimonial.is_anonymous != 1)" [routerLink]="['/', sender?.sender.cpp ]">{{(sender?.sender.first_name+' '+sender?.sender.last_name)}}</a>
+             &nbsp;<span>{{ 'NOTIFICATIONS.'+sender?.type | translate }}</span></h2>
+           <div class="msgIcon"><i class="fa fa-commenting" aria-hidden="true"></i></div>
+         </div>
+       
+         
+        </div>
+      </div>
+      <div class="no-record-msg text-center" *ngIf="senderDetails && senderDetails.length == 0">{{ 'NOTIFICATIONS.NO_MESSAGE' | translate }}</div>
+       <div class="moreItem" *ngIf="paginations.notification && paginations.notification.rowCount && senderDetails.length > 0 && (paginations.notification.rowCount > senderDetails.length)">
+         <a [routerLink]="['/notifications']">+{{( paginations.notification.rowCount - senderDetails.length )}} {{ 'NOTIFICATIONS.SEE_MORE'|translate }}</a>
+       </div>
+     </div>
+    </div>
+
+    <div class="leftNoti forConnection">
+     <div class="profileMainBox">
+       <div class="rightTitle">
+         <h2>{{ 'NOTIFICATIONS.CONNECTIONS'|translate }}</h2>
+         <a class="iconSettings" [routerLink]="['/blocks']"><i class="fa fa-cog" aria-hidden="true"></i></a>
+         <!-- <span class="btnConnection"></span> -->
+       </div>
+       <div class="connection-message-container">
+        <div class="msg-succ" *ngIf="connectionMsg.success">{{ connectionMsg.success }}</div>
+        <div class="msg-err" *ngIf="connectionMsg.error">{{ connectionMsg.error }}</div>
+       </div>
+       <div class="defaultScroll" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+         <div class="boxSingle"   *ngFor="let connection of notifyConnectionList"  >
+           <div class="boxSingleImg" [class.inactive]="((currentTime - connection.last_active_time) > (5*60)) && !connection.chatRequest ">
+             <img *ngIf="connection.profile_pic" [src]="(connection?.profile_pic)| picturepath:'users'" alt="">
+
+             <img  *ngIf="connection && !connection.profile_pic && connection.gender && connection.experience_level" src="assets/images/charachter/{{ connection.gender+'_'+connection.experience_level }}.png" alt="">
+            </div>
+             <h2><a [routerLink]="['/', connection.cpp ]">{{(connection.first_name+' '+connection.last_name)}} </a>
+              <em *ngIf="connection.unreadMsgCount">({{ connection.unreadMsgCount }})</em>
+           <span *ngIf="connection.position">{{ connection.position.details[0].name  }}</span>
+              
+          </h2>
+           <div class="lastChat" >{{ 'NOTIFICATIONS.LAST_CHAT' |translate }} <br> {{ (connection.lastChatTime) | amTimeAgo:true }} {{ 'NOTIFICATIONS.AGO' |translate }} <br/>
+            
+            <button *ngIf="!connection.is_friend" (click)="connectionSend('connection',connection)"  class="btn btn-sm btn-connection pull-right">{{ 'PROFILE.CONTACT' | translate }}</button>
+            <button *ngIf="connection.is_friend" (click)="setChatPerson(connection)" class="btn btn-sm btn-connection pull-right">{{ 'COMMON.MESSAGE' | translate }}</button>
+          </div>
+         </div>
+        </div>
+        <div class="no-record-msg text-center" *ngIf="notifyConnectionList && notifyConnectionList.length == 0">{{ 'COMMON.NO_CONNECTION' | translate }}</div>
+
+     </div>
+     
+    </div>
+
+    <div class="leftNoti knownPeople forConnection">
+     <div class="profileMainBox">
+       <div class="rightTitle">
+         <h2>{{ 'NOTIFICATIONS.PEOPLE_MAY_KNOW'|translate }}</h2>
+         <span class="iconSettings" (click)="openContactModal()"><i class="fa fa-cog" aria-hidden="true"></i></span>
+       </div>
+       <div class="connection-message-container">
+          <div class="msg-succ" *ngIf="mayConnectionMsg.success">{{ mayConnectionMsg.success }}</div>
+          <div class="msg-err" *ngIf="mayConnectionMsg.error">{{ mayConnectionMsg.error }}</div>
+       </div>
+       <div class="defaultScroll" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+          <p class="text-center" *ngIf="loader.mayconnect"><i class="fa fa-cog fa-spin"></i></p>
+          <div *ngFor="let may of mayList">
+             <div class="boxSingle">
+               <div class="boxSingleImg" [class.inactive]="((currentTime - may?.last_active_time) > (5*60))">
+                <img *ngIf="may.profile_pic" [src]="(may?.profile_pic)| picturepath:'users'" alt="">
+                <img  *ngIf="!may.profile_pic && may.gender && may.experience_level" src="assets/images/charachter/{{ may.gender+'_'+may.experience_level }}.png" alt="">
+
+              </div>
+               <h2><a [routerLink]="['/', may.cpp ]">{{(may.first_name+' '+may.last_name)}}</a>&nbsp; <span>{{(may.position_local_name)}}</span></h2>
+               <a class="contactPeople" href="javascript:" (click)="connectionSend('may-connection',may)">Contact</a>
+               <!-- <div class="knownClose"><i class="fa fa-times-circle" aria-hidden="true"></i></div> -->
+             </div>
+          </div>
+          
+
+     </div>
+     <div class="no-record-msg text-center" *ngIf="mayList.length == 0">{{ 'COMMON.NO_CONNECTION' | translate }}</div>
+     <!-- <div class="moreItem" *ngIf="paginations.mayContact && paginations.mayContact.rowCount && (paginations.mayContact.rowCount > mayList.length)">
+      <a href="#">+{{( paginations.mayContact.rowCount - mayList.length )}} {{ 'NOTIFICATIONS.SEE_MORE'|translate }}</a>
+     </div> -->
+    </div>
+
+    <!-- open contact modal --> 
+  <ng-template #connectModal let-modal>
+    <h2><span>{{ 'NOTIFICATIONS.PEOPLE_YOU_MAY_CONNECT_SETTINGS'|translate }}:</span></h2>
+    <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+    <div class="modal-body">
+    <div>
+
+      <div class="alert alert-danger" *ngIf="errorMsg">{{ 'NOTIFICATIONS.ERROR'|translate }}</div>
+    </div>
+      <div class="proEdit">
+        <div class="formWrap">
+           <label class="col-xl-3 noGap" for="">{{ 'NOTIFICATIONS.POSITION'|translate }} :</label>
+           <span class="formSpan col-xl-9">
+             <ng-select class="inpField fullWidth" [hideSelected]="true" [items]="positions" [(ngModel)]="connectForm.positions" bindLabel="name"
+             bindValue="id" [multiple]="true"></ng-select>
+           </span>
+        </div>
+        <div class="formWrap">
+           <label class="col-xl-3 noGap" for="">{{ 'NOTIFICATIONS.DEGREE'|translate }} :</label>
+           <span class="formSpan col-xl-9">
+             <ng-select class="inpField fullWidth" [hideSelected]="true" [items]="degrees" [(ngModel)]="connectForm.degree" bindLabel="name" bindValue="id" [multiple]="true"></ng-select>
+           </span>
+        </div>
+        <div class="formWrap">
+          <label class="col-xl-3 noGap" for="">{{ 'NOTIFICATIONS.COUNTRY'|translate }}</label>
+          <span class="formSpan col-xl-9">
+            <ng-select class="inpField fullWidth" [hideSelected]="true" [items]="countries" [(ngModel)]="connectForm.country" bindLabel="name" bindValue="id" (change)="getCityList()"></ng-select>
+          </span>
+        </div>
+        <div class="formWrap">
+            <label class="col-xl-3 noGap" for="">{{ 'NOTIFICATIONS.CITY'|translate }}</label>
+            <span class="formSpan col-xl-9">
+            <ng-select class="inpField fullWidth" [hideSelected]="true" [items]="cityList" [(ngModel)]="connectForm.city" bindLabel="name" bindValue="id" [multiple]="true"></ng-select>
+          </span>
+        </div>
+        <div class="buttonGr">
+          <div class="text-center">
+            <button type="button" class="btnOrange" name="button" (click)="saveConnectFrom()">{{ 'NOTIFICATIONS.SUBMIT'|translate }}</button>
+          </div>
+        </div>
+      </div>
+   
+    </div>
+  </ng-template>
+
+  <!-- <app-chat [config]="chatConfig"></app-chat> -->

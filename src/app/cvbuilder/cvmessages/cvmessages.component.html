@@ -1,0 +1,70 @@
+<div class="proEdit forAllInvitations">
+  <h2 class="withLine"><span>{{"CV.CONSULT" | translate}}</span></h2>
+
+  <div class="inviteBlock messages-list-container">
+    <div class="inviteBlockTop clearfix" >
+      <div class="row">
+        <div class="col-6">
+          <p>{{ cvDetails?.cv_name }}</p>
+        </div>
+        <div class="col-6">
+          <div class="text-right">
+            <p>
+              <a class="anchor-common" (click)="sendMessage()"><span>{{"CV.SEND_MESSAGE" | translate}}</span></a> &nbsp; | &nbsp;
+              <a class="anchor-common" routerLink="/profile/edit"><span>{{"CV.GO_TO_LIST" | translate}}</span></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+    <p *ngIf="loader.list" class="text-center">
+        <i class="fa fa-cog fa-spin" ></i> 
+    </p>
+    <div *ngIf="cvCommentList.length > 0">
+      <div class="inviteBlockSingle alt" *ngFor="let comment of cvCommentList; let i = index"
+        [ngClass]="((i%2!=0)?'noBg':'')">
+
+        <h3>{{ ((comment.post_by_admin == 0)? 'CV.ME' : 'CV.CONSULTANT') | translate }}
+
+            <span>{{ (comment.posted_on*1000)| amTimeAgo:true }} {{ 'NOTIFICATIONS.AGO' |translate }}</span>
+        </h3>
+
+        <p class="tXt">{{ comment.message }}</p>
+        <p class="attach" *ngIf="comment.cv_file">
+          <a href="{{ comment.cv_file| picturepath:'cv' }}" target="_blank" class="comment-btn green">{{ 'CV.REVIEW'| translate }}</a>
+          <a *ngIf="!comment.is_refuse && (refuseCount.settings > refuseCount.cv)" class="comment-btn"
+            (click)="refuseCv(comment)">{{"CV.REFUSE" | translate}}</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- tell us reasone model start -->
+<ng-template #refuseModal let-modal>
+  <h2><span>{{ popupContent.header |translate }}</span></h2>
+  <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+  <div class="modal-body">
+    <div>
+      <div class="alert alert-success" *ngIf="refuseSuccessMessage">{{ refuseSuccessMessage }}</div>
+      <div class="alert alert-danger" *ngIf="refuseErrorMessage">{{ refuseErrorMessage }}</div>
+      <div class="alert alert-danger" *ngIf="popupForm.submit && !popupForm.comment">
+        {{ 'CV.COMMENT_REQUIRED'  |translate }}</div>
+    </div>
+
+    <div class="proEdit">
+      <div class="formWrap alt">
+        <textarea class="inpField fullWidth" [(ngModel)]="popupForm.comment"
+          placeholder="{{ popupContent.placeholder |translate }}"></textarea>
+      </div>
+      <div class="buttonGr">
+        <div class="text-center">
+          <button type="button" class="btnOrange" name="button"
+            (click)="submitMessageFrom()" [disabled]="loader.popupSubmit"> <i class="fa fa-cog fa-spin" *ngIf="loader.popupSubmit"></i> {{ 'CV.POST' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

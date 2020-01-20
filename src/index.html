@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Careery</title>
+  <base href="/">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, shrink-to-fit=no">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    if (global === undefined) {
+      var global = window;
+    }
+  </script>
+  <link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+  <script>
+    window.addEventListener("load", function () {
+      window.cookieconsent.initialise({
+        "palette": {
+          "popup": {
+            "background": "#eaf7f7",
+            "text": "#5c7291"
+          },
+          "button": {
+            "background": "#56cbdb",
+            "text": "#ffffff"
+          }
+        },
+        "theme": "edgeless",
+        "type": "opt-out",
+        "content": {
+          "link": "Cookie Policy",
+          "href": "http://localhost/page/privacy-policy"
+        }
+      })
+    });
+
+  </script>
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+</html>

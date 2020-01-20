@@ -1,0 +1,587 @@
+<!-- Profile starts here -->
+
+<div class="profileMain">
+  <!-- <app-pagination [config]="paginationConfig" (pager)="clickPager($event)"></app-pagination> -->
+  <div class="row">
+    <div class="col-xl-3 col-lg-6 col-md-6">
+      <div class="profileDesc">
+        <div class="profileMainBox">
+          <div class="profileDescImg" (click)="openEditPicModal(content)">
+            <img *ngIf="profilePic" [src]="profilePic" alt="">
+            <img  *ngIf="userData && !profilePic" src="assets/images/charachter/{{ gender+'_'+userData.experience_level }}.png" alt="">
+          </div>
+          <h2>{{firstName | titlecase}} {{lastName | titlecase}}</h2>
+          <h3 *ngIf="position">{{ position }}</h3>
+          <h3>{{ 'PROFILE.CPP' |translate }} : {{cpp}}</h3>
+
+          <div class="profileAward">
+             <span ><a  (click)="gotToCV()" href="javascript:void(0)"  ><i class="fa fa-eye" aria-hidden="true"></i> {{"CV.PREVIEW_CV"| translate}}</a></span>
+              <span *ngIf="profile_video_link" (click)="openVideoModal()"><i class="fa fa-forward" aria-hidden="true"></i> {{"COMMON.MY_VIDEO"| translate}}</span>
+
+          </div>
+          <div class="socialProfile">
+            <ul ngbDropdown>
+              <li><a [routerLink]="['/profile/edit']"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+              <li><a href="javascript:void(0)" (click)="copyLink()"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+              <li>
+                <a *ngIf="dribbble_link" href="{{ dribbble_link }}" target="_blank"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                <a *ngIf="!dribbble_link" [routerLink]="['/profile']"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a *ngIf="behance_link" href="{{behance_link}}" target="_blank"><i class="fa fa-behance" aria-hidden="true"></i></a>
+                <a *ngIf="!behance_link" [routerLink]="['/profile']"><i class="fa fa-behance" aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a *ngIf="facebook_link" href="{{facebook_link}}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a *ngIf="!facebook_link" [routerLink]="['/profile']"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a *ngIf="twitter_link" href="{{twitter_link}}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a *ngIf="!twitter_link" [routerLink]="['/profile']"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+              </li>
+              <li id="dropdownBasic2" ngbDropdownToggle><a><i class="fa fa-share-alt" aria-hidden="true"></i></a></li>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <ul>
+                  <li>
+                    <share-button button="facebook" ></share-button> <span>Facebook</span>
+                  </li>
+                  <li>
+                    <share-button button="twitter"></share-button> <span>Twitter</span>
+                  </li>
+                  <li>
+                    <share-button button="whatsapp"></share-button> <span>WhatsApp</span>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" (click)="copyLink()"><i class="fa fa-link" aria-hidden="true"></i></a> <span>{{ 'PROFILE.COPY_LINK' | translate }}</span>
+                  </li>
+                </ul>
+              </div>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="managerLink">
+        <div class="profileMainBox">
+          <h2 class="rowDiv">
+              <span class="manager-text">{{ 'PROFILE.CAREERY_MANAGER' |translate }}</span>
+            <span (click)="openCareeryManagerModal()" class="icon"></span>
+          </h2>
+        </div>
+      </div>
+
+      <div class="profileCarousal" style="position:relative">
+        <div class="loader-container card" *ngIf="loader.card_remove">
+          <div class="loader-content">
+            <i class="fa fa-cog fa-spin"></i><br />
+            {{ 'CARD.PLEASE_WAIT_REMOVE_CARD' | translate }}
+          </div>
+        </div>
+        <div class="profileMainBox">
+          <div class="text-center" *ngIf="loader.card">
+            <i class="fa fa-cog fa-spin"></i><br />
+            <p>{{ 'CARD.PLEASE_WAIT' | translate }}</p>
+          </div>
+          <div >
+
+            <owl-carousel #cardOwl [options]="mySlideOptions" [carouselClasses]="['owl-theme', 'sliding']">
+              <div class="item" *ngIf="userCardList.length == 0">
+                  <div class="iconDown">
+                      <a href="javascript:void(0)"  (click)="downloadDefaultCardFile()"> <i class="fa fa-download"
+                          aria-hidden="true"></i></a>
+                      
+                    </div>
+                  <section class="sheet">
+                      <div class="card-left">
+                        <div class="card-profile">
+                            <img *ngIf="profilePic" [src]="profilePic" alt="">
+                            <img  *ngIf="userData && !profilePic" src="assets/images/charachter/{{ userData.gender+'_'+userData.experience_level }}.png" alt="">
+                        </div>
+                        <div class="card-profile-txt">
+                          <h2>{{firstName | titlecase}} {{lastName | titlecase}}</h2>
+                          <h5>{{ position }}</h5>
+                        </div>
+                        <ul class="card-social">
+                          <li><span class="hh"><img src="assets/images/card_assets/images/phone.svg" alt=""></span> {{mobile_code+'-'+mobile_no}}"</li>
+                          <li><span class="hh"><img src="assets/images/card_assets/images/location.svg" alt=""></span> {{ ((address)?(address+ ', '):'')  + city+', ' + country }}</li>
+                          <li class="mail-icon"><span class="hh"><img src="assets/images/card_assets/images/email.svg" alt=""></span> {{ email }}</li>
+                        </ul>
+                      </div>
+                    
+                      <div class="card-right">
+                        <div class="card-right-img"><img src="assets/images/card_assets/images/card-logo.svg" alt=""></div>
+                        <div class="card-right-cont">
+                          <div class="code-img"><qrcode #cardQrCode [qrdata]="qrCodeUrl+'/'+cpp" [size]="50" [level]="'M'" ></qrcode></div>
+                          <h5>CPP : {{ cpp }}</h5>
+                          <div class="gntby">
+                            <ul>
+                              <li>Generated by</li>
+                              <li><img src="assets/images/card_assets/images/foot-logo.png" alt=""></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+              </div>
+              <div class="item" *ngFor="let card of userCardList">
+                <div class="iconDown">
+                  <a href="{{ card.file | picturepath:'card' }}" target="_blank"> <i class="fa fa-download"
+                      aria-hidden="true"></i></a>
+                  &nbsp;&nbsp;
+                  <a class="anchor-common" (click)="removeOwnCard(card)"> <i class="fa fa-trash"></i> </a>
+                </div>
+                <div *ngIf="card.details">
+                  <div class="profileSingle">
+                    <div class="profileDescImg"><img *ngIf="card.details.photo" [src]="card.details.photo" alt=""></div>
+                    <h2>{{ card.details.name  }}</h2>
+                    <h3>{{ card.details.position }}</h3>
+                  </div>
+                  <div class="proLocation">
+                    <p><span><i class="fa fa-mobile" aria-hidden="true"></i></span> {{ card.details.mobile }}</p>
+                    <p><span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                      {{ card.details.city_name+', '+card.details.country_name }}</p>
+                    <div class="qrCode"><qrcode #cardQrCode [qrdata]="qrCodeUrl+'/'+cpp" [size]="50" [level]="'M'" ></qrcode></div>
+                  </div>
+                </div>
+                <div *ngIf="!card.details && card.file">
+                  <img [src]="card.file| picturepath:'card'" />
+                </div>
+              </div>
+              <div class="item" >
+                  <!-- <div class="iconDown">
+                    <a href="javascript:void(0)"  (click)="downloadDefaultCardFile()"> <i class="fa fa-download"
+                        aria-hidden="true"></i></a>
+                    
+                  </div> -->
+                  <img src="assets/images/card-back.png" />
+              </div>
+            </owl-carousel>
+          </div>
+         
+        </div>
+      </div>
+
+      <div class="cvReview">
+        <div class="profileMainBox">
+          <div class="row align-items-center">
+            <div class="col-md-6 withRightBdr">
+              <!-- <div class="progressWrap">
+                <circle-progress [percent]="points" [titleFontSize]="40" [showSubtitle]="false" [showUnits]="false" [outerStrokeColor]="'#707070'" [innerStrokeColor]="'#D4D4D4'" [radius]="100" [backgroundPadding]="7" [outerStrokeWidth]="5" [space]="-5" [innerStrokeWidth]="5" [animation]="true" [animationDuration]="1000"></circle-progress>
+                <div class="progressPoint">Points</div>
+              </div> -->
+              <div class="pointProgress">
+                <div class="forPoints"><span>{{ points }} {{ 'PROFILE.POINTS' | translate }}</span></div>
+                <div class="forRank"><span>{{ 'PROFILE.YOUR_RANK' | translate }} <br> {{ rank }}</span></div>
+              </div>
+              <p *ngIf="loader.stat" class="text-center"><i class="fa fa-cog fa-spin" aria-hidden="true"></i></p>
+              <p class="tooltip-container" (click)="openPointModal(pointsModal)"> {{ 'PROFILE.KNOWLEDGE_METER' |translate }}
+                <i class="fa fa-info-circle meater-tooltip"></i>
+                <span class="tooltip-text">{{ siteSettings }}</span>
+              </p>
+            </div>
+            <div class="col-md-6">
+
+              <div class="cppNum" (click)="navigatePath('connections')">
+                <span  ><i class="fa fa-users" aria-hidden="true"></i>
+                {{connection_count}} <i *ngIf="loader.stat" class="fa fa-cog fa-spin" aria-hidden="true"></i></span>
+              </div>
+              <a class="cppPreview" href="javascript:void(0)" (click)="navigatePath('recommendations')"><i class="fa fa-comments-o" aria-hidden="true"></i>
+              {{recommendations}} <i *ngIf="loader.stat" class="fa fa-cog fa-spin" aria-hidden="true"></i></a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-xl-6 col-lg-12 orderThird">
+      <div class="formTabs">
+        <ngb-tabset (tabChange)="changeTabEvent($event)">
+          <ngb-tab>
+            <ng-template ngbTabTitle><i class="fa fa-info" aria-hidden="true"></i> {{ 'PROFILE.PERSONAL_INFO' |
+              translate }}</ng-template>
+            <ng-template ngbTabContent>
+              <div class="ngb-tab-main-content">
+
+                <p *ngIf="loader.personal" class="loader-p"><i class="fa fa-cog fa-spin"></i></p>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="formTabsInpWrap">
+                      <label for="">{{ 'PROFILEEDIT.FIRST_NAME' | translate }} :</label>
+
+                      <input class="inpField" type="text" name="" value="{{firstName}}" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="formTabsInpWrap">
+                      <label for="">{{ 'PROFILEEDIT.LAST_NAME' | translate }} :</label>
+                      <input class="inpField" type="text" name="" value="{{lastName}}" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="formTabsInpWrap">
+                      <label for="">{{ 'PROFILEEDIT.FAMILY_NAME' | translate }} :</label>
+                      <input class="inpField" type="text" name="" value="{{familyName}}" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="formTabsInpWrap">
+                      <label for="">{{ 'PROFILE.COUNTRY' | translate }} :</label>
+
+                      <input class="inpField" type="text" name="" value="{{userData?.country?.details[0].name}}" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="formTabsInpWrap">
+                      <label for="">{{ 'PROFILE.CITY' | translate }} :</label>
+                      <input class="inpField" type="text" name="" value="{{userData?.city?.details[0].name}}" readonly>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="formTabsInpWrap">
+                  <label for="">{{ 'PROFILE.ADDRESS' | translate }} :</label>
+
+                  <input class="inpField" type="text" name="" value="{{userData?.address}}" readonly>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="formTabsInpWrap">
+                      <label for="">{{ 'PROFILE.DATE_OF_BIRTH' | translate }} :</label>
+                      <input class="inpField" type="text" name="" value="{{dob| date: 'dd-MM-yyyy'}}" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="formTabsInpWrap">
+                      <label for="">{{ 'PROFILE.GENDER' | translate }} :</label>
+
+                      <input class="inpField" type="text" name="" value="{{gender | genderName}}" readonly>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="formTabsInpWrap">
+                  <label for="">{{ 'PROFILE.EMAIL' | translate }} :</label>
+                  <input class="inpField" type="text" name="" value="{{email}}" readonly>
+                </div>
+
+                <div class="formTabsInpWrap">
+                  <label for="">{{ 'PROFILE.MOBILE' | translate }} :</label>
+                  <input class="inpField" type="text" name="" value="{{mobile_code+'-'+mobile_no}}" readonly>
+                </div>
+
+                <div class="formTabsInpWrap">
+                  <label for="">{{ 'PROFILE.WEBSITE' | translate }} :</label>
+                  <input class="inpField" type="text" name="" value="{{website}}" readonly>
+                </div>
+              </div>
+
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab (click)="educationDetails()">
+            <ng-template ngbTabTitle><span (click)="educationDetails()"><i class="fa fa-book" aria-hidden="true"></i>
+                {{ 'PROFILE.EDUCATION' | translate }}</span></ng-template>
+            <ng-template ngbTabContent>
+                <div class="ngb-tab-main-content">
+                  <p *ngIf="loader.education" class="loader-p"><i class="fa fa-cog fa-spin"></i></p>
+
+                  <ul class="list-group">
+
+                    <li class="list-group-item" *ngFor="let education of allEducations">
+                      <h5>{{education?.degreeDetails?.details[0].name}}</h5>
+
+                      <p>{{education?.from_year}} - {{education?.to_year}}</p>
+                      <p>{{education?.degreeFieldDetails?.details[0].name}}</p>
+
+
+                    </li>
+
+                    <li *ngIf="allEducations?.length == 0">
+                      <span>
+                        {{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab (click)="skillDetails()">
+            <ng-template ngbTabTitle><span (click)="skillDetails()"><i class="fa fa-star" aria-hidden="true"></i> {{
+                'PROFILE.SKILLS' | translate }}</span></ng-template>
+            <ng-template ngbTabContent>
+                <div class="ngb-tab-main-content">
+                  <p *ngIf="loader.skills" class="loader-p"><i class="fa fa-cog fa-spin"></i></p>
+                  <ul class="list-group">
+
+                    <li class="list-group-item" *ngFor="let skill of allSkills">
+                      <h5>{{skill?.details[0].name}}</h5>
+                      <p *ngIf="skill?.status === 1">{{ "PROFILEEDIT.SKILLS_STATUS_EXCELLENT"|translate }}</p>
+                      <p *ngIf="skill?.status === 2">{{ "PROFILEEDIT.SKILLS_STATUS_VERY_GOOD"|translate }}</p>
+                      <p *ngIf="skill?.status === 3">{{ "PROFILEEDIT.SKILLS_STATUS_GOOD"|translate }}</p>
+                      <p *ngIf="skill?.status === 4">{{ "PROFILEEDIT.SKILLS_STATUS_FRESH"|translate }}</p>
+                    </li>
+
+                    <li *ngIf="allSkills?.length == 0">
+                      <span>
+                        {{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab (click)="experienceDetails()">
+            <ng-template ngbTabTitle><span (click)="experienceDetails()"><i class="fa fa-suitcase"
+                  aria-hidden="true"></i>
+                {{ 'PROFILE.EXPERIENCE' | translate }}</span></ng-template>
+            <ng-template ngbTabContent>
+                <div class="ngb-tab-main-content">
+              <p *ngIf="loader.experience" class="loader-p"><i class="fa fa-cog fa-spin"></i></p>
+              <ul class="list-group">
+
+                <li class="list-group-item" *ngFor="let experience of allExperiences">
+                  <h5>{{experience?.company_name}}</h5>
+                  <p *ngIf="experience?.is_current === 1; else elseBlock">
+                    {{experience?.from_year}} - <span *ngIf="experience?.is_current === 1">{{
+                      "PROFILE.EXPERIENCE_CURRENT"|translate }}</span>
+                  </p>
+                  <ng-template #elseBlock>{{experience?.from_year}} - {{experience?.to_year}}</ng-template>
+                  <p>{{experience?.position?.details[0].name}}</p>
+                  <p>{{experience?.summery}}</p>
+
+
+                </li>
+
+                <li *ngIf="allExperiences?.length == 0">
+                  <span>
+                    {{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}
+                  </span>
+                </li>
+              </ul>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab (click)="certificateDetails()">
+            <ng-template ngbTabTitle><span (click)="certificateDetails()"><i class="fa fa-graduation-cap"
+                  aria-hidden="true"></i>
+                {{ 'PROFILE.CERTIFICATE' | translate }}</span></ng-template>
+            <ng-template ngbTabContent>
+                <div class="ngb-tab-main-content">
+              <p *ngIf="loader.certificate" class="loader-p"><i class="fa fa-cog fa-spin"></i></p>
+              <ul class="list-group">
+
+                <li class="list-group-item" *ngFor="let certificate of allCertificates">
+                  <h5>{{certificate.certificate_name}}</h5>
+                  <p>From Year : {{certificate.from_year}} - {{certificate.to_year}}</p>
+                  <p>{{certificate.summery}}</p>
+
+                  <p *ngIf="certificate.picture"><img [src]="(certificate.picture)| picturepath:'certificate'" alt="">
+                  </p>
+
+                </li>
+
+                <li *ngIf="allCertificates?.length == 0">
+                  <span>
+                    {{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}
+                  </span>
+                </li>
+              </ul>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab (click)="projectDetails()">
+            <ng-template ngbTabTitle><span (click)="projectDetails()"><i class="fa fa-graduation-cap"
+                  aria-hidden="true"></i>
+                {{ 'PROFILE.PROJECT' | translate }}</span></ng-template>
+            <ng-template ngbTabContent>
+                <div class="ngb-tab-main-content">
+              <p *ngIf="loader.project" class="loader-p"><i class="fa fa-cog fa-spin"></i></p>
+              <ul class="list-group">
+
+                <li class="list-group-item" *ngFor="let project of allProjects">
+                  <h5>{{project.name}}</h5>
+                  <p>{{project.company.company_name}}</p>
+                  <p>{{project.from_date|date}} - {{project.to_date|date}}</p>
+
+                </li>
+
+                <li *ngIf="allProjects?.length == 0">
+                  <span>
+                    {{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}
+                  </span>
+                </li>
+              </ul>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+
+
+      <div class="testimonialCarousal" *ngIf="activeTab == 'ngb-tab-0'">
+        <div class="profileMainBox">
+          <h2>{{ 'PROFILE.TESTIMONIALS' | translate }} :</h2>
+
+          <div *ngIf="allTestimonial?.length > 0 ">
+            <owl-carousel [options]="testimonialCaro" [items]="allTestimonial"
+              [carouselClasses]="['owl-theme', 'sliding']">
+              <div class="item" *ngFor="let testimonial of allTestimonial">
+                <div class="testimonialHead">
+                  <div class="testimonialHeadLeft" >
+                    <img *ngIf="testimonial.is_anonymous != 1 && testimonial.fromuser.profile_pic"
+                      [src]="testimonial.fromuser.profile_pic| picturepath:'users'" alt="">
+                    <img class="no-pro-pic" *ngIf="testimonial.is_anonymous != 1 && !testimonial.fromuser.profile_pic && testimonial.fromuser.gender=='F'" src="assets/images/female.jpg" alt="">
+                    <img class="no-pro-pic" *ngIf="testimonial.is_anonymous != 1 && !testimonial.fromuser.profile_pic && testimonial.fromuser.gender=='M'" src="assets/images/male.jpg" alt="">
+                    <img class="no-pro-pic" *ngIf="testimonial.is_anonymous == 1" src="assets/images/testimonial_no_img.jpg" alt="">
+                  </div>
+                  <div class="testimonialHeadRight">
+                    <div *ngIf="testimonial.is_anonymous == 0">
+                      <h3>{{(testimonial.fromuser.first_name+' '+testimonial.fromuser.last_name)}}</h3>
+                      <h4 *ngIf="testimonial.fromuser.position">{{testimonial.fromuser.position.details[0].name}}</h4>
+                    </div>
+                    <div *ngIf="testimonial.is_anonymous == 1">
+                      <h3>{{ 'TESTIMONIALS.ANONYMOUS'|translate }}</h3>
+                    </div>
+                  </div>
+                </div>
+                <p>{{testimonial.message}} </p>
+              </div>
+            </owl-carousel>
+          </div>
+
+          <div style="margin-top:25px;" *ngIf="allTestimonial?.length == 0">
+            <span>
+              {{ "TESTIMONIALS.NO_RECORD_FOUND" |translate }}
+            </span>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 orderFirst">
+
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+<!-- Profile starts here -->
+<ng-template #careeryMyVideoModal let-modal id="careeryPathModal">
+    <!-- <h2><span>{{ 'PROFILE.POINTS' |translate }}</span></h2> -->
+    <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+    <div class="modal-body noPad text-center">
+      <div class="iframe-container">
+        <iframe *ngIf="profile_video_link" width="560" height="315" [src]="profile_video_link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </ng-template>
+
+<!-- USER POINT MODAL -->
+<ng-template #pointsModal let-modal id="modalPopup">
+  <h2><span>{{ 'PROFILE.POINTS' |translate }}</span></h2>
+  <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+  <div class="modal-body">
+    <div id="pointContents" class="graphModal">
+      <div class="user-details">
+        <ul>
+          <li><small>{{ 'PROFILE.NAME' |translate }}</small> <span>{{ (firstName+' '+lastName) }}</span></li>
+          <li><small>{{ 'PROFILE.CPP' |translate }}</small> <span>{{ (cpp) }}</span></li>
+        </ul>
+      </div>
+      <canvas *ngIf="pieChartData.length > 0" baseChart id="pointCanvas" [data]="pieChartData" [labels]="pieChartLabels" [colors]="pieChartColors"
+        [chartType]="pieChartType" [options]="pieOptions"></canvas>
+      <div class="no-record-msg" *ngIf="pieChartData.length == 0">{{ 'COMMON.NO_USER_POINTS' | translate }}</div>
+    </div>
+    <div class="chart-actions" *ngIf="pieChartData.length > 0">
+      <ul ngbDropdown>
+        <li><a (click)="downloadCanvas($event)" id="downloadChartLink"><i class="fa fa-floppy-o"></i></a></li>
+        <li><a (click)="printChart()"><i class="fa fa-print"></i></a></li>
+        <li id="dropdownBasic3" ngbDropdownToggle><a><i class="fa fa-share-alt" aria-hidden="true"></i></a></li>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
+          <ul>
+            <li>
+              <share-button button="facebook" [url]="baseOrigin+'/user/chart/'+cpp"></share-button> <span>Facebook</span>
+            </li>
+            <li>
+              <share-button button="twitter" [url]="baseOrigin+'/user/chart/'+cpp"></share-button> <span>Twitter</span>
+            </li>
+            <li>
+              <share-button button="whatsapp" [url]="baseOrigin+'/user/chart/'+ cpp"></share-button> <span>WhatsApp</span>
+            </li>
+            </ul>
+        </div>
+      </ul>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #careeryPathModal let-modal id="careeryPathModal">
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Careery Manager</h4>
+    <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+  </div>
+
+  <div class="modal-body noPad">
+    <div style="padding:30px 0;" class="profileDesc">
+      <div class="row">
+        <div class="col-lg-6">
+          <a class="modBtn" [routerLink]="['/cv/build']"><i class="fa fa-suitcase" aria-hidden="true"></i> {{ 'PROFILE.CV_BUILDER_LINK' | translate }}</a>
+        </div>
+        <div class="col-lg-6">
+          <a class="modBtn" [routerLink]="['/card/build']"><i class="fa fa-user" aria-hidden="true"></i> {{ 'PROFILE.CARD_BUILDER_LINK' | translate }}</a>
+        </div>
+        <div class="col-lg-6">
+          <a class="modBtn" [routerLink]="['/profile/edit']"><i class="fa fa-pencil" aria-hidden="true"></i> {{ 'PROFILE.EDIT_PROF_LINK' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #content let-modal>
+    <h2><span>{{ 'PROFILEEDIT.EDIT_PROFILE_PHOTO' |translate }}</span></h2>
+    <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+    <div class="modal-body">
+
+      <div>
+        <div class="alert alert-success" *ngIf="successMsg">{{ successMsg }}</div>
+        <div class="alert alert-danger" *ngIf="errorMsg">{{ errorMsg }}</div>
+      </div>
+
+      <span class="file-upload-all">
+        <label class="custom-file-upload" for="custom-input">{{ 'COMMON.UPLOAD_PHOTO' | translate }}</label>
+        <input id="custom-input" type="file" accept=".png, .jpg, .jpeg, .gif" (change)="fileChangeListener($event, cropper)">
+      </span>
+      <button class="cropSave" (click)="savePhoto()">{{ 'PROFILE.SAVE_BUTTON' | translate }}</button>
+
+      <div class="imgCrop">
+        <div class="">
+          <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+        </div>
+        <div class="cropDisp" *ngIf="data.image">
+          <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+        </div>
+
+        <!-- <div class="" *ngIf="data.image">
+          <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+        </div>
+        <div class="cropDisp" *ngIf="data.image">
+          <img  [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+        </div> -->
+        <div class="clearfix"></div>
+
+      </div>
+    </div>
+  </ng-template>
+
+  <canvas *ngIf="pieChartData.length > 0" baseChart id="pointCanvas1" [data]="pieChartData" [labels]="pieChartLabels" [colors]="pieChartColors"
+      [chartType]="pieChartType" [options]="pieOptions"></canvas>

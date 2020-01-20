@@ -1,0 +1,46 @@
+<div class="profileMain">
+  <h2 class="withLine withmergin">
+    <span>{{ 'NOTIFICATIONS.ALL_NOTIFICATION'|translate }}</span>
+    <small class="withLine-link"><a [routerLink]="['/notification-settings']"><i class="fa fa-cog"></i> {{ 'COMMON.SETTINGS' | translate }}</a></small>
+  </h2>
+  <div class="row">
+    <div class="col-md-9 col-xs-12">
+        <div class="notificatiListBlock">
+
+
+            <div *ngFor="let notificationList of allNotifications | keyvalue">
+              <p class="key" *ngIf="notificationList.value.length > 0"><strong>{{ (notificationList.key == '0')? ('COMMON.TODAY' | translate) : ((notificationList.key == '1')? ('COMMON.YESTERDAY' | translate): ('COMMON.BEFORE' | translate)) }}</strong></p>
+              <div class="notification-row alt" *ngFor="let notification of notificationList.value; let i = index"
+                >
+                <div class="notificationImg" *ngIf="!notification.testimonial || (notification.testimonial && notification.testimonial.is_anonymous != 1)" [class.boxSinglenoImg]="!notification?.sender.profile_pic">
+                  <img
+                    *ngIf="notification?.sender.profile_pic" [src]="(notification?.sender.profile_pic) | picturepath:'users'"
+                    alt="">
+
+                     <img  *ngIf="notification?.sender && !notification?.sender.profile_pic && notification?.sender.gender && notification?.sender.experience_level" src="assets/images/charachter/{{ notification?.sender.gender+'_'+notification?.sender.experience_level }}.png" alt="">
+
+                     <span class="status" [class.active]="(currentTime - notification?.sender.last_active_time) < (5*60) "></span>
+                  </div>
+                  <div class="notificationImg" *ngIf="notification.testimonial && notification.testimonial.is_anonymous == 1 ">
+                      <img   src="assets/images/testimonial_no_img.jpg" alt="">
+                  </div>
+                <div class="notificationBody">
+                  <h3 *ngIf="notification.testimonial && notification.testimonial.is_anonymous == 1 ">{{ 'TESTIMONIALS.ANONYMOUS'|translate }}</h3>
+                  <h3 *ngIf="!notification.testimonial || (notification.testimonial && notification.testimonial.is_anonymous != 1)">{{notification.sender.first_name+' '+ notification.sender.last_name}}</h3>
+
+                  <p class="tXt"><i class="fa fa-bell"></i> {{ 'NOTIFICATIONS.'+notification?.type | translate }}</p>
+                </div>
+                <div class="notificationTime">
+                  <p class="time">{{ (notification.posted_on < yesterdayStartTimestamp) ? (notification.posted_on*1000|date:'MMM, dd | hh:mm a'): (notification.posted_on*1000|date:'hh:mm a') }}</p>
+                </div>
+              </div>
+            </div>
+            <ngx-pager [config]="paginationConfig" [totalrow]='totalRows' class="defaultPagination"></ngx-pager>
+          </div>
+    </div>
+    <div class="col-md-3 col-xs-12">
+        <app-notifications [nonvisable]="'notification'"></app-notifications>
+    </div>
+  </div>
+
+</div>

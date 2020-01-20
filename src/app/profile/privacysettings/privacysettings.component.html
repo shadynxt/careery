@@ -1,0 +1,107 @@
+<div class="proEdit privacyWrap">
+  <h2 class="withLine"><span>{{ 'SETTINGS.SETTINGS' | translate }}</span></h2>
+  <div class="alert alert-success text-center" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger text-center" *ngIf="errMessage">{{ errMessage }}</div>
+  <ngb-tabset>
+
+    <ngb-tab>
+      <ng-template ngbTabTitle><i class="fa fa-info" aria-hidden="true"></i> {{ 'SETTINGS.PRIVACY' |
+            translate }}</ng-template>
+      <ng-template ngbTabContent>
+        
+        <form [formGroup]="privacyForm" novalidate (submit)="savePrivacySettings()">
+          <div formArrayName="permissions"
+            *ngFor="let item of privacyForm.get('permissions')['controls']; let i = index;">
+            <div [formGroupName]="i" class="formWrap inlineAll">
+              <label class="col-md-3" for="">{{ privacySettingsContent.options[i].name }}</label>
+              <input type="hidden" formControlName="option_id" placeholder="Option">
+              <select class="col-md-9 inpField withSpace" *ngIf="item.controls.settings_id"
+                formControlName="settings_id">
+                <option *ngFor="let setting of privacySettingsContent.settings" [value]="setting.id">
+                  {{setting.name}}
+                </option>
+              </select>
+              <div class="specific-connections"
+                *ngIf="item.controls.specific_users && item.controls.settings_id && item.controls.settings_id.value==4">
+                <div class="specific-add-container">
+                  <span class="addBtn withSpace" id="addDrop" (click)="openAddBox(i)">
+                    <i class="fa fa-plus" aria-hidden="true"></i> ADD
+                  </span>
+
+                  <div *ngIf="specificAddBox == i" class="search-connections-privacy">
+                    <input type="text" name="" [value]="specificAddInputValue" (keyup)="searchConnection(i, $event)">
+                    <ul>
+                      <li *ngFor="let connection of connectionList">
+                        <span class="conImg"><img alt="" src="assets/images/proimg9.jpg"></span>
+                        <span class="conName">{{ connection.friend_full_name }}</span>
+                        <span class="toAdd" (click)="addConnectionToSpacificSettings(i,connection)"><i
+                            class="fa fa-plus"></i></span>
+                      </li>
+
+                    </ul>
+                  </div>
+
+                </div>
+                <div class="blockBtn" *ngIf="specificConnections[i] && specificConnections[i].length >0">
+                  <span *ngFor="let c of specificConnections[i]">
+                    {{ c.name }} <i class="fa fa-times" (click)="removeConnections(i, c)"></i> <small>|</small>
+                  </span>
+                </div>
+              </div>
+
+              <label class="switch" *ngIf="item.controls.show_status">
+                <input type="checkbox" formControlName="show_status" [value]="1">
+                <span class="slider"></span>
+              </label>
+
+              <span *ngIf="item.controls.show_status" class="siteTooltip" placement="right"
+                ngbTooltip="Example: &#013; Your Profile Now Is Shown"><i class="fa fa-exclamation-triangle"
+                  aria-hidden="true"></i></span>
+
+
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              
+            </div>
+          </div>
+          <div class="buttonGr">
+            <div class="text-left">
+                <a role="button" class="btnGreen" [routerLink]="['/my-blocks']">{{ 'BLOCKS.MYBLOCKS' |translate }}</a>
+            </div>
+            <div class="text-right">
+              <button class="btnGreen" name="button" type="submit">{{ 'PROFILE.SAVE_BUTTON' | translate }}</button>
+            </div>
+          </div>
+        </form>
+
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle><i class="fa fa-info" aria-hidden="true"></i> {{ 'SETTINGS.GENERAL' |
+            translate }}</ng-template>
+      <ng-template ngbTabContent>
+          <form [formGroup]="generalSettingsForm" novalidate (submit)="saveGeneralSettings()">
+            <div class="formWrap inlineAll">
+                <label class="col-md-3" for="">{{ 'SETTINGS.PREFFERED_LANG'| translate }}</label>
+                <select class="col-md-9 inpField withSpace" 
+                  formControlName="preffered_lang">
+                  <option value="">{{ 'PROFILE.SELECT_ANY_LANG'| translate }}</option>
+                  <option *ngFor="let lang of allLanguage" [value]="lang.id">
+                    {{lang.lang_name}}
+                  </option>
+                </select>
+            </div>
+            <div class="buttonGr">
+                <div class="text-right">
+                  <button class="btnGreen" name="button" type="submit">{{ 'PROFILE.SAVE_BUTTON' | translate }}</button>
+                </div>
+              </div>
+            </form>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+
+</div>

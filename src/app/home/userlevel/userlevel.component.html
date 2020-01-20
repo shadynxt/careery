@@ -1,0 +1,17 @@
+<div class="commonWrap">
+  <h2 class="withLine"><span>{{ 'COMMON.LEVEL' | translate }}</span></h2>
+  <div class="">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="level-container">
+            <div class="level-col" [class.active]="activeLevel=='1'" (click)="changeUserLevel('1')"><div class="levelTxt">{{ 'COMMON.STUDENT' | translate }}</div></div>
+            <div class="level-col" [class.active]="activeLevel=='2'" (click)="changeUserLevel('2')"><div class="levelTxt">{{ 'COMMON.FRESHER' | translate }}</div></div>
+            <div class="level-col" [class.active]="activeLevel=='3'" (click)="changeUserLevel('3')"><div class="levelTxt">{{ 'COMMON.MID_LEVEL' | translate }}</div></div>
+            <div class="level-col" [class.active]="activeLevel=='4'" (click)="changeUserLevel('4')"><div class="levelTxt">{{ 'COMMON.SENIOR' | translate }}</div></div>
+            <div class="level-col" [class.active]="activeLevel=='5'" (click)="changeUserLevel('5')"><div class="levelTxt">{{ 'COMMON.EXPERT' | translate }}</div></div>
+            <div class="level-col" [class.active]="activeLevel=='6'" (click)="changeUserLevel('6')"><div class="levelTxt">{{ 'COMMON.MANAGER' | translate }}</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

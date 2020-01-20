@@ -1,0 +1,632 @@
+<div class="proEdit setup-profile-container">
+  <form [formGroup]="setUpProfileForm" novalidate (submit)="setUpProfileSubmitAction()">
+
+    <div class="setup-tab-title-container">
+      <div  class="tab-title" [class.active]="currentTab == 'personal'" (click)="setActive('current',tab,0)">
+        <i class="fa fa-id-card-o" aria-hidden="true"></i>
+        <span>{{ 'COMMON.PERSONAL_INFO' | translate }}</span>
+      </div>
+      <span class="line"></span>
+      <div  class="tab-title" [class.active]="currentTab == 'education'" (click)="setActive('current',tab,1)">
+        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+        <span> {{ 'PROFILE.EDUCATION' | translate }}</span>
+      </div>
+      <span class="line"></span>
+      <div  class="tab-title" [class.active]="currentTab == 'experience'" (click)="setActive('current',tab,2)">
+        <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+        <span>{{ 'PROFILE.SKILLS' | translate }} {{ 'COMMON.AND' | translate }}
+          {{ 'PROFILE.EXPERIENCE' | translate }}</span>
+        </div>
+      <span class="line"></span>
+      <div class="tab-title" [class.active]="currentTab == 'interest'" (click)="setActive('current',tab,3)">
+        <i class="fa fa-briefcase" aria-hidden="true"></i>
+        <span>{{ 'COMMON.CAREERY_INTEREST' | translate }}</span>
+      </div>
+
+    </div>
+
+    <ngb-tabset #tab="ngbTabset" (tabChange)="changeTabEvent($event)">
+      <ngb-tab id="personal">
+
+        <ng-template ngbTabContent>
+          <div class="row">
+
+            <div class="col-md-2 col-xs-12"></div>
+            <div class="col-md-8 col-xs-12 form-row-content">
+              <div class="row">
+                <div class="col-md-12 col-xs-12 text-right step-text" [translate]="'COMMON.STEP_FROM'"
+                  [translateParams]="{current:'1', total:'4'}"></div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-xs-12">
+                  <div class="formWrap" *ngIf="setUpProfileForm.controls['email']">
+                    <label class="col-xl-12" for="">{{ 'PROFILEEDIT.EMAIL'|translate }} : <small><i
+                          class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                    <span class="col-xl-12">
+                      <input required class="inpField largeWidth" type="email" formControlName="email" value=""
+                        placeholder="">
+                      <div *ngIf="setUpFormSubmit && setUpProfileForm.controls['email'].errors"
+                        class="alert alert-danger">
+                        <div *ngIf="setUpProfileForm.controls['email'].errors.required">
+                          {{ 'LANDING.EMAIL_REQUIRED' | translate }}</div>
+                      </div>
+                    </span>
+                  </div>
+                  <div class="formWrap" *ngIf="setUpProfileForm.controls['mobile_no']">
+                    <label class="col-xl-12" for="">{{ 'PROFILEEDIT.MOBILE'|translate }} : <small><i
+                          class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                    <span class="col-xl-12 setup-profile-control">
+                      <div class="inpField largeWidth">
+                          <ng-select class="inpField phCodeSelect" [items]="countryCodes" bindLabel="code"
+                          bindValue="code" [clearable]="false" [searchable]="false" formControlName="mobile_code"
+                           >
+                           <ng-template ng-label-tmp let-item="item">
+                            <img height="15" width="15" [src]="item.flag | picturepath:'flag'"/>&nbsp;
+                            <b>{{item.code}}</b>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                                <img height="15" width="15" [src]="item.flag | picturepath:'flag'"/>&nbsp;
+                                <b>{{item.code}}</b>
+                            </ng-template>
+                          </ng-select>
+
+                        <input appOnlynumaricinput required class="inpField " type="text" pattern="\d*" maxlength="10" formControlName="mobile_no" value="" placeholder="">
+                      </div>
+                      <div *ngIf="setUpFormSubmit && setUpProfileForm.controls['mobile_no'].errors"
+                        class="alert alert-danger">
+                        <div *ngIf="setUpProfileForm.controls['mobile_no'].errors.required">
+                          {{ 'LANDING.MOBILE_REQUIRED' | translate }}</div>
+                          <div *ngIf="setUpProfileForm.controls['mobile_no'].errors.minlength">
+                            {{ 'LANDING.MOBILE_MIN_LENGTH'| translate }}</div>
+                          <div *ngIf="setUpProfileForm.controls['mobile_no'].errors.maxlength">
+                            {{ 'LANDING.MOBILE_MAX_LENGTH'| translate }}</div>
+                            <div *ngIf="setUpProfileForm.controls['mobile_no'].errors.pattern">
+                              {{ 'LANDING.MOBILE_PATTERN'| translate }}</div>
+
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                  <div class="formWrap">
+                    <label class="col-xl-12" for="">{{ 'COMMON.NATIONALITY'|translate }} : <small><i
+                          class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                    <span class="col-xl-12">
+                      <ng-select required class="inpField largeWidth" [items]="nationalityList"
+                        formControlName="nationality_id" bindLabel="name" bindValue="id"></ng-select>
+
+                      <div *ngIf="setUpFormSubmit && setUpProfileForm.controls['nationality_id'].errors"
+                        class="alert alert-danger">
+                        <div *ngIf="setUpProfileForm.controls['nationality_id'].errors.required">
+                          {{ 'COMMON.NATIONALITY_REQUIRED' | translate }}</div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-xs-12">
+                  <div class="formWrap">
+                    <label class="col-xl-12" for="">{{ 'PROFILE.COUNTRY'|translate }} : <small><i class="fa fa-asterisk"
+                          aria-hidden="true"></i></small></label>
+                    <span class="col-xl-12">
+                      <ng-select required class="inpField largeWidth" [items]="countryList" formControlName="country_id"
+                        bindLabel="name" bindValue="id" (change)="getCityList()"></ng-select>
+
+                      <div *ngIf="setUpFormSubmit && setUpProfileForm.controls['country_id'].errors "
+                        class="alert alert-danger">
+                        <div *ngIf="setUpProfileForm.controls['country_id'].errors.required">
+                          {{ 'PROFILEEDIT.COUNTRY_REQUIRED' | translate }}</div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                  <div class="formWrap">
+                    <label class="col-xl-12" for="">{{ 'PROFILE.CITY'|translate }} : <small><i class="fa fa-asterisk"
+                          aria-hidden="true"></i></small></label>
+                    <span class="col-xl-12">
+                      <ng-select required class="inpField largeWidth" [items]="cityList" formControlName="city_id"
+                        bindLabel="name" bindValue="id"></ng-select>
+
+                      <div *ngIf="setUpFormSubmit && setUpProfileForm.controls['city_id'].errors"
+                        class="alert alert-danger">
+                        <div *ngIf="setUpProfileForm.controls['city_id'].errors.required">
+                          {{ 'PROFILEEDIT.CITY_REQUIRED' | translate }}</div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-2 col-xs-12"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 col-xs-12"></div>
+            <div class="col-md-8 col-xs-12">
+              <div class="pull-right">
+                <button type="button" class="btnGreen" name="button" (click)="setActive('next',tab)">
+                  {{ 'PROFILE.SAVE_NEXT_BUTTON' | translate}}
+                </button>
+              </div>
+            </div>
+            <div class="col-md-2 col-xs-12"></div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab  id="education">
+
+        <ng-template ngbTabContent>
+          <div class="row">
+            <div class="col-md-2 col-xs-12"></div>
+            <div class="col-md-8 col-xs-12 form-row-content">
+
+              <div class="row">
+                <div class="col-md-12 col-xs-12 text-right step-text" [translate]="'COMMON.STEP_FROM'"
+                  [translateParams]="{current:'2', total:'4'}"></div>
+                <div class="col-md-12">
+                  <div class="professional-education-content">
+
+                    <div class="formSpan">
+
+                      <div class="row">
+                        <div class="col-xl-6">
+                          <div class="formWrap">
+                            <label class="col-xl-12" for="">{{ 'COMMON.EDUCATION_LEVEL'|translate }} : <small><i
+                                  class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                            <span class="col-xl-12">
+
+                              <ng-select class="inpField largeWidth" [items]="degreeList"
+                                formControlName="edu_degree_id" bindLabel="name" bindValue="id"
+                                (change)="getDegreeFields()">
+                              </ng-select>
+                              <div *ngIf="setUpFormSubmit &&  setUpProfileForm.controls['edu_degree_id'].value == null"
+                                class="alert alert-danger">
+                                {{ 'PROFILEEDIT.DEGREE_REQUIRED'|translate }}
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="formWrap">
+                            <label class="col-xl-12" for="">{{ 'COMMON.EDUCATION_FIELD'|translate }} : <small><i
+                                  class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                            <span class="col-xl-12">
+                              <ng-select class="inpField largeWidth" [items]="degreeFieldArrayList"
+                                formControlName="edu_field_id" bindLabel="name" bindValue="id">
+                              </ng-select>
+                              <div *ngIf="setUpFormSubmit &&  setUpProfileForm.controls['edu_field_id'].value == null"
+                                class="alert alert-danger">
+                                {{ 'PROFILEEDIT.DEGREE_FIELD_REQUIRED'|translate }}
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="formWrap">
+                            <label class="col-xl-12" for="">{{'COMMON.UNIVERSITY'| translate}} : <small><i
+                                  class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                            <span class="col-xl-12">
+                              <ng-select class="inpField largeWidth" [items]="universityList"
+                                formControlName="edu_university_id" bindLabel="name" bindValue="id">
+                              </ng-select>
+                              <div *ngIf="setUpFormSubmit &&  setUpProfileForm.controls['edu_university_id'].value == null"
+                                class="alert alert-danger">
+                                {{ 'COMMON.UNIVERSITY_REQUIRED'|translate }}
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="formWrap">
+                            <label class="col-xl-12" for="">{{'COMMON.GRADE'| translate}} : <small><i
+                                  class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                            <span class="col-xl-12">
+                              <input class="inpField largeWidth" formControlName="edu_grade" />
+                              <div *ngIf="setUpFormSubmit &&  setUpProfileForm.controls['edu_grade'].value == ''"
+                                class="alert alert-danger">
+                                {{ 'COMMON.GRADE_REQUIRED'|translate }}
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="formWrap">
+                            <label class="col-xl-12" for="">{{'COMMON.START_DATE'| translate}} : <small><i
+                                  class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                            <span class="col-xl-12">
+                              <ng-select class="inpField largeWidth" [items]="fromYears"
+                                formControlName="edu_start_year"></ng-select>
+                              <div *ngIf="setUpFormSubmit &&  setUpProfileForm.controls['edu_start_year'].value == null"
+                                class="alert alert-danger">
+                                {{ 'COMMON.YEAR_REQUIRED'|translate }}
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="formWrap">
+                            <label class="col-xl-12" for="">{{'COMMON.END_DATE'| translate}} :</label>
+                            <span class="col-xl-12">
+                              <ng-select class="inpField largeWidth" [items]="fromYears" formControlName="edu_end_year">
+                              </ng-select>
+                              
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-xl-12 text-center">
+                          <span class="btnGreen addmoreBtn"
+                            (click)="addmoreFields('education')">{{ 'COMMON.ADD_MORE' | translate }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-xs-12"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 col-xs-12"></div>
+            <div class="col-md-8 col-xs-12" *ngIf="formMoreFields.view_education.length > 0">
+              <div class="set-profile-education-show">
+                <h4>{{ 'PROFILE.EDUCATION' | translate }}</h4>
+                <div class="education-col-row">
+                  <div class="edu-col" *ngFor="let education of formMoreFields.view_education; let i=index">
+                    <span class="close" (click)="removeFields('education', i)"><i class="fa fa-times-circle"></i></span>
+                    <div class="icon"><img src="assets/images/edu_icon.png" /></div>
+                    <div class="text">
+                      
+                      <div class="field-col">
+                        <div class="field">{{ education.field.name }}</div>
+                        <div class="university">{{ education.university.name }}</div>
+                      </div>
+                      <div class="degree-col">
+                          <!-- <div class="degree">{{ education.degree.name }}</div> -->
+                          <div class="grade">{{ education.grade }}</div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-2 col-xs-12"></div>
+          </div>
+          <div class="row">
+              <div class="col-md-2 col-xs-12"></div>
+              <div class="col-md-8 col-xs-12">
+                <div class="pull-left">
+                  <button type="button" class="btnGray" name="button" (click)="setActive('prev',tab)">
+                    {{ 'PROFILEEDIT.BACK' | translate}}
+                  </button>
+                </div>
+                <div class="pull-right">
+                  <button type="button" class="btnGreen" name="button" (click)="setActive('next',tab)">
+                    {{ 'PROFILE.SAVE_NEXT_BUTTON' | translate}}
+                  </button>
+                </div>
+  
+              </div>
+              <div class="col-md-2 col-xs-12"></div>
+            </div>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab  id="experience">
+
+        <ng-template ngbTabContent>
+          <div class="row">
+            <div class="col-md-2 col-xs-12"></div>
+            <div class="col-md-8 col-xs-12 form-row-content">
+
+
+              <div class="row">
+                <div class="col-md-12 col-xs-12 text-right step-text" [translate]="'COMMON.STEP_FROM'"
+                  [translateParams]="{current:'3', total:'4'}"></div>
+                <div class="col-md-12">
+                  <div class="formWrap">
+                    <div class="col-md-12">
+                      <label class="sub-heading" for="">{{ 'PROFILE.EXPERIENCE'|translate }}</label> 
+                    </div>
+                    <div class="professional-experience-content">
+
+                          <div class="row">
+                            <div class="col-md-10 col-xs-12">
+                              <div class="row">
+
+                                <div class="col-md-6 col-xs-12">
+                                  <ng-select class="inpField largeWidth" [items]="positionList" formControlName="exp_position_id"
+                                    bindLabel="name" bindValue="id" placeholder="{{'COMMON.JOB_TITLE'| translate}}">
+                                  </ng-select>
+                                  <div *ngIf="setUpFormSubmit &&  !setUpProfileForm.controls['exp_position_id'].value"
+                                    class="alert alert-danger">
+                                    {{ 'PROFILEEDIT.POSITION_REQUIRED'|translate }}
+                                  </div>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                  <ng-select class="inpField largeWidth" [items]="companyList" formControlName="exp_company_id"
+                                    bindLabel="name" bindValue="id" placeholder="{{'COMMON.COMPANY_NAME'| translate}}">
+                                  </ng-select>
+                                  <div *ngIf="setUpFormSubmit &&  !setUpProfileForm.controls['exp_company_id'].value"
+                                    class="alert alert-danger">
+                                    {{ 'COMMON.COMPANY_REQUIRED'|translate }}
+                                  </div>
+                                </div>
+                              </div>
+                              <br/>
+                              <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                  <input class="inpField largeWidth" type="text"
+                                    placeholder="{{ 'COMMON.START_DATE' | translate }}" bsDatepicker [bsValue]="bsValue"
+                                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" formControlName="exp_start_date" required
+                                    [maxDate]="previousDay" autocomplete="off" readonly>
+                                  <div *ngIf="setUpFormSubmit &&  !setUpProfileForm.controls['exp_start_date'].value"
+                                    class="alert alert-danger">
+                                    {{ 'COMMON.STARTDATE_REQUIRED'|translate }}
+                                  </div>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                  <input class="inpField largeWidth" type="text"
+                                    placeholder="{{ 'COMMON.END_DATE' | translate }}" bsDatepicker [bsValue]="bsValue"
+                                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" formControlName="exp_end_date" required
+                                    [maxDate]="previousDay" autocomplete="off" readonly>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-2  col-xs-12 btn-content">
+                                <span class="addmoreBtn btnGreen" (click)="addmoreFields('experience')">{{ 'COMMON.ADD_MORE' | translate }}</span>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="formWrap">
+                    <div class="col-md-12">
+                      <label class="sub-heading" for="">{{ 'PROFILE.SKILLS'|translate }} : <small><i class="fa fa-asterisk"
+                            aria-hidden="true"></i></small></label>
+                    </div>
+                    <div class="professional-skills-content">
+                      
+                          <div class="row">
+                            <div class="col-md-5 col-xs-12">
+                              <ng-select class="inpField largeWidth" [items]="skillsList" formControlName="skill_id"
+                                bindLabel="name" bindValue="id" placeholder="{{'COMMON.SKILL_NAME'| translate}}">
+                              </ng-select>
+                              <div *ngIf="setUpFormSubmit &&  !setUpProfileForm.controls['skill_id'].value" class="alert alert-danger">
+                                {{ 'COMMON.SKILL_REQUIRED'|translate }}
+                              </div>
+                            </div>
+                            <div class="col-md-5 col-xs-12">
+                              <ng-select class="inpField largeWidth" [items]="levelList" formControlName="skill_level" bindLabel="name"
+                                bindValue="id" placeholder="{{'COMMON.SKILL_LEVEL'| translate}}">
+                              </ng-select>
+                              <div *ngIf="setUpFormSubmit &&  !setUpProfileForm.controls['skill_level'].value" class="alert alert-danger">
+                                {{ 'COMMON.SKILL_LEVEL_REQUIRED'|translate }}
+                              </div>
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                                <span class="addmoreBtn btnGreen" (click)="addmoreFields('skills')">{{ 'COMMON.ADD_MORE' | translate }}</span>
+                            </div>
+                          </div>
+                        
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="col-md-2 col-xs-12"></div>
+          </div>
+          <div class="row">
+              <div class="col-md-2 col-xs-12"></div>
+              <div class="col-md-8 col-xs-12" >
+                <div class="set-profile-experience-show" *ngIf="formMoreFields.view_experience.length > 0">
+                  <h4>{{ 'PROFILE.EXPERIENCE' | translate }}</h4>
+                  <div class="experience-col-row">
+                    <div class="edu-col" *ngFor="let experience of formMoreFields.view_experience; let i=index">
+                      <span class="close" (click)="removeFields('experience', i)"><i class="fa fa-times-circle"></i></span>
+                      <div class="icon"><img src="assets/images/exp_icon.png" /></div>
+                      <div class="text">
+                        
+                        <div class="field-col">
+                          <div class="field">{{ experience.position.name }}</div>
+                          <div class="university">{{ experience.company.name }}</div>
+                        </div>
+                        <div class="degree-col">
+                            <div class="">{{ experience.start_date|date:'yyyy' }} - {{ (experience.end_date)?(experience.end_date|date:'yyyy'):'' }}</div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+  
+                </div>
+                <div class="set-profile-skills-show" *ngIf="formMoreFields.view_skills.length > 0">
+                    <h4>{{ 'PROFILE.SKILLS' | translate }}</h4>
+                    <div class="skill-col-row">
+                      <div class="skill-col" *ngFor="let skill of formMoreFields.view_skills">
+                          <span class="close" (click)="removeFields('skills', i)"><i class="fa fa-times-circle"></i></span>
+                        <div class="name">{{ skill.skill.name }}</div>
+                        <div class="level">{{ skill.skill_level.name }}</div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col-md-2 col-xs-12"></div>
+            </div>
+          <div class="row">
+            <div class="col-md-2 col-xs-12"></div>
+            <div class="col-md-8 col-xs-12">
+              <div class="pull-left">
+                <button type="button" class="btnGray" name="button" (click)="setActive('prev',tab)">
+                  {{ 'PROFILEEDIT.BACK' | translate}}
+                </button>
+              </div>
+              <div class="pull-right">
+                <button type="button" class="btnGreen" name="button" (click)="setActive('next',tab)">
+                  {{ 'PROFILE.SAVE_NEXT_BUTTON' | translate}}
+                </button>
+              </div>
+
+            </div>
+            <div class="col-md-2 col-xs-12"></div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab  id="interest">
+
+        <ng-template ngbTabContent>
+
+          <div class="row">
+            <div class="col-md-2 col-xs-12"></div>
+            <div class="col-md-8 col-xs-12 form-row-content">
+              <div class="row">
+                <div class="col-md-12 col-xs-12 text-right step-text" [translate]="'COMMON.STEP_FROM'"
+                  [translateParams]="{current:'4', total:'4'}"></div>
+                <div class="col-md-12">
+                  <label class="sub-heading">{{ 'COMMON.DREAM_JOB' | translate }}</label>
+                  <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="formWrap">
+                            <span class="formSpan">
+                              <ng-select class="inpField largeWidth" [items]="dreamJobList" formControlName="dream_job_id"
+                                bindLabel="name" bindValue="id" placeholder="{{ 'COMMON.JOB_TITLE'| translate }}"></ng-select>
+                              <div *ngIf="setUpFormSubmit &&  setUpProfileForm.controls['dream_job_id'].errors"
+                                class="alert alert-danger">
+                                {{ 'COMMON.DREAM_JOB_REQUIRED'|translate }}
+                              </div>
+                            </span>
+                          </div>
+                    </div> 
+                    <div class="col-md-6 col-xs-12">
+                        <div class="formWrap">
+                    
+                            <div class="formSpan">
+                              <div>
+                                <span attr.data-placeholder="{{ 'COMMON.DREAM_JOB_LOCATION'| translate }}" contenteditable="true" type="text" class="inpField largeWidth auto-search-key" (keyup)="autoCompleteCity($event)"></span>
+                                <ul class="search-auto-items" *ngIf="searchLocationtext">
+                                  <li *ngIf="searchCityList.length == 0" >{{'NOTIFICATIONS.NO_RECORD_FOUND' |translate }}</li>
+                                  <li *ngFor="let item of searchCityList; let i =index" (click)="selectautoCompleteItem($event, item)" [class.active]="i == activeDreamLocationSearchIndex"> 
+                                    <span >{{ item.full_name }}</span>  
+                                  </li>
+                                </ul>
+                              </div>
+                              <div *ngIf="setUpFormSubmit &&  setUpProfileForm.controls['dream_job_location_id'].errors"
+                                class="alert alert-danger">
+                                {{ 'COMMON.DREAM_JOB_LOCATION_REQUIRED'|translate }}
+                              </div>
+                            </div>
+                          </div>
+                    </div> 
+                  </div>
+                  
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-md-12">
+                    <label class="sub-heading">{{ 'COMMON.DREAM_JOB_TYPE'|translate }}</label>
+                  <div class="formWrap">
+                      
+                    <div class="job-type-content">
+                      <div *ngFor="let jobType of dreamJobTypeList" class="job-type-btn"
+                        [class.active]="setUpProfileForm.controls['dream_job_type'].value == jobType.id"
+                        (click)="setDreamJobType(jobType)">
+                        {{ jobType.name }}
+                      </div>
+                      <div *ngIf="setUpFormSubmit &&  setUpProfileForm.controls['dream_job_type'].errors"
+                        class="alert alert-danger">
+                        {{ 'COMMON.DREAM_JOB_TYPE_REQUIRED'|translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-xs-12"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 col-xs-12"></div>
+            <div class="col-md-8 col-xs-12">
+              <div class="pull-left">
+                <button type="button" class="btnGray" name="button" (click)="setActive('prev',tab)">
+                  {{ 'PROFILEEDIT.BACK' | translate}}
+                </button>
+              </div>
+
+              <div class="pull-right">
+                <button type="submit" class="btnGreen" name="button">
+                  {{ 'COMMON.FINISH' | translate}}
+                </button>
+              </div>
+            </div>
+            <div class="col-md-2 col-xs-12"></div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+  </form>
+</div>
+<ng-template #levelModal let-modal>
+    <h2><span>{{ 'COMMON.SETUP_LEVEL_TITLE' | translate }}</span></h2>
+    <div class="modal-body">
+        <div class="level-container">
+            <div class="level-col" [class.active]="activeLevel=='1'" (click)="changeUserLevel('1')">
+              <div class="level-icon-content">
+                <img src="assets/images/charachter/{{userGender}}F_1.png" />
+                <span class="careery-icon"></span>
+              </div>
+              <div class="levelTxt">{{ 'COMMON.STUDENT' | translate }}</div>
+            </div>
+            <div class="level-col" [class.active]="activeLevel=='2'" (click)="changeUserLevel('2')">
+                <div class="level-icon-content">
+                  <img src="assets/images/charachter/{{userGender}}F_2.png" />
+                  <span class="careery-icon"></span>
+                </div>
+              <div class="levelTxt">{{ 'COMMON.FRESHER' | translate }}</div>
+            </div>
+            <div class="level-col" [class.active]="activeLevel=='3'" (click)="changeUserLevel('3')">
+                <div class="level-icon-content">
+                  <img src="assets/images/charachter/{{userGender}}F_3.png" />
+                  <span class="careery-icon"></span>
+                </div>
+              <div class="levelTxt">{{ 'COMMON.MID_LEVEL' | translate }}</div>
+            </div>
+            <div class="level-col" [class.active]="activeLevel=='4'" (click)="changeUserLevel('4')">
+                <div class="level-icon-content">
+                  <img src="assets/images/charachter/{{userGender}}F_4.png" />
+                  <span class="careery-icon"></span>
+                </div>
+              <div class="levelTxt">{{ 'COMMON.SENIOR' | translate }}</div>
+            </div>
+            <div class="level-col" [class.active]="activeLevel=='5'" (click)="changeUserLevel('5')">
+                <div class="level-icon-content">
+                  <img src="assets/images/charachter/{{userGender}}F_5.png" />
+                  <span class="careery-icon"></span>
+                </div>
+              <div class="levelTxt">{{ 'COMMON.EXPERT' | translate }}</div>
+            </div>
+            <div class="level-col" [class.active]="activeLevel=='6'" (click)="changeUserLevel('6')">
+                <div class="level-icon-content">
+                  <img src="assets/images/charachter/{{userGender}}F_6.png" />
+                  <span class="careery-icon"></span>
+                </div>
+              <div class="levelTxt">{{ 'COMMON.MANAGER' | translate }}</div>
+            </div>
+        </div>
+    </div>
+  </ng-template>

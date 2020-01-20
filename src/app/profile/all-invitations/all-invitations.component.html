@@ -1,0 +1,47 @@
+<div class="proEdit forAllInvitations">
+  <h2 class="withLine"><span>{{"INVITATIONS.MANAGE_ALL" | translate}}</span></h2>
+
+  <div class="inviteBlock">
+    <div class="inviteBlockTop clearfix" *ngIf="allInvitations.length > 0">
+      <div class="row">
+        <div class="col-6">
+          <p>{{"INVITATIONS.INVITATIONS" | translate}} ({{totalRows}})</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+    </div>
+
+
+    <div *ngIf="allInvitations.length > 0">
+      <div class="inviteBlockSingle" *ngFor="let invitaion of allInvitations" id="invitaion-{{invitaion.id}}">
+         <div class="inviteBlockImg" [class.boxSinglenoImg]="!invitaion?.friend_profile_pic">
+           <img *ngIf="invitaion?.friend_profile_pic" [src]="(invitaion?.friend_profile_pic) | picturepath:'users'" alt="">
+           <img  *ngIf="invitaion && !invitaion.friend_profile_pic && invitaion.friend_gender && invitaion.friend_experience_level" src="assets/images/charachter/{{ invitaion.friend_gender+'_'+invitaion.friend_experience_level }}.png" alt="">
+          </div>
+        
+        <h3>
+          <a [routerLink]= "['/',invitaion?.friend_cpp]">
+          {{invitaion.friend_full_name}}
+        </a></h3>
+        <p>{{invitaion.friend_position_local_name}}</p>
+        <h4><i class="fa fa-users" aria-hidden="true"></i> {{ invitaion.mutualFriendCount }} {{'LISTPAGES.MUTUAL_CONNECTION'|translate}}</h4>
+        <div class="inviteBlockBtn">
+          <a href="javascript:void(0);" (click)="ignoreInvitation(invitaion)">{{"INVITATIONS.IGNORE" | translate}}</a>
+          <a class="green" href="javascript:void(0);" (click)="acceptInvitation(invitaion)">{{"INVITATIONS.ACCEPT" | translate}}</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="text-center" *ngIf="allInvitations.length == 0">
+      {{"INVITATIONS.NO_RECORD_FOUND" | translate}}
+    </div>
+
+
+
+  </div>
+</div>

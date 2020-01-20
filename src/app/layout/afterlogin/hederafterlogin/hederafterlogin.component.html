@@ -1,0 +1,179 @@
+<div class="logoForMob">
+  <a [routerLink]="['/profile']" *ngIf="!setUpporfileStatus"><img src="assets/images/logo{{ (activeLang=='AR')?'-ar':'' }}.png" alt=""></a>
+  <a  *ngIf="setUpporfileStatus"><img src="assets/images/logo{{ (activeLang=='AR')?'-ar':'' }}.png" alt=""></a>
+</div>
+
+<div class="proHeader-topBar alt">
+  <div class="row" >
+    <div class="col-md-2 tabDispNone">
+      <div class="logoAlt">
+        <a [routerLink]="['/profile']" *ngIf="!setUpporfileStatus"><img src="assets/images/logo{{ (activeLang=='AR')?'-ar':'' }}.png" alt=""></a>
+        <a  *ngIf="setUpporfileStatus"><img src="assets/images/logo{{ (activeLang=='AR')?'-ar':'' }}.png" alt=""></a>
+      </div>
+    </div>
+    <div class="col-lg-5 col-md-5">
+      <div class="inpWithLogo" *ngIf="!setUpporfileStatus">
+         <form >
+        <input type="text" (keyup)="searchUser($event)" [(ngModel)]="keyword" name="searchkeyword" id="searchkeyword" autocomplete="off" value=""  placeholder="{{ 'LISTPAGES.SEARCH_PLACEHOLDER'|translate }}" >
+        <span class="absIcon"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <div class="searchResultContainer" *ngIf="keyword">
+          <span class="loader" *ngIf="loader.search"><i class="fa fa-cog fa-spin"></i></span>
+          <ul *ngIf="searchUserList">
+            <div *ngIf="searchUserList.length > 0" class="defaultScroll" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+            <li *ngFor="let user of searchUserList; let i = index" (click)="goToProfile(user)" [class.active] = "i==activeSearchIndex" >
+              <span>
+                <img  alt="" *ngIf="user?.profile_pic" [src]="user.profile_pic| picturepath:'users'">
+                <img  *ngIf="user && !user?.profile_pic && user.gender && user.experience_level" src="assets/images/charachter/{{ user.gender+'_'+user.experience_level }}.png" alt="">
+              </span>
+              <span >{{ (user.first_name + " " + user.last_name) }}</span>
+              <span >{{ (user.cpp) }}</span>
+              <strong>{{ user.position_local_name }}</strong>
+            </li>
+            </div>
+          </ul>
+        </div>
+      </form>
+      </div>
+      <!-- <p>search value: {{ keyword.value }}</p> -->
+    </div>
+    <div class="col-lg-5 col-md-7" >
+      <div class="proHeaderTopBarRight" >
+        <div style="float:left" *ngIf="!setUpporfileStatus">
+          
+        <div ngbDropdown class="proHeaderNotification" *ngIf="activeUser.name">
+          <div id="dropdownNoti-test" ngbDropdownToggle (click)="dropDownClickHandeler('I')">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <div class="notificationCount" *ngIf="totaAllInvitations" (click)="dropDownClickHandeler('I')">{{totaAllInvitations}}</div>
+          </div>
+          <div ngbDropdownMenu aria-labelledby="dropdownNoti">
+
+            <ul >
+              <li *ngIf="allInvitations.length==0"><a>{{ 'COMMON.NO_CONNECTION_REQUEST' | translate }}</a></li>
+              <li *ngFor="let invite of allInvitations"><a [routerLink]="['/invitations']" fragment="invitaion-{{invite.id}}">{{invite?.friend_full_name}} <br> <span>{{ 'NOTIFICATIONS.CS' | translate }} {{ (invite?.friend_last_active_time*1000) | amTimeAgo:true   }} {{ 'NOTIFICATIONS.AGO' | translate }}</span>
+                <div class="imgVisited">
+                  <img *ngIf="invite.friend_profile_pic" [src]="(invite.friend_profile_pic) | picturepath:'users'" alt="">
+                  <img  *ngIf="invite && !invite.friend_profile_pic && invite.friend_gender && invite.friend_experience_level" src="assets/images/charachter/{{ invite.friend_gender+'_'+invite.friend_experience_level }}.png" alt="">
+                  
+                </div> </a></li>
+
+            </ul>
+          </div>
+        </div>
+
+        <div ngbDropdown class="proHeaderNotification" *ngIf="activeUser.name">
+          <div id="dropdownNoti-test" ngbDropdownToggle (click)="dropDownClickHandeler('N')">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+            <div class="notificationCount" *ngIf="notificationCount" (click)="dropDownClickHandeler('N')">{{notificationCount}}</div>
+          </div>
+          <div ngbDropdownMenu aria-labelledby="dropdownNoti">
+            <div class="visitTotal">
+              <span>
+                <div class="imgVisitedAlt"><img src="assets/images/proimg9.jpg" alt=""></div>
+                <div class="imgVisitedAlt"><img src="assets/images/proimg11.jpg" alt=""></div>
+                <div class="imgVisitedAlt"><img src="assets/images/proimg10.jpg" alt=""></div>
+               {{totalProfileViewCount}} {{ 'PROFILE.VISIT_PROFILE'|translate }} <br> <small>{{ 'PROFILE.LAST_DAYS'|translate }}</small>
+              </span>
+            </div>
+            <ul *ngFor="let sender of senderDetails">
+
+              <li><a (click)="openMenuModal(content, sender)">{{sender?.sender.first_name}} <br> <span>{{ 'NOTIFICATIONS.'+sender?.type | translate }} {{ (sender?.posted_on*1000) | amTimeAgo:true   }} {{ 'NOTIFICATIONS.AGO' | translate }}</span>
+                <div class="imgVisited">
+                  <img *ngIf="sender?.sender.profile_pic" [src]="(sender?.sender.profile_pic) | picturepath:'users'" alt="">
+                  <img  *ngIf="sender?.sender && !sender?.sender.profile_pic && sender?.sender.gender && sender?.sender.experience_level" src="assets/images/charachter/{{ sender?.sender.gender+'_'+sender?.sender.experience_level }}.png" alt="">
+                </div> </a></li>
+
+            </ul>
+          </div>
+        </div>
+
+        <div ngbDropdown class="proHeaderNotification" *ngIf="activeUser.name">
+          <div id="dropdownNoti-message" ngbDropdownToggle (click)="dropDownClickHandeler('C')">
+            <i class="fa fa-commenting" aria-hidden="true"></i>
+            <div class="notificationCount" *ngIf="messageCount" (click)="dropDownClickHandeler('C')">{{messageCount}}</div>
+          </div>
+          <div ngbDropdownMenu aria-labelledby="dropdownNoti-message">
+
+            <ul >
+              <li *ngIf="messagesList.length==0"><a>{{ 'NOTIFICATIONS.NO_MESSAGE' | translate }}</a></li>
+              <li *ngFor="let message of messagesList"><a href="javascript:void(0)" (click)="setChatPerson(message.room)">
+                <strong>{{message.first_name + ' '+ message.last_name}}</strong>
+                <br> <span class="mess">
+                  <span *ngIf="message.type == 0">{{ message.message }}</span>
+                  <span *ngIf="message.type == 1 && message.is_image == 1"><i class="fa fa-camera-retro"></i> photo</span>
+                  <span *ngIf="message.type == 1 && !message.is_image"><i class="fa fa-file"></i> media</span>
+                </span> <span class="time"> {{ (message?.posted_on) | amTimeAgo:true   }} {{ 'NOTIFICATIONS.AGO' | translate }}</span>
+                <div class="imgVisited">
+                  <img *ngIf="message.profile_pic" [src]="(message.profile_pic) | picturepath:'users'" alt="">
+                  <img  *ngIf="message && !message.profile_pic && message.gender && message.experience_level" src="assets/images/charachter/{{ message.gender+'_'+message.experience_level }}.png" alt="">
+                </div>  </a></li>
+                <li *ngIf="messagesList.length > 0"><a class="see-all-link" [routerLink]="['/chat-histroy']">{{ 'COMMON.SEE_ALL' | translate }} <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        
+
+        <div ngbDropdown class="proHeaderImg" [class.noImg]="!profilePic" *ngIf="activeUser.name">
+          <div id="dropdownBasic1" ngbDropdownToggle>
+            <img [src]="profilePic" alt="" *ngIf="profilePic">
+            <img  *ngIf="activeUser && !profilePic && activeUser.gender && activeUser.level" src="assets/images/charachter/{{ activeUser.gender+'_'+activeUser.level }}.png" alt="">
+            <span><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+          </div>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <p>{{ activeUser.name }}</p>
+            <ul>
+              <li><a [routerLink]="['/profile']">{{ 'PROFILE.MYPROFILE' |translate }}</a></li>
+              <li><a [routerLink]="['/testimonial']">{{ 'PROFILE.TESTIMONIALS' |translate }}</a></li>
+              <li><a [routerLink]="['/change-password']">{{ 'PROFILE.CHANGEPASSWORD' |translate }}</a></li>
+              <li><a [routerLink]="['/privacy-settings']">{{ 'PROFILE.SETTINGS' |translate }}</a></li>
+
+            </ul>
+          </div>
+        </div>
+
+        
+        <div class="proHeaderLang" *ngIf="allLanguage">
+
+            <div class="langChange">
+              {{ activeLang }}
+              <span (click)="langChange((activeLang == 'EN')? 'AR':'EN')">{{ (activeLang == 'EN')? 'AR':'EN' }}</span>
+            </div>
+          
+        </div>
+        <span *ngIf="!activeUser.name">
+          <a [routerLink]="['/']" >{{ 'LANDING.SIGNUP'|translate }}</a>
+          |
+          <a [routerLink]="['/']">{{ 'LANDING.SIGNIN'|translate }}</a>
+        </span>
+
+      </div>
+        <div class="proHeaderLogout" (click)="doLogout()" *ngIf="activeUser.name"><i class="fa fa-power-off" aria-hidden="true"></i> {{ 'PROFILE.LOGOUT' | translate }}</div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- open menu model start -->
+  <ng-template #content let-modal>
+
+    <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+    <div class="modal-body">
+
+      <div class="proEdit">
+        <div class="alert alert-danger text-center" *ngIf="connectionSendError">{{ connectionSendError }}</div>
+        <div class="buttonGr text-center">
+          <div class="btn-group">
+            <a [routerLink]="['/',senderCpp]" (click)="closeViewMenuModel()" class="btnGreen alt">{{ 'PROFILE.VIEW_PROFILE'|translate }}</a>
+
+            <button type="button" class="btnGreen alt" name="button" (click)=blockAction(block_user_id)>{{ 'PROFILE.BLOCK'|translate }}</button>
+            <button type="button" class="btnGreen alt" name="button" (click)=hideNotificationAction()>{{ 'PROFILE.HIDE_NOTIFICATION'|translate }}</button>
+            <button *ngIf="displayButton.connection" type="button" class="btnGreen alt" name="button" (click)="connectionSend(block_user_id, senderCpp)"><i class="fa fa-cog fa-spin" *ngIf="loader.connect"></i> {{ 'PROFILE.CONNECT'|translate }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- open block reason model start -->
+ <!-- tell us reasone model start -->
+ <app-blocksmodal></app-blocksmodal>
+ <app-chat [config]="chatConfig"></app-chat>

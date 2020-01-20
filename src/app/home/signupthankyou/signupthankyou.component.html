@@ -1,0 +1,13 @@
+<div class="commonWrap">
+  <h2 class="withLine"><span>Thank You</span></h2>
+  <div class="wrapPagenotFound">
+    <h3 *ngIf="!resendStatus">
+    {{ 'SIGNUP_THANKYOU.MESSAGE' | translate }}
+    <a href="javascript:void(0)" (click)="resendVerification()">{{ 'SIGNUP_THANKYOU.RESEND' | translate }}</a> {{ 'SIGNUP_THANKYOU.IF_WANT' | translate }}
+    </h3>
+    <h3 *ngIf="resendStatus">
+        {{ 'SIGNUP_THANKYOU.RESND_SUCCESS_MESSAGE' | translate }}
+        <a href="javascript:void(0)" (click)="resendVerification()">{{ 'SIGNUP_THANKYOU.RESEND' | translate }}</a> {{ 'SIGNUP_THANKYOU.IF_WANT' | translate }}
+    </h3>
+  </div>
+</div>

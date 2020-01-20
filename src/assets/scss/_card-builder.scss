@@ -1,0 +1,74 @@
+.withSelect{ position: relative;
+  .selectAbs{ position: absolute; right: 0; top: -6px; background: #EEF2FF; padding: 0 0 0 30px;}
+}
+
+.cardSelect{ margin: 15px 0 0 0;
+  .singleCardSelect{ border: 1px solid #707070; padding: 12px; position: relative; overflow: hidden; height: 130px;
+    .cardTxt{ position: absolute; right: 0; bottom: 0; background: rgba(30,39,46,0.8); font-size: 24px; color: #EEF2FF; padding: 5px;}
+    &.active{ border: none; @include box-shadow(4px, 6px, 15px, rgba(0, 0, 0, 0.4));
+      background: #84ce0d;
+      background: -moz-linear-gradient(left, #84ce0d 0%, #4ac200 100%);
+      background: -webkit-linear-gradient(left, #84ce0d 0%,#4ac200 100%);
+      background: linear-gradient(to right, #84ce0d 0%,#4ac200 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200',GradientType=1 );
+      .cardTxt{ background: rgba(132,206,13,0.8);}
+    }
+    img {
+      height: 100%;
+      max-width: 220px;
+    }
+  }
+  .cardSelectRow{ margin-left: -12px; margin-right: -12px;
+    .singleCardSelect{ padding: 7px;
+      .cardTxt{ right: 0; bottom: 0; font-size: 15px; padding: 5px;}
+    }
+    li{ width: 20%; float: left; padding-left: 12px; padding-right: 12px;}
+    &.alt{ margin-left: 0; margin-right: 0;}
+    .owl-stage-outer{ padding: 12px 0px 23px 0px;}
+  }
+}
+
+
+.cardForm{ margin: 45px 0 0 0;
+  .formWrap.alt{ margin-bottom: 8px;}
+}
+.uploadView{ background: rgba(189,204,212,0.5); padding: 15px; height: 230px; margin: 25px 0 0 0;
+   img{ width: 100%; height: auto;}
+}
+
+.paymentOpt{ background: rbga(245,246,250,0.3); border-radius: 8px; padding: 25px; @include box-shadow(2px, 2px, 8px, rgba(0, 0, 0, 0.2));
+   .submBtn{ border: 1px solid #1E272E; font-size: 14px; color: #1E272E; padding: 5px 15px; background: none; margin: 0 10px; cursor: pointer; min-width: 100px;
+     &.black{ background: #1E272E; color: #EEF2FF;}
+   }
+}
+
+.carouselNext{
+  .owl-nav{ text-align: right; padding: 20px 0 0 0;
+    button{ width: 32px; height: 32px; border: 1px solid #707070 !important; color: #3E4E59 !important; position: relative; font-size: 15px !important;
+      &.owl-next{ margin-left: 10px;
+        &:before{content: '\f054'; font-family: FontAwesome; position: absolute; left: 10px; top: 5px;}
+      }
+      &.owl-prev{
+        &:before{ content: '\f053'; font-family: FontAwesome; position: absolute; left: 10px; top: 5px;}
+      }
+      span{ display: none;}
+      &:focus{ outline: none;}
+      &:hover{ color: #FFF !important; background: #84ce0d; border: 1px solid #4ac200 !important;
+      background: -moz-linear-gradient(left, #84ce0d 0%, #4ac200 100%);
+      background: -webkit-linear-gradient(left, #84ce0d 0%,#4ac200 100%);
+      background: linear-gradient(to right, #84ce0d 0%,#4ac200 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200',GradientType=1 );}
+    }
+  }
+}
+
+
+.cv-action-btn{
+  border: none; font-size: 16px; color: #EEF2FF; text-transform: uppercase; padding: 4px 25px; cursor: pointer; @include box-shadow(4px, 4px, 8px, rgba(0, 0, 5px, 0.1)); display: inline-block; margin: 0 8px;
+    background: #84ce0d;
+    background: -moz-linear-gradient(left, #84ce0d 0%, #4ac200 100%);
+    background: -webkit-linear-gradient(left, #84ce0d 0%,#4ac200 100%);
+    background: linear-gradient(to right, #84ce0d 0%,#4ac200 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200',GradientType=1 );
+    &:hover{ color: #FFF;}
+}

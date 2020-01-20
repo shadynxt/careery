@@ -1,0 +1,54 @@
+<div class="commonWrap">
+  <!-- <h2 class="withLine"><span>{{ 'COMMON.VERIFICATION' | translate }}</span></h2> -->
+  <div class="">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="reset-password-container">
+          <div class="">
+            {{ 'COMMON.VERIFICATION_MSG'| translate }}
+          </div>
+          <div class="">
+            <form class="form-horizontal" [formGroup]="verificationForm" (submit)="verificationAction()" novalidate>
+              <div class="alert alert-success text-center" *ngIf="successMessage">{{successMessage}}</div>
+              <div class="alert alert-danger text-center" *ngIf="errorMessage">{{errorMessage}}</div>
+
+              <div class="formWrap">
+                <label for="password">{{'COMMON.VERIFICATION_CODE' | translate}} <small><i
+                      class="fa fa-asterisk landing-req-sign" aria-hidden="true"></i></small>: 
+                      
+                  <span>
+                      <i class="fa fa-cog fa-spin" *ngIf="loader.resend"></i>
+                      <a (click)="resendVerificationCode()" href="javascript:void(0)">{{ 'SIGNUP_THANKYOU.RESEND'| translate }}</a>
+                  </span>
+                </label>
+                <input class="txtField" type="text" name="code" id="code" formControlName="code"
+                  placeholder="" required>
+                <div
+                  *ngIf="verificationForm.controls['code'].invalid && (verificationForm.controls['code'].dirty || verificationForm.controls['code'].touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="verificationForm.controls['code'].errors.required">
+                    {{ 'COMMON.CODE_REQUIRED' | translate }}</div>
+                  <div *ngIf="verificationForm.controls['code'].hasError('whitespace')">
+                    {{ 'LANDING.INVALID'| translate }}</div>
+
+                  </div>
+                  
+              </div>
+              <div class="formWrap">
+
+                <button class="btnGreen" type="submit"
+                  [disabled]="loader.verification || verificationForm.pristine || verificationForm.invalid">
+                  <span *ngIf="loader.verification" class="loader-p"><i class="fa fa-cog fa-spin"></i></span>
+                  {{'CHANGE_PASSWORD.SUBMIT' | translate}}</button>
+
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

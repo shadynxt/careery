@@ -1,0 +1,401 @@
+    <div class="row align-items-center loginSearch clearfix">
+      <div class="loginSearchLeft col-lg-5">
+        <ngb-tabset class="forLogin" (tabChange)="changeTabEvent($event)">
+          <ngb-tab>
+            <ng-template ngbTabTitle>{{ 'LANDING.SIGNUP' | translate }}</ng-template>
+            <ng-template ngbTabContent>
+              <form [formGroup]="registerForm" novalidate >
+                <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+                <div class="row">
+                  <!-- <div class="alert alert-success" *ngIf="successMessage">{{successMessage}}</div> -->
+                  <div class="col-md-6">
+                    <div class="formWrap">
+                      <label for="">{{ 'LANDING.FIRST_NAME' | translate }}<small><i
+                            class="fa fa-asterisk landing-req-sign" aria-hidden="true"></i></small> :</label>
+                      <input class="txtField" type="text" name="first_name"
+                        placeholder="{{ 'LANDING.FIRST_NAME' | translate }}" id="first_name"
+                        formControlName="first_name" pattern="[a-zA-Z ]*" required>
+                      <div
+                        *ngIf="registerFormSubmitStatus && registerForm.controls['first_name'].errors"
+                        class="alert alert-danger">
+                        <div *ngIf="registerForm.controls['first_name'].errors.required">
+                          {{ 'LANDING.FIRST_NAME_REQUIRED'| translate }}</div>
+                        <div *ngIf="registerForm.controls['first_name'].hasError('whitespace')">
+                          {{ 'LANDING.INVALID'| translate }}</div>
+                        <div *ngIf="registerForm.controls['first_name'].errors.pattern">
+                          {{ 'LANDING.INVALID'| translate }}</div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="formWrap">
+                      <label for="">{{ 'LANDING.LAST_NAME' | translate }}<small><i
+                            class="fa fa-asterisk landing-req-sign" aria-hidden="true"></i></small> :</label>
+                      <input class="txtField" type="text" name="last_name" id="last_name"
+                        placeholder="{{ 'LANDING.LAST_NAME' | translate }}" formControlName="last_name"
+                        pattern="[a-zA-Z ]*" required>
+                      <div
+                        *ngIf="registerFormSubmitStatus &&  registerForm.controls['last_name'].errors"
+                        class="alert alert-danger">
+                        <div *ngIf="registerForm.controls['last_name'].errors.required">
+                          {{ 'LANDING.LAST_NAME_REQUIRED'| translate }}</div>
+                        <div *ngIf="registerForm.controls['last_name'].hasError('whitespace')">
+                          {{ 'LANDING.INVALID'| translate }}</div>
+                        <div *ngIf="registerForm.controls['last_name'].errors.pattern">
+                          {{ 'LANDING.INVALID'| translate }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="formWrap" *ngIf="registerBy=='email'">
+                  <label for="">{{ 'LANDING.EMAIL' | translate }}<small><i class="fa fa-asterisk landing-req-sign"
+                        aria-hidden="true"></i></small> :</label>
+                  <input class="txtField" type="email" name="email" id="email"
+                    placeholder="{{ 'LANDING.EMAIL' | translate }}" formControlName="email" required>
+                  <div
+                    *ngIf="registerFormSubmitStatus && registerForm.controls['email'].errors"
+                    class="alert alert-danger">
+                    <div *ngIf="  registerForm.controls['email'].errors.required">
+                      {{ 'LANDING.EMAIL_REQUIRED'| translate }}
+                    </div>
+                    <div *ngIf="registerForm.controls['email'].errors.email">{{ 'LANDING.EMAIL_VALID'| translate }}
+                    </div>
+                  </div>
+                  <a href="javascript:void(0)" class="pull-right" (click)="setRegisterBy('phone')">{{ 'COMMON.USE_PHONE_NO' | translate }}</a>
+                </div>
+                <div class="formWrap" *ngIf="registerBy=='phone'">
+                    <label for="">{{ 'LANDING.MOBILE' | translate }}<small><i class="fa fa-asterisk landing-req-sign"
+                          aria-hidden="true"></i></small> :</label>
+                    <div class="txtField landing-mobile-content">
+                        <ng-select  [items]="countryCodes" bindLabel="code"
+                        bindValue="code" [clearable]="false" [searchable]="false" formControlName="mobile_code"
+                         >
+                         <ng-template ng-label-tmp let-item="item">
+                          <img height="15" width="15" [src]="item.flag | picturepath:'flag'"/>&nbsp;
+                          <b>{{item.code}}</b>
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item" let-index="index">
+                              <img height="15" width="15" [src]="item.flag | picturepath:'flag'"/>&nbsp;
+                              <b>{{item.code}}</b>
+                          </ng-template>
+                        </ng-select>
+                      <input appOnlynumaricinput pattern="\d*"  name="mobile_no" formControlName="mobile_no"
+                        placeholder="e.g. 104545454" minlength=10 maxlength=10 required>
+                    </div>
+  
+                    <div
+                      *ngIf="registerFormSubmitStatus &&  registerForm.controls['mobile_no'].errors"
+                      class="alert alert-danger">
+                      <div *ngIf="registerForm.controls['mobile_no'].errors.required">
+                        {{ 'LANDING.MOBILE_REQUIRED'| translate }}</div>
+                      <div *ngIf="registerForm.controls['mobile_no'].errors.minlength">
+                        {{ 'LANDING.MOBILE_MIN_LENGTH'| translate }}</div>
+                      <div *ngIf="registerForm.controls['mobile_no'].errors.maxlength">
+                        {{ 'LANDING.MOBILE_MAX_LENGTH'| translate }}</div>
+                      <div *ngIf="registerForm.controls['mobile_no'].errors.pattern">
+                        {{ 'LANDING.MOBILE_PATTERN'| translate }}</div>
+                    </div>
+                    <a href="javascript:void(0)" class="pull-right" (click)="setRegisterBy('email')">{{ 'COMMON.USE_EMAIL' | translate }}</a>
+                  </div>
+                <div class="formWrap">
+                  <label for="">{{ 'LANDING.PASSWORD' | translate }}<small><i class="fa fa-asterisk landing-req-sign"
+                        aria-hidden="true"></i></small> :</label> 
+                  <input class="txtField" formControlName="password" type="password" name="" value=""
+                    placeholder="{{ 'LANDING.PASSWORD' | translate }}" required>
+
+                  <!-- <input class="txtField" type="password" [(ngModel)]="userdata.confirmpassword" name="confirmpassword" placeholder="Confirm Password" class="form-control" required #confirmpassword="ngModel" pattern="{{ password.value }}" />
+                     <div *ngIf=" confirmpassword.invalid && (myform.submitted || confirmpassword.touched)" class="alert alert-danger">
+                      <div *ngIf="confirmpassword.errors.required"> Confirm password is required. </div>
+                      <div *ngIf="confirmpassword.errors.pattern"> Password & Confirm Password does not match.</div>
+                    </div>-->
+                    
+
+                  <div
+                    *ngIf="registerFormSubmitStatus &&  registerForm.controls['password'].errors"
+                    class="alert alert-danger">
+                   
+                    <div *ngIf="registerForm.controls['password'].errors.required">
+                      {{ 'LANDING.PASSWORD_REQUIRED'| translate }}</div>
+                      <div *ngIf="registerForm.controls['password'].errors.pattern">
+                        {{ 'LANDING.PASSWORD_PATTERN'| translate }}</div>
+                    <div *ngIf="registerForm.controls['password'].hasError('whitespace')">
+                      {{ 'LANDING.INVALID'| translate }}</div>
+
+
+                      
+                      
+                  </div>
+
+                </div>
+
+                
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="formWrap">
+                      <label for="">{{ 'LANDING.DATE_OF_BIRTH' | translate }}<small><i
+                            class="fa fa-asterisk landing-req-sign" aria-hidden="true"></i></small> :</label>
+                      <input class="txtField" type="text" name="dob" id="dob"
+                        placeholder="{{ 'LANDING.DATE_OF_BIRTH' | translate }}" #dp="bsDatepicker" bsDatepicker
+                        [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" formControlName="dob"
+                        required [maxDate]="previousDay" autocomplete="off" readonly>
+
+                      <div
+                        *ngIf="registerFormSubmitStatus &&  registerForm.controls['dob'].errors"
+                        class="alert alert-danger">
+                        <div *ngIf="registerForm.controls['dob'].errors.required">
+                          {{ 'LANDING.DOB_REQUIRED'| translate }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="formWrap">
+                      <label for="gender">{{ 'LANDING.GENDER' | translate }}<small><i
+                            class="fa fa-asterisk landing-req-sign" aria-hidden="true"></i></small> :</label>
+                      <select class="txtField" name="gender" id="gender" formControlName="gender" required>
+                        <option value="">{{ 'LANDING.GENDER' | translate }}</option>
+                        <option value="M">{{ 'LANDING.GENDER_MALE' | translate }}</option>
+                        <option value="F">{{ 'LANDING.GENDER_FEMALE' | translate }}</option>
+                      </select>
+
+                      <div
+                        *ngIf="registerFormSubmitStatus &&  registerForm.controls['gender'].errors"
+                        class="alert alert-danger">
+                        <div *ngIf="registerForm.controls['gender'].errors.required">
+                          {{ 'LANDING.GENDER_REQUIRED'| translate }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="formWrap">
+                  <label class="customCheck nobG"> {{ 'LANDING.I_AGREE' | translate }}
+                    <input type="checkbox" name="terms" value="terms" formControlName="terms">
+                    <span class="checkmark"></span>
+                    
+                  </label>
+                  
+                  <a [routerLink]="['/page/terms-and-agreements']">{{ 'LANDING.TERMS_AND_CONDITIONS' | translate }}</a>
+                </div>
+                <div class="formWrap">
+                  <!--  <input type="submit" name="" [disabled]="registerForm.pristine || registerForm.invalid" value="{{ 'LANDING.JOIN_NOW' | translate }}"> -->
+                  <button type="submit" (click)="registerAction()">
+                    <i class="fa fa-cog fa-spin" *ngIf="loader.signup"></i>
+                    {{ 'LANDING.JOIN_NOW' | translate }}</button>
+                </div>
+                {{ registerForm.error }}
+              </form>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab (click)="forgetpasswordWrap=false">
+            <ng-template ngbTabTitle>{{ 'LANDING.SIGNIN' | translate }}</ng-template>
+            <ng-template ngbTabContent>
+              <div class="login-wrap" *ngIf="!forgetpasswordWrap">
+                <form [formGroup]="loginForm" novalidate >
+                  <div class="alert alert-danger" *ngIf="errorMessageLogin">
+                    {{errorMessageLogin}}
+                    <span *ngIf="resendStatus"><a href="javascript:void(0)" (click)="resendVerification()">{{ 'SIGNUP_THANKYOU.RESEND' | translate }}</a> {{ 'SIGNUP_THANKYOU.IF_WANT' | translate }}</span>
+                  </div>
+
+                  <div class="formWrap" >
+                    <label for="">{{ 'LANDING.EMAIL' | translate }} / {{ 'LANDING.MOBILE' | translate }} :</label>
+                    <input class="txtField" type="text" name="" value=""
+                      placeholder="{{ 'LANDING.EMAIL' | translate }} / {{ 'LANDING.MOBILE' | translate }}" formControlName="credential" autocomplete="off"
+                      required>
+                    <div
+                      *ngIf="loginFormSubmitStatus && loginForm.controls['credential'].errors"
+                      class="alert alert-danger">
+                      <div *ngIf="loginForm.controls['credential'].errors.required">
+                        {{ 'LANDING.CREDENTIAL_REQUIRED' | translate }}</div>
+                    </div>
+                    
+                  </div>
+                  <!-- <div class="formWrap" *ngIf="loginBy=='mobile'">
+                    <label for="">{{ 'LANDING.MOBILE' | translate }} :</label>
+                    <div class="txtField landing-mobile-content">
+
+                        <ng-select  [items]="countryCodes" bindLabel="code"
+                        bindValue="code" [clearable]="false" [searchable]="false" formControlName="mobile_code"
+                         >
+                         <ng-template ng-label-tmp let-item="item">
+                          <img height="15" width="15" [src]="item.flag | picturepath:'flag'"/>&nbsp;
+                          <b>{{item.code}}</b>
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item" let-index="index">
+                              <img height="15" width="15" [src]="item.flag | picturepath:'flag'"/>&nbsp;
+                              <b>{{item.code}}</b>
+                          </ng-template>
+                        </ng-select>
+                      <input appOnlynumaricinput  pattern="\d*" maxlength="10" name="" value=""
+                        placeholder="{{ 'LANDING.MOBILE' | translate }}" formControlName="credential" autocomplete="off"
+                        required>
+                    </div>
+                    <div
+                      *ngIf="loginFormSubmitStatus && loginForm.controls['credential'].errors"
+                      class="alert alert-danger">
+                      <div *ngIf="loginForm.controls['credential'].errors.required">
+                        {{ 'LANDING.MOBILE_REQUIRED' | translate }}</div>
+                        <div *ngIf="loginForm.controls['credential'].errors.minlength">
+                            {{ 'LANDING.MOBILE_MIN_LENGTH'| translate }}</div>
+                          <div *ngIf="loginForm.controls['credential'].errors.maxlength">
+                            {{ 'LANDING.MOBILE_MAX_LENGTH'| translate }}</div>
+                          <div *ngIf="loginForm.controls['credential'].errors.pattern">
+                            {{ 'LANDING.MOBILE_PATTERN'| translate }}</div>
+                      
+                    </div>
+                    <a href="javascript:void(0)" class="pull-right" (click)="setLoginBy('email')">{{ 'COMMON.USE_EMAIL' | translate }}</a>
+                    <div class="clearfix"></div>
+                  </div> -->
+
+                  <div class="formWrap">
+                    <label for="">{{ 'LANDING.PASSWORD' | translate }} :</label>
+                    <input class="txtField" type="password" name="" value=""
+                      placeholder="{{ 'LANDING.PASSWORD' | translate }}" formControlName="password" autocomplete="off"
+                      required>
+                    <div
+                      *ngIf="loginFormSubmitStatus && loginForm.controls['password'].errors"
+                      class="alert alert-danger">
+                      <div *ngIf="loginForm.controls['password'].errors.required">
+                        {{ 'LANDING.PASSWORD_REQUIRED' | translate }}
+                      </div>
+                      <div *ngIf="loginForm.controls['password'].hasError('whitespace')">
+                        {{ 'LANDING.INVALID'| translate }}</div>
+                    </div>
+                  </div>
+                  <div class="formWrap">
+                    <label class="customCheck nobG">
+                      {{ 'COMMON.REMEMBER_ME' | translate }}
+                      <input type="checkbox" name="remember" id="remember" formControlName="remember"
+                        [checked]="rememberMe">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+
+                  <div class="formWrap">
+                    <button type="submit" (click)="loginAction()"  name="">
+                      <i class="fa fa-cog fa-spin" *ngIf="loader.login"></i>
+                      {{ 'LANDING.LOGIN' | translate }}</button>
+
+                  </div>
+                </form>
+                <div class="formWrap">
+                  <a class="fgPass" href="javascript:void(0)" (click)="forgetpasswordWrap=true"><i
+                      class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    {{ 'LANDING.FORGOT_PASSWORD' | translate }} </a>
+                </div>
+              </div>
+              <div class="forget-pass-wrap" *ngIf="forgetpasswordWrap">
+                <div>
+                  <div class="alert alert-success" *ngIf="forgetpasswordWrap==true && successMessage">
+                    {{ successMessage }}</div>
+                  <div class="alert alert-danger" *ngIf="forgetpasswordWrap==true && errorMessage">{{ errorMessage }}
+                  </div>
+                </div>
+                <form [formGroup]="forgotPasswordForm" novalidate (submit)="forgotPasswordAction()">
+                  <div class="formWrap">
+                    <label for="">{{ 'LANDING.EMAIL' | translate }} :</label>
+                    <input class="txtField" type="email" name="forgotEmail" value=""
+                      placeholder="{{ 'LANDING.EMAIL' | translate }}" formControlName="forgotEmail" autocomplete="off"
+                      required>
+                    <div
+                      *ngIf="forgotPasswordForm.controls['forgotEmail'].invalid && (forgotPasswordForm.controls['forgotEmail'].dirty || forgotPasswordForm.controls['forgotEmail'].touched)"
+                      class="alert alert-danger">
+                      <div *ngIf="forgotPasswordForm.controls['forgotEmail'].errors.required">
+                        {{ 'LANDING.EMAIL_REQUIRED' | translate }}</div>
+                      <div *ngIf="forgotPasswordForm.controls['forgotEmail'].errors.email">
+                        {{ 'LANDING.EMAIL_VALID' | translate }}</div>
+                    </div>
+                  </div>
+
+
+                  <div class="formWrap">
+                    <button class="btnGreen" type="submit"
+                      [disabled]="loader.forgot || forgotPasswordForm.pristine || forgotPasswordForm.invalid" name=""><i
+                        class="fa fa-cog fa-spin"
+                        *ngIf="loader.forgot"></i>{{ 'LANDING.SEND_PASSWORD_RESET_LINK' | translate }}</button>
+                  </div>
+
+                </form>
+                <div class="formWrap">
+                  <a class="fgPass" href="javascript:void(0)" (click)="forgetpasswordWrap=false"><i
+                      class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    {{ 'LANDING.BACK_TO_LOGIN' | translate }} </a>
+                </div>
+              </div>
+
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+      <!-- <div class="loginSearchRight col-lg-7">
+      <div class="searchBox align-self-center">
+         <input type="text" name="searchkeyword" value=""  [(ngModel)]="keyword" placeholder="{{ 'LANDING.SEARCH_PLACEHOLDER' | translate }}" autocomplete="off">
+         <span class="faIcon"><i class="fa fa-search" aria-hidden="true"></i></span>
+         <input type="submit" name="" value="{{ 'LANDING.SEARCH' | translate }}">
+      </div>
+    </div> -->
+      <div class="loginSearchRight col-lg-7">
+        <div class="searchBox align-self-center">
+          <input type="text" name="searchkeyword" value="" (keyup)="searchUser($event)" [(ngModel)]="keyword"
+            placeholder="{{ 'LANDING.SEARCH_PLACEHOLDER' | translate }}" autocomplete="off">
+          <span class="faIcon"><i class="fa fa-search" aria-hidden="true"></i></span>
+          <input type="submit" name="" value="{{ 'LANDING.SEARCH' | translate }}">
+          <div class="searchResultContainer" *ngIf="keyword">
+            <span class="loader" *ngIf="loader.search"><i class="fa fa-cog fa-spin"></i></span>
+            <ul *ngIf="searchUserList">
+              <div *ngIf="searchUserList.length > 0" class="defaultScroll" malihu-scrollbar
+                [scrollbarOptions]="scrollbarOptions">
+                <li *ngFor="let user of searchUserList; let i = index" (click)="goToProfile(user)"
+                  [class.active]="i==activeSearchIndex">
+                  <span>
+                    <img *ngIf="user && user.profile_pic" alt="" [src]="user.profile_pic| picturepath:'users'">
+                    
+                    <img  *ngIf="user && !user.profile_pic && user.gender && user.experience_level" src="assets/images/charachter/{{ user.gender+'_'+user.experience_level }}.png" alt="">
+                  </span>
+                  <span>{{ (user.first_name + " " + user.last_name) }}</span>
+                  <span>{{ (user.cpp) }}</span>
+                  <strong>{{ user.position_local_name }}</strong>
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <!-- open terms and condition model -->
+
+    <ng-template #termsconditionModal let-modal>
+      <h2><span>{{page_name}}</span></h2>
+      <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+      <div class="modal-body">
+        <div [innerHTML]="page_content | sanitizeHtml"></div>
+
+        <form [formGroup]="termsForm" novalidate (submit)="termsAction()">
+          <div class="proEdit">
+            <div class="formWrap mergTop">
+              <label class="customCheck nobG"> {{ 'LANDING.TERMS_AND_CONDITIONS' | translate }}
+                <input type="checkbox" name="termsCondition" value="termsCondition" formControlName="termsCondition">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div class="buttonGr">
+              <button type="submit" class="btnGreen"
+                [disabled]="termsForm.pristine || termsForm.invalid">{{ 'LANDING.ACCEPT' | translate }}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+
+    <!-- ASK FOR SIGN UP -->
+    <ng-template #askForSignUpModal let-modal>
+      <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+      <div class="modal-body" style="text-align:center">
+        {{'LANDING.ASK_FOR_SIGNUP'|translate}}
+      </div>
+    </ng-template>

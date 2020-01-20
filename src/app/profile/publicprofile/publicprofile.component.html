@@ -1,0 +1,588 @@
+<div class="profileMain forPublicProfile">
+  <div class="row">
+
+    <div class="col-xl-3 col-lg-4">
+      <div class="profileDesc">
+        <div class="profileMainBox">
+          <span ngbDropdown class="publicDrop" *ngIf="activeUserId">
+            <i class="fa fa-ellipsis-v" aria-hidden="true" id="dropPublic" ngbDropdownToggle></i>
+            <div ngbDropdownMenu aria-labelledby="dropPublic">
+              <ul>
+                <li><a (click)="openSendMessageModal(messageSendModal)">{{ 'PROFILE.MESSAGE' |translate }}</a></li>
+                <li><a (click)="connectionSend(userData.id)">{{ 'PROFILE.CONTACT' |translate }}</a></li>
+                <li *ngIf="display.block"><a (click)="openBlock()">{{ 'BLOCKS.BLOCK' |translate }}</a></li>
+                <li *ngIf="!display.block"><a (click)="unblock()">{{ 'BLOCKS.UNBLOCK' |translate }}</a></li>
+              </ul>
+            </div>
+          </span>
+          <div class="profileDescImg alt">
+            <img *ngIf="profilePic" [src]="profilePic" alt="">
+            <img  *ngIf="userData && !profilePic && userData.gender && userData.experience_level" src="assets/images/charachter/{{ userData.gender+'_'+userData.experience_level }}.png" alt="">
+          </div>
+          <h2>{{userData.first_name | titlecase}} {{userData.last_name | titlecase}}</h2>
+          <h3 *ngIf="userData.position && userData.position.details">{{ userData?.position?.details[0].name }}</h3>
+          <h3>CPP : {{ userData?.cpp }}</h3>
+          <div class="profileAward">
+            <span *ngIf="display.cv"
+                (click)="gotToCV(userData.cv[0])"><i class="fa fa-eye" aria-hidden="true"></i> {{"CV.PREVIEW_CV"| translate}}</span>
+            <span *ngIf="profile_video_link" (click)="openVideoModal()"><i class="fa fa-forward" aria-hidden="true"></i> {{"COMMON.MY_VIDEO"| translate}}</span>
+
+            
+
+          </div>
+          <div class="socialProfile">
+            <ul ngbDropdown>
+              <li>
+                <a *ngIf="userData.dribbble_link" href="{{userData.dribbble_link}}" target="_blank"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                <a *ngIf="!userData.dribbble_link" [routerLink]="['/', userData.cpp]"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a *ngIf="userData.facebook_link" href="{{userData.facebook_link}}" target="_blank"><i class="fa fa-facebook"
+                    aria-hidden="true"></i></a>
+                <a *ngIf="!userData.facebook_link" [routerLink]="['/', userData.cpp]"><i class="fa fa-facebook"
+                      aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a *ngIf="userData.twitter_link" href="{{userData.twitter_link}}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a *ngIf="!userData.twitter_link" [routerLink]="['/', userData.cpp]"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+              </li>
+              <li id="dropdownBasic2" ngbDropdownToggle><a><i class="fa fa-share-alt" aria-hidden="true"></i></a></li>
+              <!--  <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <ul>
+                  <li><a class="facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> <span>Facebook</span></li>
+                  <li><a class="twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> <span>Twitter</span></li>
+                  <li><a class="whatsapp" href="#"><i class="fa fa-whatsapp" aria-hidden="true"></i></a> <span>WhatsApp</span></li>
+                  <li><a href="#"><i class="fa fa-link" aria-hidden="true"></i></a> <span>Copy Link</span></li>
+                </ul>
+              </div> -->
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <ul>
+                  <li>
+                    <share-button button="facebook"></share-button><span>Facebook</span>
+                  </li>
+                  <li>
+                    <share-button button="twitter"></share-button><span>Twitter</span>
+                  </li>
+                  <li>
+                    <share-button button="whatsapp"></share-button><span>WhatsApp</span>
+                  </li>
+                  <li><a href="javascript:void(0)" (click)="copyLink()"><i class="fa fa-link" aria-hidden="true"></i></a>
+                    <span>{{ 'PROFILE.COPY_LINK' |translate }}</span></li>
+                </ul>
+              </div>
+
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="profileCarousal" >
+        <div class="profileMainBox">
+          <div class="text-center" *ngIf="loader.card">
+            <i class="fa fa-cog fa-spin"></i><br />
+            <p>{{ 'CARD.PLEASE_WAIT' | translate }}</p>
+          </div>
+          <div >
+
+            <owl-carousel #cardOwl [options]="mySlideOptions" [carouselClasses]="['owl-theme', 'sliding']">
+                <div class="item" *ngIf="userCardList.length == 0">
+                    <div class="iconDown">
+                        <a href="javascript:void(0)"  (click)="downloadDefaultCardFile()"> <i class="fa fa-download"
+                            aria-hidden="true"></i></a>
+                        
+                      </div>
+                    <section class="sheet">
+                        <div class="card-left">
+                          <div class="card-profile">
+                              <img *ngIf="profilePic" [src]="profilePic" alt="">
+                              <img  *ngIf="userData && !profilePic && userData.gender && userData.experience_level" src="assets/images/charachter/{{ userData.gender+'_'+userData.experience_level }}.png" alt="">
+                          </div>
+                          <div class="card-profile-txt">
+                            <h2>{{userData.first_name | titlecase}} {{userData.last_name | titlecase}}</h2>
+                            <h5>{{ userData?.position?.details[0].name }}</h5>
+                          </div>
+                          <ul class="card-social">
+                            <li><span class="hh"><img src="assets/images/card_assets/images/phone.svg" alt=""></span> {{userData.mobile_code+'-'+userData.mobile_no}}"</li>
+                            <li><span class="hh"><img src="assets/images/card_assets/images/location.svg" alt=""></span> {{ userData.address + ' ' + userData.city+', ' + userData.country }}</li>
+                            <li class="mail-icon"><span class="hh"><img src="assets/images/card_assets/images/email.svg" alt=""></span> {{ userData.email }}</li>
+                          </ul>
+                        </div>
+                      
+                        <div class="card-right">
+                          <div class="card-right-img"><img src="assets/images/card_assets/images/card-logo.svg" alt=""></div>
+                          <div class="card-right-cont">
+                            <div class="code-img"><qrcode #cardQrCode [qrdata]="qrCodeUrl+'/'+userData?.cpp" [size]="50" [level]="'M'" ></qrcode></div>
+                            <h5>CPP : {{ userData?.cpp }}</h5>
+                            <div class="gntby">
+                              <ul>
+                                <li>Generated by</li>
+                                <li><img src="assets/images/card_assets/images/foot-logo.png" alt=""></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                </div>
+              <div class="item" *ngFor="let card of userCardList">
+                <div class="iconDown"><a class="anchor-common" (click)="gotToCard(card)" *ngIf="display.card"> <i class="fa fa-download"
+                      aria-hidden="true"></i></a></div>
+                <div *ngIf="card.details">
+                  <div class="profileSingle">
+                    <div class="profileDescImg"><img *ngIf="card.details.photo" [src]="card.details.photo" alt=""></div>
+                    <h2>{{ card.details.name  }}</h2>
+                    <h3>{{ card.details.position }}</h3>
+                  </div>
+                  <div class="proLocation">
+                    <p><span><i class="fa fa-mobile" aria-hidden="true"></i></span> {{ card.details.mobile }}</p>
+                    <p><span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                      {{ card.details.city_name+', '+card.details.country_name }}</p>
+                    <div class="qrCode"><img *ngIf="card.details.qrcode" [src]="card.details.qrcode" alt=""></div>
+                  </div>
+                </div>
+                <div *ngIf="!card.details && card.file">
+                  <img [src]="card.file| picturepath:'card'" />
+                </div>
+              </div>
+              <div class="item" >
+                  <!-- <div class="iconDown">
+                    <a href="javascript:void(0)"  (click)="downloadDefaultCardFile()"> <i class="fa fa-download"
+                        aria-hidden="true"></i></a>
+                    
+                  </div> -->
+                  <img src="assets/images/card-back.png" />
+              </div>
+            </owl-carousel>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cvReview">
+        <div class="profileMainBox">
+          <div class="row align-items-center">
+            <div class="col-lg-6 withRightBdr">
+              <!-- <div class="progressWrap">
+              <circle-progress [percent]="userData?.points" [titleFontSize]="40" [showSubtitle]="false" [showUnits]="false" [outerStrokeColor]="'#707070'" [innerStrokeColor]="'#D4D4D4'" [radius]="100" [backgroundPadding]="7" [outerStrokeWidth]="5" [space]="-5" [innerStrokeWidth]="5" [animation]="true" [animationDuration]="1000"></circle-progress>
+              <div class="progressPoint">Points</div>
+            </div>
+            <p>Knowledge Meter</p> -->
+              <div class="pointProgress">
+                <div class="forPoints"><span>{{ points }} {{ 'PROFILE.POINTS' | translate }}</span></div>
+                <div class="forRank"><span>{{ 'PROFILE.YOUR_RANK' | translate }} <br> {{ rank }}</span></div>
+              </div>
+              <p *ngIf="loader.stat" align="center"><i class="fa fa-cog fa-spin" aria-hidden="true"></i></p>
+              <p class="tooltip-container" (click)="openPointModal(pointsModal)"> {{ 'PROFILE.KNOWLEDGE_METER' |translate }} 
+                <i class="fa fa-info-circle meater-tooltip"></i>
+                <span class="tooltip-text">{{ siteSettings }}</span>
+              </p>
+            </div>
+            <div class="col-lg-6">
+              
+              <div class="cppNum" (click)="connectionSend(userData.id)">
+                  <span><i class="fa fa-users" aria-hidden="true"></i>
+                &nbsp;{{connection_count}} <i *ngIf="loader.stat" class="fa fa-cog fa-spin" aria-hidden="true"></i>
+              </span>
+                </div>
+                <a class="cppPreview" href="javascript:void(0)" (click)="recommendationSend()"><i class="fa fa-trophy" aria-hidden="true"></i> {{recommendations}} <i
+                  *ngIf="loader.stat" class="fa fa-cog fa-spin" aria-hidden="true"></i></a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-xl-9 col-lg-8">
+      <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
+      <div class="alert alert-success" *ngIf="successMsg">{{successMsg}}</div>
+      <div class="formTabs alt">
+        <ngb-tabset>
+          <ngb-tab *ngIf="display.personalInfo">
+            <ng-template ngbTabTitle><i class="fa fa-info" aria-hidden="true"></i>
+              {{ 'PROFILE.PERSONAL_INFO' | translate }}</ng-template>
+            <ng-template ngbTabContent>
+              <div *ngIf="loader.personal" class="loader-p"><i class="fa fa-cog fa-spin"></i></div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="formTabsInpWrap">
+                    <input class="inpField noRadious" type="text" name="country" value="{{userData?.first_name}}"
+                      placeholder="Country" readonly>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="formTabsInpWrap">
+                    <input class="inpField noRadious" type="text" name="" value="{{userData?.last_name}}"
+                      placeholder="City" readonly>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="formTabsInpWrap">
+                    <input class="inpField noRadious" type="text" name="" value="{{userData?.family_name}}" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="formTabsInpWrap">
+                    <input class="inpField noRadious" type="text" name="country" value="{{userData?.country?.name}}"
+                      placeholder="Country" readonly>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="formTabsInpWrap">
+                    <input class="inpField noRadious" type="text" name="" value="{{userData?.city?.name}}"
+                      placeholder="City" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="formTabsInpWrap">
+                <input class="inpField noRadious" type="text" name="" value="{{userData.address}}" placeholder="Address"
+                  readonly>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="formTabsInpWrap">
+                    <input class="inpField noRadious" type="text" name="dob"
+                      value="{{userData.dob | date: 'dd/MM/yyyy'}}" placeholder="Date Of Birth" readonly>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="formTabsInpWrap">
+                    <input class="inpField noRadious" type="text" name="gender" value="{{userData.gender | genderName}}"
+                      placeholder="Gender" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="formTabsInpWrap">
+                <input class="inpField noRadious" type="email" name="email" value="{{userData.email}}"
+                  placeholder="Email" readonly>
+              </div>
+
+              <div class="formTabsInpWrap">
+                <input class="inpField noRadious" type="text" name="phone" value="{{userData.mobile_no}}"
+                  placeholder="Mobile No" readonly>
+              </div>
+              <div class="formTabsInpWrap">
+                  <input class="inpField noRadious" type="text" name="phone" value="{{userData.website}}"
+                    placeholder="Mobile No" readonly>
+                </div>
+
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab *ngIf="display.education" (click)="educationDetails()">
+            <ng-template ngbTabTitle><span (click)="educationDetails()"><i class="fa fa-book" aria-hidden="true"></i>
+                {{ 'PROFILE.EDUCATION' | translate }}</span></ng-template>
+            <ng-template ngbTabContent>
+              <div *ngIf="loader.education" class="loader-p"><i class="fa fa-cog fa-spin"></i></div>
+              <ul class="list-group">
+
+                <li class="list-group-item" *ngFor="let education of allEducations">
+                  <h5>{{education?.degreeDetails?.details[0].name}}</h5>
+
+                  <p>{{education?.from_year}} - {{education?.to_year}}</p>
+                  <p>{{education?.degreeFieldDetails?.details[0].name}}</p>
+
+
+                </li>
+
+                <li *ngIf="allEducations.length == 0">
+                  <span>
+                    {{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}
+                  </span>
+                </li>
+              </ul>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab *ngIf="display.skill" (click)="skillDetails()">
+            <ng-template ngbTabTitle><span (click)="skillDetails()"><i class="fa fa-star" aria-hidden="true"></i>
+                {{ 'PROFILE.SKILLS' | translate }}</span></ng-template>
+            <ng-template ngbTabContent>
+              <div *ngIf="loader.skills" class="loader-p"><i class="fa fa-cog fa-spin"></i></div>
+              <ul class="list-group">
+
+                <li class="list-group-item" *ngFor="let skill of allSkills">
+                  <h5>
+                    <h5>{{skill?.details[0].name}}</h5>
+                  </h5>
+                  <p *ngIf="skill?.status === 1">{{ "PROFILEEDIT.SKILLS_STATUS_EXCELLENT"|translate }}</p>
+                  <p *ngIf="skill?.status === 2">{{ "PROFILEEDIT.SKILLS_STATUS_VERY_GOOD"|translate }}</p>
+                  <p *ngIf="skill?.status === 3">{{ "PROFILEEDIT.SKILLS_STATUS_GOOD"|translate }}</p>
+                  <p *ngIf="skill?.status === 4">{{ "PROFILEEDIT.SKILLS_STATUS_FRESH"|translate }}</p>
+
+                </li>
+
+                <li *ngIf="allSkills.length == 0">
+                  <span>
+                    {{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}
+                  </span>
+                </li>
+              </ul>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab *ngIf="display.experience" (click)="experienceDetails()">
+            <ng-template ngbTabTitle><span (click)="experienceDetails()"><i class="fa fa-suitcase"
+                  aria-hidden="true"></i> {{ 'PROFILE.EXPERIENCE' | translate }}</span></ng-template>
+            <ng-template ngbTabContent>
+              <div *ngIf="loader.experience" class="loader-p"><i class="fa fa-cog fa-spin"></i></div>
+              <ul class="list-group">
+
+                <li class="list-group-item" *ngFor="let experience of allExperiences">
+                  <h5>{{experience?.company_name}}</h5>
+                  <p *ngIf="experience?.is_current === 1; else elseBlock">
+                    {{experience?.from_year}} - <span
+                      *ngIf="experience?.is_current === 1">{{ 'PROFILE.EXPERIENCE_CURRENT'| translate }}</span>
+                  </p>
+                  <ng-template #elseBlock>{{experience?.from_year}} - {{experience?.to_year}}</ng-template>
+                  <p>{{experience?.position?.details[0].name}}</p>
+                  <p>{{experience?.summery}}</p>
+
+
+                </li>
+
+                <li *ngIf="allExperiences.length == 0">
+                  <span>
+                    {{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}
+                  </span>
+                </li>
+              </ul>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab *ngIf="display.certificate" (click)="certificateDetails()">
+            <ng-template ngbTabTitle><span (click)="certificateDetails()"><i class="fa fa-graduation-cap"
+                  aria-hidden="true"></i> {{ 'PROFILE.CERTIFICATE' | translate }}</span></ng-template>
+            <ng-template ngbTabContent>
+              <div *ngIf="loader.certificate" class="loader-p"><i class="fa fa-cog fa-spin"></i></div>
+              <ul class="list-group">
+
+                <li class="list-group-item" *ngFor="let certificate of allCertificates">
+                  <h5>{{certificate.certificate_name}}</h5>
+                  <p>From Year : {{certificate.from_year}} - {{certificate.to_year}}</p>
+                  <p>{{certificate.summery}}</p>
+                  <p *ngIf="certificate.picture"><img [src]="( certificate.picture)| picturepath:'certificate'" alt="">
+                  </p>
+                </li>
+
+                <li *ngIf="allCertificates.length == 0">
+                  <span>
+                    {{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}
+                  </span>
+                </li>
+              </ul>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab *ngIf="display.project" (click)="projectDetails()">
+            <ng-template ngbTabTitle><span (click)="projectDetails()"><i class="fa fa-graduation-cap"
+                  aria-hidden="true"></i> {{ 'PROFILE.PROJECT' | translate }}</span></ng-template>
+            <ng-template ngbTabContent>
+              <p *ngIf="loader.project" class="loader-p"><i class="fa fa-cog fa-spin"></i></p>
+              <ul class="list-group">
+
+                <li class="list-group-item" *ngFor="let project of allProjects">
+                  <h5>{{project.name}}</h5>
+                  <p>{{project.company.company_name}}</p>
+                  <p>{{project.from_date|date}} - {{project.to_date|date}}</p>
+
+                </li>
+
+                <li *ngIf="allProjects?.length == 0">
+                  <span>
+                    {{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}
+                  </span>
+                </li>
+              </ul>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+
+
+      <div class="testimonialCarousal">
+        <div class="profileMainBox">
+          <h2>{{ 'PROFILE.TESTIMONIALS' | translate }} :</h2> <span class="addTestiBtn"
+            (click)="openTestimonialForm()" [attr.aria-expanded]="!isCollapsed" aria-controls="testiCollapse"><i
+              class="fa fa-reply" aria-hidden="true"></i> {{'TESTIMONIALS.ADD_TESTIMONY' | translate }}</span>
+          <form [formGroup]="testimonialForm" novalidate (submit)="testimonialAction()">
+            <div style="margin-top:25px;" class="msg-wrp">
+              <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+              <div class="alert alert-success" *ngIf="successMessage">{{successMessage}}</div>
+            </div>
+            <div id="testiCollapse" class="testiCollapse" [ngbCollapse]="isCollapsed">
+              <div class="testiClose" (click)="isCollapsed = !isCollapsed"></div>
+              <textarea name="message" placeholder="Lorem ipsum dolor" formControlName="message"></textarea>
+              <div
+                *ngIf="testimonialForm.controls['message'].invalid && (testimonialForm.controls['message'].dirty || testimonialForm.controls['message'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="testimonialForm.controls['message'].errors.required">
+                  {{ 'TESTIMONIALS.ADD_ERROR'| translate}}</div>
+              </div>
+              <div class="testiCollapseFooter">
+                <div class="row">
+                  <div class="col-6">
+                    <span class="tooltipYellow" placement="left"
+                      ngbTooltip="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy "><i
+                        class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                    <label class="customCheck"> {{'TESTIMONIALS.ANONYMOUS' | translate }}
+                      <input checked="checked" type="checkbox" name="anonymous" id="anonymous" value="1"
+                        formControlName="anonymous"><span class="checkmark"></span>
+                    </label>
+                  </div>
+                  <div class="col-6">
+                    <div class="text-right">
+
+                      <button type="submit"
+                        [disabled]="testimonialForm.pristine || testimonialForm.invalid || (testimonialForm.valid && testimonailFormSubmitStatus)">{{'TESTIMONIALS.SEND' | translate }}
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i> </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div *ngIf="allTestimonials?.length > 0 ">
+            <owl-carousel [options]="testimonialCaro" [items]="allTestimonials"
+              [carouselClasses]="['owl-theme', 'sliding']">
+
+              <div class="item" *ngFor="let testimonial of allTestimonials">
+                <div class="testimonialHead">
+                  <div class="testimonialHeadLeft" >
+                      <img *ngIf="testimonial.is_anonymous != 1 && testimonial.fromuser.profile_pic"
+                      [src]="testimonial.fromuser.profile_pic| picturepath:'users'" alt="">
+                    <img class="no-pro-pic" *ngIf="testimonial.is_anonymous != 1 && !testimonial.fromuser.profile_pic && testimonial.fromuser.gender=='F'" src="assets/images/female.jpg" alt="">
+                    <img class="no-pro-pic" *ngIf="testimonial.is_anonymous != 1 && !testimonial.fromuser.profile_pic && testimonial.fromuser.gender=='M'" src="assets/images/male.jpg" alt="">
+                    <img class="no-pro-pic" *ngIf="testimonial.is_anonymous == 1" src="assets/images/testimonial_no_img.jpg" alt="">
+
+                  </div>
+                  
+                  <div class="testimonialHeadRight">
+                    <div *ngIf="testimonial.is_anonymous == 0">
+                      <h3>{{(testimonial.fromuser.first_name+' '+testimonial.fromuser.last_name)}}</h3>
+                      <h4 *ngIf="testimonial.fromuser.position">{{testimonial.fromuser.position.details[0].name}}</h4>
+                    </div>
+                    <div *ngIf="testimonial.is_anonymous == 1">
+                      <h3>{{ 'TESTIMONIALS.ANONYMOUS'|translate }}</h3>
+                    </div>
+                  </div>
+                </div>
+                <p>{{testimonial.message}}</p>
+              </div>
+
+            </owl-carousel>
+          </div>
+
+          <div *ngIf="allTestimonials?.length == 0" style="margin-top:25px;">
+            <span>
+              {{ "TESTIMONIALS.NO_RECORD_FOUND" |translate }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="managerLink alt">
+        <div class="profileMainBox" *ngIf="activeUserId">
+          <h2 class="rowDiv">
+          <span class="manager-text">{{ 'PROFILE.CAREERY_MANAGER' |translate }} </span>
+          <span (click)="openCareeryManagerModal()" class="icon"></span>
+          </h2>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<app-blocksmodal></app-blocksmodal>
+<!-- USER POINT MODAL -->
+<ng-template #pointsModal let-modal id="modalPopup">
+  <h2><span>{{ 'PROFILE.POINTS' |translate }}</span></h2>
+  <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+  <div class="modal-body">
+    <div id="pointContents" class="graphModal">
+      <div class="user-details">
+        <ul>
+          <li><small>{{ 'PROFILE.NAME' |translate }}</small>
+            <span>{{ (userData.first_name+' '+userData.last_name) }}</span></li>
+          <li><small>{{ 'PROFILE.CPP' |translate }}</small> <span>{{ (userData.cpp) }}</span></li>
+        </ul>
+      </div>
+      <canvas *ngIf="pieChartData.length > 0" baseChart id="pointCanvas" [data]="pieChartData" [labels]="pieChartLabels" [colors]="pieChartColors"
+        [chartType]="pieChartType" [options]="pieOptions"></canvas>
+        <div class="no-record-msg" *ngIf="pieChartData.length == 0">{{ 'COMMON.NO_USER_POINTS' | translate }}</div>
+    </div>
+    <div class="chart-actions" *ngIf="pieChartData.length > 0">
+      <ul ngbDropdown>
+        <li><a (click)="downloadCanvas($event)" id="downloadChartLink"><i class="fa fa-floppy-o"></i></a></li>
+        <li><a (click)="printChart()"><i class="fa fa-print"></i></a></li>
+        <li id="dropdownBasic3" ngbDropdownToggle><a><i class="fa fa-share-alt" aria-hidden="true"></i></a></li>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
+          <ul>
+            <li>
+              <share-button button="facebook" [url]="baseOrigin+'/user/chart/'+userData.cpp"></share-button> <span>Facebook</span>
+            </li>
+            <li>
+              <share-button button="twitter" [url]="baseOrigin+'/user/chart/'+userData.cpp"></share-button> <span>Twitter</span>
+            </li>
+            <li>
+              <share-button button="whatsapp" [url]="baseOrigin+'/user/chart/'+ userData.cpp"></share-button> <span>WhatsApp</span>
+            </li>
+            <!-- <li><a href="#"><i class="fa fa-link" aria-hidden="true"></i></a> <span>Copy Link</span></li> -->
+          </ul>
+        </div>
+      </ul>
+    </div>
+  </div>
+</ng-template>
+
+<!-- send message modal-->
+<ng-template #messageSendModal let-modal id="messageModalPopup">
+  <h2><span>{{ 'PROFILE.SEND_MESSAGE' |translate }}</span></h2>
+  <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+  <div class="modal-body">
+    <div class="alert alert-success" *ngIf="messageSuccessMsg">{{ messageSuccessMsg }}</div>
+    <div class="alert alert-danger" *ngIf="messageErrorMsg">{{ messageErrorMsg }}</div>
+    <div class="proEdit">
+      <div class="formWrap alt">
+        <textarea class="inpField fullWidth" [(ngModel)]="messageForm.message"
+          placeholder="{{ 'PROFILE.MESSAGE' |translate }}"></textarea>
+      </div>
+      <div class="buttonGr">
+        <div class="text-center">
+          <button type="button" class="btnOrange" name="button" (click)=submitSendMessageFrom()>
+            <i class="fa fa-cog fa-spin" *ngIf="loader.messageSend"></i> {{ 'PROFILE.SEND' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+
+<ng-template #careeryPathModal let-modal id="careeryPathModal">
+  <!-- <h2><span>{{ 'PROFILE.POINTS' |translate }}</span></h2> -->
+  <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+  <div class="modal-body noPad">
+    <div style="" class="profileDesc">
+      <div class="row">
+        <div class="col-md-6 col-xs-12"><a class="modBtn" [routerLink]="['/cv/build']">{{ 'PROFILE.CV_BUILDER_LINK' | translate }}</a></div>
+        <div class="col-md-6 col-xs-12"><a class="modBtn" [routerLink]="['/card/build']">{{ 'PROFILE.CARD_BUILDER_LINK' | translate }}</a></div>
+        <div class="col-md-6 col-xs-12"><a class="modBtn" [routerLink]="['/profile/edit']">{{ 'PROFILE.EDIT_PROF_LINK' | translate }}</a></div>
+      </div>
+      
+      
+      
+    </div>
+  </div>
+</ng-template>
+<ng-template #careeryMyVideoModal let-modal id="careeryPathModal">
+    <!-- <h2><span>{{ 'PROFILE.POINTS' |translate }}</span></h2> -->
+    <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+    <div class="modal-body noPad text-center">
+        <iframe *ngIf="profile_video_link" width="560" height="315" [src]="profile_video_link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </ng-template>

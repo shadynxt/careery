@@ -1,0 +1,37 @@
+.testiWrap{ padding: 60px 0;}
+
+.testiTabs{
+  .text-right span{ font-size: 11px; color: #1E272E; display: inline-block; margin-bottom: 12px;}
+  ul.nav{ text-align: right; display: block; border: none; float: right; background: #EEF2FF; margin: -32px 0 0 0; position: relative; z-index: 1; padding: 0 0 0 15px;
+    li{ display: inline-block; border-radius: 0; border: none; margin: 0 0 0 10px;
+     a{ border-radius: 0 !important; border: none; font-size: 12px; color: #1E272E; background: #F5F6FA; border: 1px solid #F5F6FA !important; @include box-shadow(0px, 0px, 5px, rgba(0, 0, 5px, 0.1));
+       &.active{ background: #F5F6FA; border: 1px solid #707070 !important; color: #8CC63F;}
+     }
+    }
+  }
+  .tab-content{ padding: 50px 0 0 50px;}
+  .settingsSingleButton{ 
+    button{ border: none; background: #1E272E; font-size: 11px; color: #EEF2FF; padding: 5px 15px; margin: 0 0 0 8px; cursor: pointer;
+      &:focus{ outline: none;}
+      &.btnRefuse{ background: #FF6666;}
+      &.btnEdit{ background: none; border: 1px solid #1E272E; color: #1E272E;}
+    }
+  }
+  .settingsSingle{padding: 15px; padding-left: 75px; border-radius: 5px; position: relative; margin-bottom: 25px;
+    &.alt{ border-bottom: 1px solid #808080; border-radius: 0; margin-bottom: 0; padding-top: 25px; padding-bottom: 25px;
+      &:hover{ background: none; box-shadow: none;}
+    }
+    &:hover{ background: rgba(245,246,250,0.3); @include box-shadow(0px, 0px, 20px, rgba(0, 0, 8px, 0.1)); }
+    .profileDescImg{ width: 46px; height: 46px; border-radius: 50%; background: rgba(82,196,2,0.4); padding: 3px; position: absolute; left: 15px; top: 15px;
+      img{ border-radius: 50%; width: 40px; height: 40px;}
+      &:after { content: ''; width: 10px; height: 10px; background: url(assets/images/symbol-1.png) no-repeat; background-size: 100% auto; position: absolute; right: 4px; bottom: 3px;}
+    }
+    h2{ font-size: 15px; color: #1E272E; padding: 10px 0 0 0;
+      span{ font-size: 12px; color: #a2a2a2;}
+    }
+    p{ font-size: 12px; color: #000000; padding: 10px 115px 0 0;}
+    
+    .posTed{ position: absolute; right: 15px; top: 25px; font-size: 12px; color: #1A1A1A;}
+    
+  }
+}

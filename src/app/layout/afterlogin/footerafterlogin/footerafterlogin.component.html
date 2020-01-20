@@ -1,0 +1,33 @@
+<div class="loginfoot">
+  <div class="logoprovider"><img src="assets/images/sponsor-logo.png" alt=""></div>
+  <div class="copyrightTxt">Careery &copy; {{ copyWriteDate | date:'yyyy'}}	</div>
+  <div class="loginfootLink">
+      <ul>
+          <li *ngFor="let page of pageNameList">
+              <a [routerLink]="['/page', page.slug]">{{ page.name }}</a>
+          </li>
+        </ul>
+  </div>
+  <div  ngbDropdown placement="top-right" role="group"  class="footer-lang-dropmenu">
+    <span class="" ngbDropdownToggle>{{ 'LANDING.FOOTER_LANGUAGE'| translate }}</span>
+    <div class="dropdown-menu" ngbDropdownMenu>
+      <ul>
+        <li *ngFor="let lang of allLanguage" (click)="langChange(lang.lang_code)">{{ lang.lang_code }}</li>
+      </ul>
+    </div>
+  </div>
+  <!-- <div class="footLang" *ngIf="allLanguage">
+    <div class="langChange">
+      {{ activeLang }}
+      <span (click)="langChange((activeLang == 'EN')? 'AR':'EN')">{{ (activeLang == 'EN')? 'AR':'EN' }}</span>
+    </div>
+  </div> -->
+  <div class="footSocial">
+      <ul>
+          <li><a href="{{ footerSettings?.settings?.facebook_url }}" target="_blank"><img src="assets/images/facebook.png" alt=""></a></li>
+          <li><a href="{{ footerSettings?.settings?.twitter_url }}"  target="_blank"><img src="assets/images/twitter.png" alt=""></a></li>
+          <li><a href="{{ footerSettings?.settings?.whatsapp_url }}"  target="_blank"><img src="assets/images/whatsapp.png" alt=""></a></li>
+          <li><a href="{{ footerSettings?.settings?.instagram_url }}" target="_blank"><img src="assets/images/instagram.png" alt=""></a></li>
+        </ul>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+a.disabled {
+    color: gray;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+a.active {
+    color: #FFF;
+    border: 1px solid #84ce0d;
+    background: #84ce0d;
+    background: linear-gradient(to right, #84ce0d 0%, #4ac200 100%);
+}

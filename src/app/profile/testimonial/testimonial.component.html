@@ -1,0 +1,189 @@
+<div class="testiWrap">
+  <div>
+    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  </div>
+  <h2 class="withLine"><span>{{ 'PROFILE.TESTIMONIALS' |translate }}</span></h2>
+  <div class="testiTabs">
+    <ngb-tabset (tabChange)="changeTabEvent($event)">
+      <ngb-tab id="incoming">
+        <ng-template ngbTabTitle>{{ 'TESTIMONIALS.INCOMING' | translate }}</ng-template>
+        <ng-template ngbTabContent>
+
+            <div class="text-center"  *ngIf="loader.testimonial.incoming" class="loader-p"><i class="fa fa-cog fa-spin" ></i> {{ 'PROFILE.PLEASE_WAIT' | translate }}</div>
+
+          
+            <div class="notification-row" *ngFor="let testimonial of allTestimonials">
+              <div class="notificationImg" *ngIf="testimonial.is_anonymous == 0">
+                <img *ngIf="testimonial?.fromuser?.profile_pic" alt="" [src]="(testimonial?.fromuser?.profile_pic)| picturepath:'users'">
+                
+                <img  *ngIf="testimonial.fromuser && !testimonial.fromuser.profile_pic && testimonial.fromuser.gender && testimonial.fromuser.experience_level" src="assets/images/charachter/{{ testimonial.fromuser.gender+'_'+testimonial.fromuser.experience_level }}.png" alt="">
+              </div>
+              <div class="notificationImg" *ngIf="testimonial.is_anonymous == 1">
+                  <img   src="assets/images/testimonial_no_img.jpg" alt="">
+              </div>
+              <div class="notificationBody">
+                <h3 *ngIf="testimonial.is_anonymous == 0">{{testimonial.fromuser.first_name}} {{testimonial.fromuser.last_name}}</h3>
+                <h3 *ngIf="testimonial.is_anonymous == 1">{{ 'TESTIMONIALS.ANONYMOUS'|translate }}</h3>
+                <p class="tXt">{{testimonial.message}}</p>
+              </div>
+              <div class="notificationTime">
+                  <p class="time">{{ (testimonial.posted_on < yesterdayStartTimestamp) ? (testimonial.posted_on*1000|date:'MMM, dd | hh:mm a'): (testimonial.posted_on*1000|date:'hh:mm a') }}</p>
+                  <div class="settingsSingleButton">
+                
+                      <button type="button" (click)="acceptRefuseTestimonial(testimonial,1)">{{ 'TESTIMONIALS.ACCEPT' | translate }}</button>
+                      <button type="button" (click)="acceptRefuseTestimonial(testimonial,2)" class="btnRefuse"><span *ngIf="loader.testimonial.refuse" class="loader-p"><i class="fa fa-cog fa-spin" ></i></span>{{ 'TESTIMONIALS.REFUSE' | translate }}</button>
+                    </div>
+              </div>
+              
+            </div>
+          <div class="settingsSingle" *ngIf="!loader.testimonial.incoming && allTestimonials.length == 0">
+            <p class="text-center">
+                 {{ 'TESTIMONIALS.INCOMING_MESSAGE' | translate }}
+            </p>
+          </div>
+          <ngx-pager  [config]="paginationConfigIncoming"  [totalrow]='totalRows'></ngx-pager>
+          
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="accepted">
+        <ng-template ngbTabTitle >{{ 'TESTIMONIALS.ACCEPTED' | translate }}</ng-template>
+     
+        <ng-template ngbTabContent  >
+            <div class="text-center"  *ngIf="loader.testimonial.accepted" class="loader-p"><i class="fa fa-cog fa-spin" ></i> {{ 'PROFILE.PLEASE_WAIT' | translate }}</div>
+          <div class="text-right"><span>{{ 'TESTIMONIALS.SHOW_ON_PROFILE_LBL' | translate }}</span></div>
+          <div class="notification-row" *ngFor="let accepted of acceptedTestimonials">
+
+            <div class="notificationImg" *ngIf="accepted.is_anonymous == 0">
+              <img *ngIf="accepted?.fromuser?.profile_pic" alt="" [src]="(accepted?.fromuser?.profile_pic)| picturepath:'users'">
+
+              <img  *ngIf="accepted.fromuser && !accepted.fromuser.profile_pic && accepted.fromuser.gender && accepted.fromuser.experience_level" src="assets/images/charachter/{{ accepted.fromuser.gender+'_'+accepted.fromuser.experience_level }}.png" alt="">
+            
+            </div>
+            <div class="notificationImg" *ngIf="accepted.is_anonymous == 1"><img   src="assets/images/testimonial_no_img.jpg" alt=""></div>
+            <div class="notificationBody">
+
+              <h3 *ngIf="accepted.is_anonymous == 0">{{accepted.fromuser.first_name}}</h3>
+              <h3 *ngIf="accepted.is_anonymous == 1">{{ 'TESTIMONIALS.ANONYMOUS'|translate }}</h3>
+              <p class="tXt">{{accepted.message}}</p>
+            </div>
+            <div class="notificationTime">
+                <p class="time">{{ (accepted.posted_on < yesterdayStartTimestamp) ? (accepted.posted_on*1000|date:'MMM, dd | hh:mm a'): (accepted.posted_on*1000|date:'hh:mm a') }}</p>
+            <div class="settingsSingleButton">
+                <button type="button" [disabled]="accepted.reply.id" (click)="replyTestimonial(accepted)">{{ 'TESTIMONIALS.REPLY' | translate }}</button>
+              <button *ngIf='accepted.is_show==1' type="button" class="btnRefuse" (click)="showHideTestimonial(accepted.id,0)" class="btnRefuse"><i class="fa fa-eye-slash" aria-hidden="true"></i> {{ 'TESTIMONIALS.HIDE_ON_PROFILE' | translate }}</button>
+
+              <button *ngIf='accepted.is_show==0' type="button" class="btnRefuse" (click)="showHideTestimonial(accepted.id,1)" class="btnRefuse"><i class="fa fa-eye-slash" aria-hidden="true"></i> {{ 'TESTIMONIALS.SHOW_ON_PROFILE' | translate }}</button>
+              
+            </div>
+          </div>
+          </div>
+          <div class="settingsSingle" *ngIf="!loader.testimonial.accepted && acceptedTestimonials.length == 0">
+              <p class="text-center">
+                  {{ 'TESTIMONIALS.ACCEPTED_MESSAGE' | translate }}
+              </p>
+          </div>
+          <ngx-pager  [config]="paginationConfigAccepted"  [totalrow]='totalRows'></ngx-pager>
+
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="own">
+        <ng-template ngbTabTitle>{{ 'TESTIMONIALS.MY_TESTIMONY' | translate }}</ng-template>
+        <ng-template ngbTabContent>
+            <div class="text-center"  *ngIf="loader.testimonial.own" class="loader-p"><i class="fa fa-cog fa-spin" ></i> {{ 'PROFILE.PLEASE_WAIT' | translate }}</div>
+              <div class="notification-row" *ngFor="let own of ownTestimonials">
+
+                <div   *ngIf="!own.replyParent || (own.replyParent && own.to_user_id != own.replyParent.to_user_id)" class="notificationImg" [class.inactive]="(currentTime - own.fromuser.last_active_time) > (5*60) ">
+                  <img *ngIf="own.fromuser.profile_pic" alt="" [src]="(own?.fromuser?.profile_pic)| picturepath:'users'">
+
+                  <img  *ngIf="own.fromuser && !own.fromuser.profile_pic && own.fromuser.gender && own.fromuser.experience_level" src="assets/images/charachter/{{ own.fromuser.gender+'_'+own.fromuser.experience_level }}.png" alt="">
+
+                </div>
+
+                <div *ngIf="(own.replyParent && own.to_user_id == own.replyParent.to_user_id)"  class="notificationImg" [class.inactive]="(currentTime - own.touser.last_active_time) > (5*60) "><img *ngIf="own.touser.profile_pic" alt="" [src]="(own?.touser?.profile_pic)| picturepath:'users'">
+
+                  <img  *ngIf="own.touser && !own.touser.profile_pic && own.touser.gender && own.touser.experience_level" src="assets/images/charachter/{{ own.touser.gender+'_'+own.touser.experience_level }}.png" alt="">
+                </div>
+
+                  <div class="notificationBody">
+                      <h3  *ngIf="!own.replyParent || (own.replyParent && own.to_user_id != own.replyParent.to_user_id)" >{{own.fromuser.first_name}} {{own.fromuser.last_name}}</h3>
+                    <h3 *ngIf="(own.replyParent && own.to_user_id == own.replyParent.to_user_id)">{{own.touser.first_name}} {{own.touser.last_name}}</h3>
+
+                <p  *ngIf="own.replyParent && own.replyParent.id">
+                    {{ 'TESTIMONIALS.REPLIED_TO' | translate }}
+                    <br/>
+                  {{ own.replyParent.message }}
+                </p>
+                <p [class.reply]="own.replyParent">
+                  {{own.message}}
+                  <strong *ngIf="own.replyParent"> - {{ own.posted_on | date }}</strong>
+                </p>
+              </div>
+              <div class="notificationTime">
+                  {{ ((own.replyParent)? own.replyParent.posted_on  : own.posted_on) | date  }}
+                </div>
+              </div>
+        <div class="settingsSingle" *ngIf="!loader.testimonial.own && ownTestimonials &&  ownTestimonials.length == 0">
+            <p class="text-center">
+                {{ 'TESTIMONIALS.OWN_MESSAGE' | translate }}
+            </p>
+        </div>
+        <ngx-pager  [config]="paginationConfigOwn"  [totalrow]='totalRows'></ngx-pager>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>
+
+<!-- edit testimonial --> 
+  <ng-template #editModal let-modal>
+    <h2><span>{{ 'TESTIMONIALS.EDIT_TESTIMONIAL' | translate}}:</span></h2>
+    <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+    <div class="modal-body">
+      <div>
+     
+        <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+      </div>
+
+      <div class="proEdit">
+
+        <div class="formWrap alt">
+           <textarea class="inpField fullWidth" [(ngModel)]="testimonialForm.message" placeholder="Testimonial message"></textarea>
+          <div *ngIf="testimonialForm.submit && (testimonialForm.message==null || testimonialForm.message =='')" class="alert alert-danger">
+            {{ 'TESTIMONIALS.REQUIRED' | translate }}
+          </div>
+        </div>
+        <div class="buttonGr">
+          <div class="text-center">
+            <button type="button" class="btnOrange" name="button" (click)=submitEditTestimonialForm(testimonialForm.id)>{{ 'TESTIMONIALS.BTN_UPDATE' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #replyModal let-modal>
+      <h2><span>{{ 'TESTIMONIALS.REPLY_TESTIMONIAL' | translate}}:</span></h2>
+      <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+      <div class="modal-body">
+        <div>
+       
+          <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+        </div>
+  
+        <div class="proEdit">
+  
+          <div class="formWrap alt">
+             <textarea class="inpField fullWidth" [(ngModel)]="testimonialReplyForm.message" placeholder="{{ 'TESTIMONIALS.REPLY_TESTIMONIAL_MESSAGE' | translate}}"></textarea>
+            <div *ngIf="testimonialReplyForm.submit && (testimonialReplyForm.message==null || testimonialReplyForm.message =='')" class="alert alert-danger">
+              {{ 'TESTIMONIALS.REQUIRED' | translate }}
+            </div>
+          </div>
+          <div class="buttonGr">
+            <div class="text-center">
+              <button [disabled]="testimonialReplyForm.submit" type="button" class="btnOrange" name="button" (click)=submitReplyTestimonialForm()>{{ 'TESTIMONIALS.SEND' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+

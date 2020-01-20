@@ -1,0 +1,98 @@
+<div class="searchWrap">
+  <div class="row">
+
+    <div class="{{ (loggedInUser)? 'col-xl-9 col-lg-8':'col-xl-12 col-lg-12' }}">
+      <h2 class="withLine"><span>Search Result</span></h2>
+      <div class="row searchResult">
+
+        <div class="col-xl-3 col-lg-4 col-md-4 col-6 searchCol" *ngFor="let list of searchList; let i = index" [class.hide]="searchList[i].hide">
+          <div class="searchResultSingle">
+            <div (click)="goToProfile(list)">
+              <div class="profileDescImg" [class.inactive]="(currentTime - list.last_active_time) > (5*60) ">
+                <img alt="" *ngIf="list.profile_pic" [src]="list.profile_pic| picturepath:'users'">
+
+                <img  *ngIf="list && !list?.profile_pic && list.gender && list.experience_level" src="assets/images/charachter/{{ list.gender+'_'+list.experience_level }}.png" alt="">
+              </div>
+              <h2>{{list?.first_name}}</h2>
+              <h3>CPP: {{list?.cpp}}</h3>
+              <h3>{{(list.position_name)?list.position_name:'--'}}</h3>
+            </div>
+            <div *ngIf="loggedInUser">
+              <h4 *ngIf="list.mutualFriendCount"><i class="fa fa-users" aria-hidden="true"></i> {{list.mutualFriendCount}} {{'LISTPAGES.MUTUAL_CONNECTION'|translate}}</h4>
+              <button class="blockBtn" type="button" (click)="openBlock(list.id, i)" *ngIf="list.buttons && list.buttons.block">{{ 'BLOCKS.BLOCK' | translate }}</button>
+              <button class="blockBtn" type="button" (click)="unblock(list.id, i)" *ngIf="list.buttons && list.buttons.unblock">{{ 'BLOCKS.UNBLOCK' | translate }}</button>
+              
+              <button  type="button" *ngIf="list.buttons && list.buttons.connection" (click)="connectionSend(list, i, 'searchitem')">{{ 'COMMON.CONNECT' | translate }}</button>
+            </div>
+          
+          </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-12 searchCol" *ngIf="searchList.length == 0">
+          <div class="searchResultSingle">
+
+           {{"PROFILEEDIT.NO_RECORD_FOUND" | translate}}
+
+          </div>
+        </div>
+        
+      </div>
+      <ngx-pager  [config]="paginationConfig"  [totalrow]='totalRows'></ngx-pager>
+
+      <div class="recentSearch">
+        <div class="row searchResult">
+          <div class="col-lg-3 searchCol">
+            <h3 class="titleSearch">{{ 'LANDING.RECENTLY' | translate }} <br> {{ 'LANDING.SEARCH' | translate }}</h3>
+          </div>
+
+          <div class="col-lg-9 searchCol">
+            <div class="carousalWrapSearch">
+
+              <owl-carousel [options]="recentSearchCaro" #recentCarousel [carouselClasses]="['owl-theme', 'sliding']" >
+                  <div class="item" *ngFor="let item of recentSearchList">
+                      <div class="searchResultSingle">
+                        <div class="profileDescImg" [class.inactive]="(currentTime - item.last_active_time) > (5*60) "><img alt="" *ngIf="item.profile_pic" [src]="item.profile_pic| picturepath:'users'">
+
+                          <img  *ngIf="item && !item?.profile_pic && item.gender && item.experience_level" src="assets/images/charachter/{{ item.gender+'_'+item.experience_level }}.png" alt="">
+                        </div>
+                        <h2>{{ item.user_full_name }}</h2>
+                        <h3>CPP: {{item?.cpp}}</h3>
+                        <h3>{{ (item.position_local_name)?item.position_local_name:'--' }}</h3>
+                        <div style="min-height:50px">
+                            <div *ngIf="loggedInUser">
+                              <h4 *ngIf="item.mutualFriendCount"><i class="fa fa-users" aria-hidden="true"></i> {{item.mutualFriendCount}} {{'LISTPAGES.MUTUAL_CONNECTION'|translate}}</h4>
+                              <button class="blockBtn" type="button" (click)="openBlock(item.id, i)" *ngIf="item.buttons && item.buttons.block">{{ 'BLOCKS.BLOCK' | translate }}</button>
+                              <button class="blockBtn" type="button" (click)="unblock(item.id, i)" *ngIf="item.buttons && item.buttons.unblock">{{ 'BLOCKS.UNBLOCK' | translate }}</button>
+                              
+                              <button  type="button" *ngIf="item.buttons && item.buttons.connection" (click)="connectionSend(item, i, 'recentsearch')">{{ 'COMMON.CONNECT' | translate }}</button>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                
+                
+              </owl-carousel>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col-xl-3 col-lg-4" *ngIf="loggedInUser">
+      <app-notifications ></app-notifications>
+    </div>
+  </div>
+</div>
+<!-- ASK FOR SIGN UP -->
+<ng-template #askForSignUpModal let-modal >
+  <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+  <div class="modal-body" style="text-align:center">
+    {{'LANDING.ASK_FOR_SIGNUP'|translate}}
+    <a href="javascript:" (click)="goToHomePage()">{{ 'LANDING.SIGNUP'| translate }}</a>
+  </div>
+</ng-template>
+<app-blocksmodal></app-blocksmodal>

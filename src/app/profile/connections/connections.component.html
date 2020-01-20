@@ -1,0 +1,70 @@
+<div class="searchWrap">
+  <div class="row">
+
+    <div class="col-xl-9 col-lg-8">
+      <h2 class="withLine"><span>{{ 'LISTPAGES.CONNECTIONS' |translate }}</span></h2>
+      <div class="row searchResult">
+        <div class="col-xl-3 col-lg-4 col-md-4 col-6 searchCol" *ngFor="let connection of connectionList; let i=index" [class.hide]="connection.hide">
+          <div class="searchResultSingle" >
+            <div class="search-result-loader-container" *ngIf="connectionList[i].loader">
+              <div class="loader-content">
+                <i class="fa fa-cog fa-spin"></i>
+                {{ 'PROFILE.PLEASE_WAIT' | translate }}
+              </div>
+            </div>
+            <span class="searchClose" (click)="removeConnection(connection, i)"></span>
+            <div (click)="gotoProfile(connection.friend_cpp)">
+            <div class="profileDescImg" [class.inactive]="(currentTime - connection.friend_last_active_time) > (5*60) ">
+            <img *ngIf="connection.friend_profile_pic" alt="" [src]="connection.friend_profile_pic| picturepath:'users'">
+            <img  *ngIf="connection && !connection.friend_profile_pic && connection.friend_gender && connection.friend_experience_level" src="assets/images/charachter/{{ connection.friend_gender+'_'+connection.friend_experience_level }}.png" alt="">
+          </div>
+            
+
+            <h2>{{ connection.friend_first_name }}  {{ connection.friend_last_name }}</h2>
+            <h3>{{ connection.friend_position_local_name }}</h3>
+            <h4><i class="fa fa-users" aria-hidden="true"></i> {{ connection.mutualFriendCount }}  {{'LISTPAGES.MUTUAL_CONNECTION'|translate}}</h4>
+          </div>
+            <!-- <button class="blockBtn" type="button" (click)="openLg(content)">Block</button> -->
+      
+          </div>
+        </div>
+        
+      </div>
+      <ngx-pager  [config]="paginationConfig"  [totalrow]='totalRows' class="defaultPagination"></ngx-pager>
+    
+      <div class="col-xl-12 col-lg-12 col-md-12 col-12 searchCol" *ngIf="connectionList.length == 0">
+          {{"PROFILEEDIT.NO_RECORD_FOUND" | translate}}
+      </div>
+      
+
+    </div>
+
+    <div class="col-xl-3 col-lg-4">
+
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <h2><span>Tell Us Why:</span></h2>
+  <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+  <div class="modal-body">
+    <div class="proEdit">
+      <div class="formWrap alt">
+        <select class="inpField fullWidth" name="">
+          <option value="">Select blocking reason</option>
+        </select>
+      </div>
+      <div class="txtOr">OR:</div>
+      <div class="formWrap alt">
+        <textarea class="inpField fullWidth" name="name" placeholder="Type Blocking Reson......"></textarea>
+      </div>
+      <div class="buttonGr">
+        <div class="text-center">
+          <button type="button" class="btnOrange" name="button">Confirm Blocking</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

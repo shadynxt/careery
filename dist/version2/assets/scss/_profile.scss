@@ -1,0 +1,441 @@
+.container-alt{ max-width: 1280px;}
+
+.proHeader-topBar{ background: #F5F6FA; padding: 10px; margin: 25px 0 0 0; border-radius: 10px; @include box-shadow(2px, 2px, 6px, rgba(0, 0, 0, 0.1));
+  input[type="text"]{ width: 100%; font-size: 12px; color: #3E4E59; border-radius: 50px; border: 1px solid #e8e8e8; padding: 8px 0 8px 40px;}
+  input::-webkit-input-placeholder {opacity:0.5; color: #3E4E59;}
+  input::-moz-placeholder{opacity:0.5; color: #3E4E59;}
+  input::-moz-placeholder{opacity:0.5; color: #3E4E59;}
+  input::-ms-input-placeholder{opacity:0.5; color: #3E4E59;}
+  .inpWithLogo{ position: relative;
+    .absIcon{ position: absolute; left: 17px; top: 5px; color: #3E4E59; font-size: 15px; opacity: 0.3;}
+  }
+  .logoAlt{ margin-left: 5px;
+    img{ width: 152px;}
+  }
+}
+
+
+.proHeader-topBar.alt{
+  input[type="text"]{ padding-top: 15px; padding-bottom: 15px;}
+  .inpWithLogo{ margin-top: 8px;
+    .absIcon{ top: 13px;}
+  }
+  .proHeaderTopBarRight{ margin: 13px 0 0 0;}
+}
+
+
+.proHeaderTopBarRight{ float: right;}
+
+.proHeaderNotification{ float: left; position: relative; margin: 9px 25px 0 0;
+  .fa{ font-size: 15px; color: #3E4E59; cursor: pointer;
+     &.fa-eye{ font-size: 20px;}
+  }
+  .notificationCount{ position: absolute; right: -6px; top: -2px; font-size: 8px; background: #FF6666; color: #FFF; min-width: 13px; height: 13px; border-radius: 50%; text-align: center; cursor: pointer;}
+  .dropdown-menu{ border: none; background: #F5F6FA; @include box-shadow(0, 7px, 50px, rgba(0, 0, 5px, 0.2)); padding: 10px 0 10px 0; left: inherit !important; right: -14px; margin: 14px 0 0 0; width: 284px;
+    &:after{ content: ''; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #F5F6FA; position: absolute; right: 10px; top: -8px;}
+    &:before{ content: ''; width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 9px solid #d8d8d8; position: absolute; right: 9px; top: -9px;}
+    p{ font-size: 15px; color: #3E4E59; margin: 0; padding: 0 0 5px 0;}
+    ul{
+      li{ background: rgba(102,102,102,0.05); padding: 5px 0;
+        &:nth-child(even){ background: none;}
+        a{ display: block; font-size: 12px; color: #3E4E59; padding: 5px 0 0 65px; position:relative; line-height: 12px; position: relative; min-height: 38px;
+          span{ font-size: 10px;}
+          .imgVisited{ position: absolute; left: 15px; top: 0; width: 38px; height: 38px; background: rgba(74,194,0,0.4); padding: 2px; border-radius: 50%;
+            img{ border-radius: 50%; width: 34px; height: 34px;}
+            &:after{ content:''; width: 10px; height: 10px; background: url(assets/images/symbol-1.png) no-repeat; background-size: 100% auto; position: absolute; right: 0; bottom: 4px;}
+          }
+        }
+      }
+    }
+    .visitTotal{
+      span{ display: block; font-size: 12px; color: #3E4E59; padding: 5px 0 0 65px; line-height: 12px; position: relative; min-height: 38px;
+        .imgVisitedAlt{ position: absolute; left: 15px; top: 7px; width: 20px; height: 20px; background: rgba(74,194,0,0.4); padding: 1px; border-radius: 50%;
+          &:nth-child(2){ left: 25px;}
+          &:nth-child(3){ left: 35px;}
+          img{ border-radius: 50%; width: 18px; height: 18px;}
+        }
+      }
+      small{ font-size: 10px;}
+
+    }
+    span.time {
+      float: right;
+      padding-right: 7px;
+    }
+  }
+  .dropdown-toggle::after{ display: none;}
+  .see-all-link {
+    padding: 5px !important;
+    text-align: center;
+  }
+}
+
+.proHeaderEmail{ float: left; position: relative; margin: 9px 25px 0 0;
+  .fa{ font-size: 15px; color: #3E4E59; cursor: pointer;}
+  .emailCount{ cursor: pointer; position: absolute; right: -6px; top: -2px; font-size: 8px; background: #FF6666; color: #FFF; min-width: 13px; height: 13px; border-radius: 50%; text-align: center;}
+  .dropdown-menu{ border: none; background: #F5F6FA; @include box-shadow(0, 7px, 50px, rgba(0, 0, 5px, 0.2)); padding: 10px 0 10px 0; left: inherit !important; right: -14px; margin: 14px 0 0 0; width: 284px;
+    &:after{ content: ''; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #F5F6FA; position: absolute; right: 10px; top: -8px;}
+    &:before{ content: ''; width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 9px solid #d8d8d8; position: absolute; right: 9px; top: -9px;}
+    p{ font-size: 15px; color: #3E4E59; margin: 0; padding: 0 0 5px 0;}
+    ul{
+      li{ background: rgba(102,102,102,0.05); padding: 8px 0;
+        &:nth-child(even){ background: none;}
+        a{ display: block; font-size: 12px; color: #3E4E59; padding: 0 15px 0 15px; position:relative; line-height: 12px; position: relative;
+          span{ font-size: 10px;}
+          .imgVisited{ position: absolute; left: 15px; top: 0; width: 38px; height: 38px; background: rgba(74,194,0,0.4); padding: 2px; border-radius: 50%;
+            img{ border-radius: 50%; width: 34px; height: 34px;}
+          }
+        }
+      }
+    }
+  }
+  .dropdown-toggle::after{ display: none;}
+}
+
+.proHeaderImg{ float: left; width: 36px; height: 36px; padding: 2px; border-radius: 50%; background: #F5F6FA; border: 1px solid #707070; position: relative; margin: 0 35px 0 0;
+ img{ border-radius: 50%; width: 30px; height: 30px; cursor: pointer;}
+ span{ position: absolute; right: -17px; top: 5px; font-size: 15px; color: #3E4E59; cursor: pointer;}
+ .dropdown-menu{ border: none; background: #F5F6FA; @include box-shadow(0, 7px, 50px, rgba(0, 0, 5px, 0.2)); padding: 10px 22px 10px 22px; left: inherit !important; right: -32px; margin: 14px 0 0 0;
+   &:after{ content: ''; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #F5F6FA; position: absolute; right: 10px; top: -8px;}
+   &:before{ content: ''; width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 9px solid #d8d8d8; position: absolute; right: 9px; top: -9px;}
+   p{ font-size: 15px; color: #3E4E59; margin: 0; padding: 0 0 5px 0;}
+   ul{
+     li{
+       a{ display: block; font-size: 12px; color: #3E4E59; padding: 0 0 0 12px; position: relative;
+         &:after{ content: ''; width: 7px; height: 7px; position: absolute; left: 0; top: 6px; background: url(assets/images/symbol-4.png) no-repeat left top;}
+       }
+     }
+   }
+ }
+ .dropdown-toggle::after{ display: none;}
+}
+
+
+.loginfoot{
+  .footer-lang-dropmenu {display: inline-block;margin: 20px 0 0 10px;}
+  .dropdown-menu{ border: none; background: #F5F6FA; @include box-shadow(0, 7px, 50px, rgba(0, 0, 5px, 0.2)); padding: 10px; min-width: 65px;
+    &:after{ content: ''; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #F5F6FA; position: absolute; right: 10px; bottom: -8px; transform: rotate(180deg);}
+    &:before{ content: ''; width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 9px solid #d8d8d8; position: absolute; right: 9px; bottom: -9px; transform: rotate(180deg);}
+    p{ font-size: 15px; color: #3E4E59; margin: 0; padding: 0 0 5px 0;}
+    ul{
+      li{ font-size: 12px; color: #3E4E59; cursor: pointer;}
+    }
+  }
+  .dropdown-toggle{ cursor: pointer;}
+}
+
+
+.proHeaderLogout{ float: left; margin: 7px 17px 0 0; cursor: pointer;}
+
+.proHeaderLang{ float: left; margin: 4px 15px 0 0;
+  .langChange{ font-size: 12px; padding: 5px 10px;
+    &:hover  span {
+      padding: 4px 12px;
+      left: -3px;
+      top: 32px;
+    }
+  }
+}
+
+.profileMain{ padding: 20px 0 30px 0;}
+.profileMainBox{ background: #F5F6FA; border-radius: 10px; @include box-shadow(2px, 2px, 7px, rgba(0, 0, 0, 0.1)); padding: 20px; margin: 0 0 16px 0; position: relative;}
+
+.profileDesc{ text-align: center;
+  .profileMainBox{ position: relative; padding-bottom: 30px; padding-top: 35px;}
+  .profileDescImg{ width: 102px; height: 102px; border-radius: 50%; background: rgba(82,196,2,0.4); padding: 5px; margin: 0 auto; position: relative;
+    img{ border-radius: 50%; width: 92px; height: 92px;}
+    &:after{ content: ''; width: 17px; height: 17px; background: url(assets/images/symbol-1.png) no-repeat; position: absolute; right: 9px; bottom: 8px;}
+    &.alt:after{ background: url(assets/images/symbol-5.png) no-repeat;}
+  }
+  .profileAward{ text-align: center; padding: 50px 0 0 0;
+    span{ display: inline-block; border: 1px solid #1E272E; font-size: 14px; color: #1E272E; padding: 6px 10px; margin: 0 5px; cursor: pointer;
+      a{ color: #1E272E;
+        &:hover{ background: #8cc63f; color: #fff;}
+      }
+      &:hover{ background: #8cc63f; color: #fff; border: 1px solid #4ac200;}
+    }
+  }
+  .socialProfile{ position: absolute; right: 20px; top: 20px;
+    li{ margin: 6px 0 0 0;
+      a{ display: inline-block; width: 24px; height: 24px; text-align: center; border: 1px solid #1E272E; border-radius: 50%; font-size: 13px; color: #1E272E; line-height: 22px; cursor: pointer;
+        &:hover{ background: #4AC200; color: #FFF;}
+      }
+    }
+  }
+  h2{ font-size: 24px; color: #1E272E; margin: 14px 0 0 0;}
+  h3{ font-size: 14px; color: #1A1A1A; opacity: 0.5;}
+  .dropdown-menu{ width: 260px; border: none; background: #F5F6FA; @include box-shadow(5px, 7px, 20px, rgba(0, 0, 5px, 0.2)); padding: 10px 10px 10px 10px; left: inherit !important; right: -25px; margin: 14px 0 0 0;
+    &:after{ content: ''; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #F5F6FA; position: absolute; right: 28px; top: -8px;}
+    &:before{ content: ''; width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 9px solid #d8d8d8; position: absolute; right: 27px; top: -9px;}
+    p{ font-size: 15px; color: #3E4E59; margin: 0; padding: 0 0 5px 0;}
+    ul{
+      li{ float: left; margin: 0; padding: 0; width: 25%; text-align: center;
+        span{ display: block; text-align: center; font-size: 10px; color: #000;}
+        a{ display: inline-block; font-size: 12px; color: #3E4E59; position: relative; text-align: center;
+          &.facebook{ background: #3B5998 !important; color: #FFF !important;}
+          &.twitter{ background: #1DA1F2 !important; color: #FFF !important;}
+          &.whatsapp{ background: #25D366 !important; color: #FFF !important;}
+        }
+      }
+    }
+  }
+  .dropdown-toggle::after{ display: none;}
+  .publicDrop{ position: absolute; left: 20px; top: 20px; cursor: pointer;
+    .fa{ font-size: 20px;}
+    .dropdown-menu{ width: 93px; min-width: 93px; left: -10px !important; right: inherit; margin: 14px 0 0 0;
+      &:after{ left: 8px; top: -8px;}
+      &:before{ left: 7px; top: -9px;}
+      ul{ margin: 0; padding: 0;
+        li{ margin: 0; padding: 0; display: block; width: 100%; text-align: left;
+          a{ display: block; line-height: 16px; text-align: left; position: relative; padding: 2px 0 2px 14px;
+             &:after{ content: ''; width: 7px; height: 7px; position: absolute; left: 0; top: 7px; background: url(assets/images/symbol-4.png) no-repeat;}
+          }
+        }
+      }
+    }
+   }
+}
+
+.managerLink{ text-align: center;
+  .profileMainBox{ padding-top: 14px; padding-bottom: 14px; cursor: pointer;}
+  h2{ font-size: 20px; padding: 6px 40px 6px 0; font-weight: 700; color: #3E4E59;  line-height: 20px;  }
+  span.manager-text {display: inline-block;}
+  span.manager-text a { color: #3e4e59;font-weight: bold;}
+  span.icon {background: url(assets/images/symbol-2.png) no-repeat right bottom;width: 50px; height: 33px;display: inline-block;}
+}
+.rowDiv {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+.cvReview{
+  .profileMainBox{ margin-bottom: 0; padding-top: 25px; padding-bottom: 25px;}
+  .cppNum{ border: 1px solid #1E272E; font-size: 12px; color: #1E272E; text-transform: uppercase; text-align: center; padding: 6px 0;}
+  .cppPreview{ display: block; font-size: 12px; color: #FFF; padding: 6px 0; text-align: center; position: relative; margin: 10px 0 0 0;
+    background: #84ce0d;
+    background: -moz-linear-gradient(left, #84ce0d 0%, #4ac200 100%);
+    background: -webkit-linear-gradient(left, #84ce0d 0%,#4ac200 100%);
+    background: linear-gradient(to right, #84ce0d 0%,#4ac200 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200',GradientType=1 );
+    &:after{ content: ''; width: 38px; height: 34px; position: absolute; left: 0; top: 0; background: url(assets/images/symbol-3.png) no-repeat left bottom;}
+  }
+  .withRightBdr{ border-right: 1px solid #707070;
+   svg{ width: 100% !important; height: 110px;}
+   p{ font-size: 11px; color: #1E272E; text-align: center; padding: 7px 0 0 0; cursor: pointer;}
+  }
+  .progressWrap{ position: relative;
+    .progressPoint{ position: absolute; width: 100%; left: 0; top: 64px; text-align: center; font-size: 11px; color: #1E272E;}
+  }
+}
+
+.profileCarousal{
+  .iconDown{ text-align: right;}
+  h2{ font-size: 24px; color: #1E272E; padding: 7px 0 0 0;}
+  h3{ font-size: 14px; color: #1A1A1A; opacity: 0.5;min-height: 13px;}
+  .profileSingle{ position: relative; min-height: 58px; padding: 0 0 20px 70px; border-bottom: 1px solid #707070;}
+  .profileDescImg{ width: 58px; height: 58px; border-radius: 50%; background: rgba(82,196,2,0.4); padding: 3px; position: absolute; left: 0; top: 0;
+    img{ border-radius: 50%; width: 52px; height: 52px;}
+  }
+  .proLocation{ padding: 14px 85px 0 0; position: relative; min-height: 90px;
+    p{ font-size: 13px; color: #1E272E; position: relative; padding: 0 0 0 30px; margin: 13px 0 0 0;
+      &:first-child{ margin-top: 0;}
+     span{ display: inline-block; width: 22px; height: 22px; border: 1px solid #000; border-radius: 50%; text-align: center; font-size: 15px; line-height: 18px; position: absolute; left: 0; top: 0;}
+    }
+    .qrCode{ background: #FFF; padding: 8px; border-radius: 5px; position: absolute; right: 0; top: 14px;
+      img{ width: 60px; height: 60px;}
+    }
+  }
+  .owl-carousel{ position: relative;}
+  .owl-nav{
+    button{ width: 16px; height: 16px; border: 1px solid #707070 !important; color: #3E4E59 !important; position: relative; font-size: 8px !important;
+      &.owl-next{ position: absolute; right: -20px; top: 50%; margin-top: -7px;
+        &:before{content: '\f054'; font-family: FontAwesome; position: absolute; left: 5px; top: 1px;}
+      }
+      &.owl-prev{ position: absolute; left: -20px; top: 50%; margin-top: -7px;
+        &:before{ content: '\f053'; font-family: FontAwesome; position: absolute; left: 4px; top: 1px;}
+      }
+      span{ display: none;}
+      &:focus{ outline: none;}
+      &:hover{ color: #FFF !important; background: #84ce0d; border: 1px solid #4ac200 !important;
+      background: -moz-linear-gradient(left, #84ce0d 0%, #4ac200 100%);
+      background: -webkit-linear-gradient(left, #84ce0d 0%,#4ac200 100%);
+      background: linear-gradient(to right, #84ce0d 0%,#4ac200 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200',GradientType=1 );}
+    }
+  }
+}
+
+.formTabs{
+  min-height: 535px;
+  .nav-tabs{ background: #F5F6FA; border-top-left-radius: 10px; border-top-right-radius: 10px; @include box-shadow(0px, 2px, 7px, rgba(0, 0, 0, 0.1));
+    .nav-item{ margin-bottom: 0; padding: 10px 0; flex-basis: 0; flex-grow: 1; max-width: 100%; text-align: center;
+      a{ padding-left: 0; padding-right: 0;}
+      &:first-child a{ border-left: 0;}
+    }
+    .nav-link{ border: 0; background: none; color: #1E272E; font-size: 13px; font-weight: 700; border-left: 1px solid #d0d0d0; border-radius: 0; padding-top: 4px; padding-bottom: 4px;
+      .fa{ display: block;}
+      &.active{ color: #4AC200;}
+    }
+  }
+  .tab-content > .tab-pane{ background: #F5F6FA; padding: 20px; padding-bottom: 10px; margin: 10px 0 0 0; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; @include box-shadow(0px, 2px, 7px, rgba(0, 0, 0, 0.1));
+    .list-group{ margin: 0; padding: 0;}
+    .list-group-item{ margin: 0 0 10px 0; background: rgba(238,242,255,.54); border: 1px solid rgba(179,179,179,.34); padding:7px 15px; border-radius: 0 !important;
+      h5{ font-size: 13px; font-weight: 700; color: #1e272e;}
+      p{ padding: 5px 0 0 0; font-size: 13px; color: #4c5e68;}
+    }
+  }
+
+  .formTabsInpWrap{ position: relative; margin-bottom: 22px;
+    label{ display: block; font-size: 12px; font-weight: 700; color: #1E272E; margin: 0 0 4px 0; padding: 0;}
+    .inpField{ width: 100%; background: rgba(238,242,255,0.54); border: 1px solid rgba(179,179,179,0.34); font-size: 13px; color: #4C5E68; padding: 11px 20px; border-radius: 50px;
+      &.noRadious{ border-radius: 0; border: none;}
+    }
+    .inpField::-webkit-input-placeholder {opacity:1; color: #4C5E68;}
+    .inpField::-moz-placeholder{opacity:1; color: #4C5E68;}
+    .inpField::-moz-placeholder{opacity:1; color: #4C5E68;}
+    .inpField::-ms-input-placeholder{opacity:1; color: #4C5E68;}
+  }
+}
+
+.testimonialCarousal{
+  .item{ margin: 30px 0 0 0;}
+  h2{ font-size: 16px; font-weight: 700; color: #1E272E; border-bottom: 1px solid rgba(62,78,89,0.5); padding: 0 0 7px 0; text-align: left;}
+  p{ font-size: 12px; color: #000000; padding-left: 65px; padding-right: 65px; line-height: 16px;}
+  .profileMainBox{ margin: 15px 0 0 0; text-align: center; position: relative;}
+  .testimonialHead{ margin-bottom: 20px;}
+  .testimonialHeadLeft{ width: 56px; height: 56px; border-radius: 50%; background: transparent; padding: 2px; display: inline-block; vertical-align: top;
+    img{ width: 52px; height: 52px; border-radius: 100%;}
+  }
+  .testimonialHeadRight{ display: inline-block; text-align: left; vertical-align: top; padding: 9px 0 0 15px;
+    h3{ font-size: 16px; color: #1E272E;}
+    h4{ font-size: 12px; color: #808080;}
+  }
+  .owl-dots{ margin: 18px 0 0 0;
+    button{ width: 8px; height: 8px; background: #CCCCCC; border: none; border-radius: 50%; margin: 0 2px;
+     &.active{ background: #4AC200;}
+     &:focus{ outline: none;}
+    }
+  }
+  .owl-carousel{ position: relative;}
+  .owl-nav{
+    button{ width: 26px; height: 26px; border: 1px solid #707070 !important; color: #3E4E59 !important; position: relative; font-size: 12px !important;
+      &.owl-next{ position: absolute; right: 0; top: 50%; margin-top: -15px;
+        &:before{content: '\f054'; font-family: FontAwesome; position: absolute; left: 8px; top: 4px;}
+      }
+      &.owl-prev{ position: absolute; left: 0; top: 50%; margin-top: -15px;
+        &:before{ content: '\f053'; font-family: FontAwesome; position: absolute; left: 8px; top: 4px;}
+      }
+      span{ display: none;}
+      &:focus{ outline: none;}
+      &:hover{ color: #FFF !important; background: #84ce0d; border: 1px solid #4ac200 !important;
+      background: -moz-linear-gradient(left, #84ce0d 0%, #4ac200 100%);
+      background: -webkit-linear-gradient(left, #84ce0d 0%,#4ac200 100%);
+      background: linear-gradient(to right, #84ce0d 0%,#4ac200 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200',GradientType=1 );}
+    }
+  }
+}
+
+.leftNoti{
+  .profileMainBox{ padding-left: 0px; padding-right: 0px; padding-bottom: 10px; margin-bottom: 10px;}
+  .mCSB_container{ padding: 0 12px 0 10px;}
+  .mCSB_draggerContainer{ left: 12px !important;}
+}
+
+.boxSingle{ position: relative; background: rgba(238,242,255,0.54); min-height: 52px; padding: 0 25px 0 70px; @include box-shadow(0px, 2px, 7px, rgba(0, 0, 0, 0.1)); margin: 0 0 8px 0;
+  .timeNotific{ font-size: 10px; color: #1E272E; text-align: right; margin: 0px -20px 0 0; padding: 2px 0 0 0;}
+  .msgIcon{ position: absolute; top: 18px; right: 8px; color: #8CC63F;}
+  .boxSingleImg{ width: 59px; height: 52px; position: absolute; left: 0; top: 0;
+    img{ width: 52px;height: 52px;border-radius: 100%;}
+  }
+  h2{ font-size: 13px; color: #1E272E; line-height: 12px;
+    span{ font-size: 11px; color: #999999;}
+  }
+  &:last-child{ margin: 0 0 9px 0;}
+}
+
+.defaultScroll{ transition: none; -webkit-transition: none; -moz-transition: none;
+  .mCustomScrollBox{ transition: none; -webkit-transition: none; -moz-transition: none; height: 200px;}
+  .mCSB_container{ transition: none; -webkit-transition: none; -moz-transition: none;}
+  .mCSB_scrollTools{ margin: 0 !important;}
+}
+
+.rightTitle{ background: #3E4E59; margin: -20px 0 10px 0; border-top-left-radius: 10px; border-top-right-radius: 10px; padding: 6px 0; position: relative;
+  h2{ color: #EEF2FF; font-size: 16px; text-align: center;}
+  .iconSettings{ position: absolute; right: 14px; top: 4px; font-size: 14px; color: #FFF; cursor: pointer;}
+  &:after{ content: ''; width: 38px; height: 34px; position: absolute; left: 12px; top: 0; background: url(assets/images/symbol-3.png) no-repeat left bottom;}
+}
+
+.moreItem{ text-align: center; padding: 5px 0 0 0;
+  a{ display: inline-block; font-size: 12px; color: #000; border: 1px solid #000; padding: 4px 10px;
+    &:hover{ background: #8CC63F; color: #FFF; border: 1px solid #4AC200;}
+  }
+}
+
+.leftNoti.forConnection{
+  .btnConnection{ width: 16px; height: 15px; display: inline-block; background: url(assets/images/btn.png) no-repeat; position: absolute; right: 35px; top: 8px; cursor: pointer;}
+  .boxSingle{ padding-right: 50px;
+    h2{ line-height: 16px; padding: 11px 0 0 0;
+      span{ display: block;}
+    }
+    .lastChat{ font-size: 10px; line-height: 12px; color: #1E272E; position: absolute; right: 6px; top: 12px;}
+    .boxSingleImg:after{ content: ''; width: 12px; height: 12px; background: url(assets/images/symbol-1.png) no-repeat; background-size: 100% auto; position: absolute; right: 9px; bottom: 1px;}
+  }
+}
+
+.leftNoti.knownPeople{
+  .boxSingle{ padding-right: 65px;
+    h2{ line-height: 16px; padding: 11px 0 0 0;
+      span{ display: block;}
+    }
+    .contactPeople{ display: inline-block; font-size: 10px; color: #FFF; position: absolute; right: 8px; top: 17px; padding: 2px 7px;
+      background: #84ce0d;
+      background: -moz-linear-gradient(left, #84ce0d 0%, #4ac200 100%);
+      background: -webkit-linear-gradient(left, #84ce0d 0%,#4ac200 100%);
+      background: linear-gradient(to right, #84ce0d 0%,#4ac200 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84ce0d', endColorstr='#4ac200',GradientType=1 );
+    }
+    .knownClose{ position: absolute; right: -5px; top: -5px; cursor: pointer;}
+  }
+}
+
+input[type=number]::-webkit-inner-spin-button { opacity: 1;}
+input[type=number]{ padding: 5px; text-align: center; border-radius: 5px; border: 1px solid rgba(30,39,46,0.2); background: none;}
+
+.pointProgress{ width: 85px; height: 85px; border: 2px solid #4AC200; border-radius: 50%; margin: 0 auto; position: relative;
+  &:after{ content: ''; width: 100%; height: 1px; position: absolute; left: 0; top: 50%; background: #4AC200;}
+  .forPoints{ position: absolute; width: 100%; height: 50%; left: 0; top: 0; text-align: center; display: flex; align-items: center;
+    span{ display: block; width: 100%; font-size: 13px; color: #4AC200; line-height: 14px;}
+  }
+  .forRank{ @extend .forPoints; top: inherit; bottom: 0;}
+}
+
+.dropdown-menu{
+  .sb-button{ margin: 0 !important;}
+  .sb-wrapper{ width: 24px !important; min-width: 24px !important; height: 24px !important; border: 1px solid #1e272e; border-radius: 50%; font-size: 11px !important; color: #FFF !important; transition: none;
+   .sb-icon{ width: 24px !important; min-width: 24px !important;
+   }
+  }
+}
+
+.chart-actions {
+  .dropdown-menu{ width: 260px; border: none; background: #F5F6FA; @include box-shadow(5px, 7px, 20px, rgba(0, 0, 5px, 0.2)); padding: 10px 10px 10px 10px; left: inherit !important; right: -25px; margin: 14px 0 0 0;
+    &:after{ content: ''; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #F5F6FA; position: absolute; right: 28px; top: -8px;}
+    &:before{ content: ''; width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 9px solid #d8d8d8; position: absolute; right: 27px; top: -9px;}
+    p{ font-size: 15px; color: #3E4E59; margin: 0; padding: 0 0 5px 0;}
+    ul{
+      li{ float: left; margin: 0; padding: 0; width: 25%; text-align: center;
+        span{ display: block; text-align: center; font-size: 10px; color: #000;}
+        a{ display: inline-block; font-size: 12px; color: #3E4E59; position: relative; text-align: center;
+          &.facebook{ background: #3B5998 !important; color: #FFF !important;}
+          &.twitter{ background: #1DA1F2 !important; color: #FFF !important;}
+          &.whatsapp{ background: #25D366 !important; color: #FFF !important;}
+        }
+      }
+    }
+  }
+}

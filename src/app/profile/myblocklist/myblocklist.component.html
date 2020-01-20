@@ -1,0 +1,48 @@
+<div class="searchWrap">
+    <div class="row">
+  
+      <div class="col-xl-9 col-lg-8">
+        <h2 class="withLine"><span>{{ 'BLOCKS.MYBLOCKS' |translate }}</span></h2>
+        <div class="row searchResult">
+
+          <div class="col-xl-3 col-lg-4 col-md-4 col-6 searchCol" *ngFor="let user of blockedUserList" >
+            <div class="searchResultSingle">
+              <span class="searchClose" (click)="unblock(user.blockUser.id)" ></span>
+              <div>
+              <div class="profileDescImg" [class.inactive]="(currentTime - user.blockUser.last_active_time) > (5*60) ">
+              <img *ngIf="user.blockUser.profile_pic" alt="" [src]="user.blockUser.profile_pic| picturepath:'users'">
+              <img  *ngIf="user.blockUser && !user.blockUser.profile_pic && user.blockUser.gender && user.blockUser.experience_level" src="assets/images/charachter/{{ user.blockUser.gender+'_'+user.blockUser.experience_level }}.png" alt="">
+            </div>
+              <h2>{{ user.blockUser.first_name }}  {{ user.blockUser.last_name }}</h2>
+              <h3>{{ user.blockUser.title }}</h3>
+              
+              </div>
+              
+            
+           
+            </div>
+          </div>
+
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-12 searchCol" *ngIf="blockedUserList.length == 0">
+            <div class="searchResultSingle">
+
+             {{"PROFILEEDIT.NO_RECORD_FOUND" | translate}}
+
+            </div>
+          </div>
+
+        </div>
+  
+       <ngx-pager  [config]="paginationConfig"  [totalrow]='totalRows'></ngx-pager>
+  
+  
+      </div>
+  
+      <div class="col-xl-3 col-lg-4">
+  
+        <app-notifications></app-notifications>
+      </div>
+    </div>
+  </div>
+  <app-blocksmodal></app-blocksmodal>

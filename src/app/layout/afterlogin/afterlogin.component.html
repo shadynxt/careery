@@ -1,0 +1,9 @@
+<div class="siteWrap" #afterloginlayout>
+<div class="container container-alt">
+    <app-hederafterlogin></app-hederafterlogin>
+    <router-outlet (activate)="changeOfRoutes()"></router-outlet>
+  <!-- <app-footerafterlogin></app-footerafterlogin> -->
+</div>
+
+<app-footerafterlogin [footerSettings]="footerSettings"></app-footerafterlogin>
+</div>

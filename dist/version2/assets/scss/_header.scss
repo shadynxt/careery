@@ -1,0 +1,23 @@
+// reset css
+* {padding:0px; margin:0px;}
+*:focus {outline: 0;}
+body{margin:0; padding:0 !important; font-size:14px; color:#231f20; font-family: 'Lato', sans-serif; overflow-x:hidden; background: #EEF2FF;}
+ol, ul {list-style: none; margin:0; padding:0;}
+:focus {outline: 0;}
+a, a:link {text-decoration: none; outline:none;}
+p { padding:2px 0; margin:0;}
+.clear {clear:both;}
+a {color:#3899c1; text-decoration:none;}
+a:hover {text-decoration:none; color:#147298;}
+a:focus{outline:none !important;}
+:hover{transition: all 0.5s ease; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease;}
+h1, h1 a, h2, h2 a, h3, h4, h5, h6 { margin:0; padding:0; font-weight:normal;}
+img {border:0; max-width:100%; height:auto;}
+::-webkit-input-placeholder {opacity:1; color: #000;}
+:-moz-placeholder{opacity:1; color: #000;}
+::-moz-placeholder{opacity:1; color: #000;}
+:-ms-input-placeholder{opacity:1; color: #000;}
+// reset css
+
+button[disabled] { opacity: 0.4;  cursor: not-allowed !important;}
+input[type=submit][disabled] { opacity: 0.4; cursor: not-allowed !important;}

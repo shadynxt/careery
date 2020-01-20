@@ -1,0 +1,223 @@
+.rTl{ direction: rtl; font-family: 'Droid Arabic Kufi', serif; text-align: right;
+
+  .fa-chevron-left, .fa-chevron-right, .fa-arrow-left, .fa-arrow-right{
+    -webkit-transform: scaleX(-1); -moz-transform: scaleX(-1); transform: scaleX(-1);
+  }
+
+  .logo{ float: right;}
+  .logoLand{ float: left;}
+
+  h2.withLine span{ padding-right: 0; padding-left: 25px;}
+  h2.withLine a{ float: left;}
+
+  .loginSearch .loginSearchLeft .forLogin .formWrap label{ text-align: right;}
+  .loginSearch .loginSearchRight .searchBox input[type="text"]{ padding-left: 0; padding-right: 70px; font-size: 15px;}
+  .loginSearch .loginSearchRight .searchBox input[type="submit"]{ right: inherit; left: -1px;}
+  .loginSearch .loginSearchRight .searchBox .faIcon{ left: inherit; right: 26px;}
+  .loginSearch .loginSearchRight .searchBox{ margin-left: 0; margin-right: 60px;}
+  .loginfoot .footSocial ul li{ margin-left: 0; margin-right: 12px;}
+
+  .proHeader-topBar input[type="text"]{ padding-right: 40px; padding-left: 0;}
+  .proHeader-topBar .inpWithLogo .absIcon{ left: inherit; right: 17px;}
+
+  .proHeaderTopBarRight{ float: left;}
+  .proHeaderImg span{ right: inherit; left: -17px;}
+  .proHeaderNotification{ float: right; margin-right: 0; margin-left: 25px;}
+  .proHeaderEmail{ float: right; margin-right: 0; margin-left: 25px;}
+  .proHeaderImg{ float: right; margin-right: 0; margin-left: 35px;}
+  .proHeaderLang{ float: right; margin-right: 0; margin-left: 15px;}
+  .proHeaderLogout{ float: right; margin-right: 0; margin-left: 17px;}
+  .formTabs .nav-tabs .nav-item:first-child a{ border-left: 1px solid #d0d0d0;}
+  .formTabs .nav-tabs .nav-item:last-child a{ border-left: 0;}
+  .testimonialCarousal h2{ text-align: right;}
+  .addTestiBtn{ right: inherit; left: 20px;}
+  .addTestiBtn:before{ left: inherit; right: -31px;}
+  .leftNoti .mCSB_draggerContainer{ left: -12px !important;}
+
+  .proHeaderNotification .dropdown-menu{ right: inherit !important; left: -8px !important; text-align: right;}
+  .proHeaderNotification .dropdown-menu ul li a{ padding-left: 0; padding-right: 65px;}
+  .proHeaderNotification .dropdown-menu ul li a .imgVisited{ left: inherit; right: 15px;}
+  .proHeaderNotification .dropdown-menu span.time {
+    float: left;
+    padding-left: 5px;
+  }
+  .proHeaderNotification .dropdown-menu .visitTotal span{ padding-left: 0; padding-right: 65px;}
+  .proHeaderNotification .dropdown-menu .visitTotal span .imgVisitedAlt{ left: inherit; right: 15px;}
+  .proHeaderNotification .dropdown-menu .visitTotal span .imgVisitedAlt:nth-child(2){ right: 25px;}
+  .proHeaderNotification .dropdown-menu .visitTotal span .imgVisitedAlt:nth-child(3){ right: 35px;}
+
+  .proHeaderEmail .dropdown-menu{ right: inherit !important; left: -8px !important; text-align: right;}
+
+  .proHeaderImg .dropdown-menu{ right: inherit !important; left: -32px !important; text-align: right;}
+  .proHeaderImg .dropdown-menu ul li a{ padding-left: 0; padding-right: 12px;}
+  .proHeaderImg .dropdown-menu ul li a:after{ right: 0; left: inherit;}
+
+  .proHeaderNotification .dropdown-menu:before, .proHeaderEmail .dropdown-menu:before, .proHeaderImg .dropdown-menu:before{ right: inherit; left: 9px;}
+  .proHeaderNotification .dropdown-menu:after, .proHeaderEmail .dropdown-menu:after, .proHeaderImg .dropdown-menu:after{ right: inherit; left: 10px;}
+
+  .testiCollapse{ right: inherit; left: 20px;}
+  .testiCollapse:before{ right: inherit; left: 20px;}
+  .testiCollapse .testiClose{ right: inherit; left: -14px;}
+
+  .boxSingle{ padding-left: 25px; padding-right: 70px;}
+  .boxSingle .boxSingleImg{ left: inherit; right: 0;}
+  .boxSingle .timeNotific{ text-align: left; margin-right: 0; margin-left: -20px;}
+  .boxSingle .msgIcon{ right: inherit; left: 8px;}
+  .leftNoti.forConnection .boxSingle .lastChat{ right: inherit; left: 6px;}
+  .leftNoti.forConnection .boxSingle { padding-right: 70px; padding-left: 60px;}
+  .leftNoti.knownPeople .boxSingle .contactPeople{ left: 8px; right: inherit;}
+  .leftNoti.knownPeople .boxSingle{ padding-right: 70px; padding-left: 65px;}
+  .leftNoti.knownPeople .boxSingle .knownClose{ left: -4px; top: -4px; right: inherit;}
+
+  .leftNoti.forConnection .boxSingle .boxSingleImg:after{ right: inherit; left: -5px;}
+
+  .profileCarousal .profileDescImg{ left: inherit; right: 0;}
+  .profileCarousal .profileSingle{ padding-left: 0; padding-right: 70px;}
+
+  .profileCarousal .proLocation{ padding-right: 0; padding-left: 84px;}
+  .profileCarousal .proLocation .qrCode{ right: inherit; left: 0;}
+  .profileCarousal .iconDown{ text-align: left;}
+  .profileCarousal .proLocation p span{ left: inherit; right: 0;}
+  .profileCarousal .proLocation p{ padding-left: 0; padding-right: 30px;}
+
+  .cvReview .withRightBdr { border-left: 1px solid #707070; border-right: 0;}
+
+  .proEdit .formWrap .withSpace{ margin-right: 0; margin-left: 18px;}
+  .proEdit .formWrap select.inpField{ background-position: top 13px left 13px; padding-right: 10px; padding-left: 40px;}
+  .proEdit .formWrap label{ margin-right: 0; margin-left: 8px;}
+  .proEdit .nav li:first-child a:before{ display: block;}
+  .proEdit .nav li:last-child a:before{ display: none;}
+  .proEdit .formWrap label.noGap{ margin-left: 0;}
+  .customCheck{ padding-left: 0 !important; padding-right: 26px !important;}
+  .customCheck .checkmark{ left: inherit; right: 0;}
+  .proEdit .buttonGr .btnOrange{ margin-right: 0; margin-left: 12px;}
+
+  .tooltipYellow{ margin-left: 12px; margin-right: 0;}
+  // .profileDesc .dropdown-menu:before{ right: inherit; left: 6px;}
+  // .profileDesc .dropdown-menu:after{ right: inherit; left: 7px;}
+  .profileDesc .publicDrop .dropdown-menu:before{ right: inherit; left: 6px;}
+  .profileDesc .publicDrop .dropdown-menu:after{ right: inherit; left: 7px;}
+  .profileDesc .publicDrop .dropdown-menu ul li a{ text-align: right; padding-left: 0; padding-right: 14px;}
+  .profileDesc .publicDrop .dropdown-menu ul li a:after{ left: inherit; right: 0;}
+
+  .testiTabs .settingsSingle{ padding-left: 15px; padding-right: 75px;}
+  .testiTabs .settingsSingle .profileDescImg{ left: inherit; right: 15px;}
+  .testiTabs .settingsSingle p{ padding-right: 0; padding-left: 115px;}
+  .testiTabs .settingsSingle .posTed { left: 0; }
+  .testiTabs .settingsSingleButton{ right: inherit; left: 15px;}
+  .testiTabs .tab-content{ padding-left: 0; padding-right: 50px;}
+  .testiTabs ul.nav{ float: left; padding-left: 0; padding-right: 15px;}
+  .testiTabs ul.nav li{ margin-left: 0; margin-right: 10px;}
+
+  .recentSearch:after{ left: inherit; right: -50vw;}
+  // .recentSearch{ background: url(assets/images/bg-alt.png) no-repeat right top;}
+  .recentSearch{ background: #DCE0EC; border-radius: 30px 0 0 0;}
+  .carousalWrapSearch .owl-nav button.owl-next{ left: inherit; right: -912px;}
+  .carousalWrapSearch .owl-nav button.owl-prev{ left: inherit; right: -872px;}
+  .carousalWrapSearch{ padding-right: 0; padding-left: 15px;}
+
+  .withSelect .selectAbs{ right: inherit; left: 0; padding-left: 0; padding-right: 60px;}
+  .cardSelect .singleCardSelect .cardTxt{ right: inherit; left: -50px; padding-left: 0; padding-right: 35px;}
+  .cardSelect .cardSelectRow .singleCardSelect .cardTxt{ left: -30px; padding-left: 0; padding-right: 20px;}
+
+  .proEdit .formWrap .alert.alert-danger{ left: inherit; right: 0;
+    &:after{ left: inherit; right: 5px;}
+  }
+
+  .inpField.ng-select .ng-arrow-wrapper{ margin-right: 0; margin-left: 8px;}
+  .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input{ padding-left: 50px; padding-right: 10px;}
+
+  .searchResultContainer ul li span{ margin-right: 0; margin-left: 5px;}
+  .searchResultContainer ul li img{ margin-right: 0; margin-left: 5px;}
+
+
+// Bootstrap override
+   .text-right{ text-align: left !important;}
+   .text-left{ text-align: right !important;}
+// Bootstrap override
+
+
+  .owl-carousel{ direction: ltr;}
+  .privacyWrap .formWrap{ margin-left: 0; margin-right: 50px;}
+
+  .inviteBlockSingle{ padding-left: 15px; padding-right: 170px;}
+  .inviteBlockSingle .inviteBlockImg{ left: inherit; right: 15px;}
+  .inviteBlockSingle .inviteBlockBtn{ right: inherit; left: 15px;}
+  .inviteBlockSingle .inviteBlockBtn a{ margin-left: 0; margin-right: 12px;}
+
+  .inviteBlockSingle.alt .inviteBlockImg{ right: 39px;}
+  .proHeader-topBar .logoAlt{ margin-left: 0; margin-right: 5px;}
+
+  .notification-row {
+    .notificationBody {
+      padding: 0 10px 0 0 ;
+    }
+    .notificationTime {
+      text-align: left;
+    }
+  }
+
+  .profileDesc .profileAward span { font-size:11px;padding-left: 10px; padding-right:10px;}
+
+  .notificatiListBlock { padding: 0 30px 0 0;}
+  .notificatiListBlock .key { margin-left: 0; margin-right: -30px;}
+  h2.withLine small{ right: inherit; left: 0; padding-left: 0; padding-right: 17px;}
+
+}
+
+
+@media (max-width: 1365px) {
+  .rTl{
+    .inviteBlockSingle{ padding-right: 125px;}
+  }
+}
+
+@media (max-width: 1199px) {
+  .rTl{
+    .carousalWrapSearch .owl-nav button.owl-next{ right: 288px;}
+    .carousalWrapSearch .owl-nav button.owl-prev{ right: 324px;}
+    .recentSearch{ background: #dde1ed;}
+  }
+}
+
+@media (max-width: 991px) {
+  .rTl{
+    .loginSearch .loginSearchRight .searchBox{ margin-right: 0;}
+    .search-connections-privacy{ right: 0; left: inherit;}
+    .search-connections-privacy::before{ left: inherit; right: 30px;}
+    .search-connections-privacy::after{ left: inherit; right: 31px;}
+    .logoLand { margin: 0px 0 0; right: inherit; left: 0;}
+    .logo{ float: none;}
+  }
+}
+
+@media (max-width: 767px) {
+  .rTl{
+    .proHeaderLogout{ margin-left: 0;}
+    .cvReview .withRightBdr{ border-left: 0;}
+
+    .proHeaderEmail .dropdown-menu{ left: inherit !important; right: -60px !important;}
+    .proHeaderEmail .dropdown-menu:before{ left: inherit; right: 57px;}
+    .proHeaderEmail .dropdown-menu:after{ left: inherit; right: 58px;}
+
+    .proHeaderNotification .dropdown-menu{ left: inherit !important; right: -13px !important;}
+    .proHeaderNotification .dropdown-menu:before{ left: inherit; right: 11px;}
+    .proHeaderNotification .dropdown-menu:after{ left: inherit; right: 12px;}
+
+    .formTabs .nav-tabs .nav-item:first-child a{ border-left: 0;}
+
+    .testiTabs .tab-content{ padding-right: 0;}
+    .testiTabs .settingsSingle p{ padding-left: 0;}
+    .testiTabs ul.nav{ float: none;}
+
+    .proEdit .buttonGr .btnOrange, .proEdit .buttonGr .btnGreen, .proEdit .buttonGr .btnWhite{ font-size: 12px;}
+    .privacyWrap .formWrap{ margin-right: 0;}
+    .inviteBlockSingle{ padding-right: 90px;}
+  }
+}
+
+@media (max-width: 567px) {
+  .rTl{
+    .loginSearch .loginSearchLeft .forLogin .nav-tabs .nav-link{ font-size: 16px;}
+  }
+}

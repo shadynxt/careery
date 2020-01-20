@@ -1,0 +1,27 @@
+<!-- tell us reasone model start --> 
+<ng-template #content let-modal>
+  <h2><span>{{ 'PROFILE.TELL_ME_WHY' |translate }}</span></h2>
+  <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+  <div class="modal-body">
+    <div>
+      <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+      <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </div>
+
+    <div class="proEdit">
+      <div class="formWrap alt">
+       
+        <ng-select class="inpField fullWidth" [items]="reasonList" [(ngModel)]="blockForm.rId" bindLabel="name" bindValue="id"></ng-select>
+      </div>
+      <div class="txtOr">{{ 'BLOCKS.OR' |translate }}</div>
+      <div class="formWrap alt">
+         <textarea class="inpField fullWidth" [(ngModel)]="blockForm.comment" placeholder="{{ 'BLOCKS.COMMENT_PLACEHOLDER' |translate }}"></textarea>
+      </div>
+      <div class="buttonGr">
+        <div class="text-center">
+          <button type="button" class="btnOrange" name="button" (click)=submitBlockReasonFrom()>{{ 'BLOCKS.CONFIRM_BLOCK' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

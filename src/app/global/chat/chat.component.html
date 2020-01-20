@@ -1,0 +1,91 @@
+<div class="chat-container" *ngIf="config">
+  <div class="chat-content" *ngFor="let room of roomList; let i = index" [class.hidden]="room.hide">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <div class="person-img">
+          <img *ngIf="room.chatWith.picture" [src]="room.chatWith.picture" />
+        </div>
+        <div class="person-name">
+          <label class="name">{{room.chatWith.name}}</label>
+          <span class="status" *ngIf="room.accept">
+            Online
+          </span>
+        </div>
+      </div>
+      <div class="chat-header-right">
+        <span (click)="closeChatWindow(room.room,i)"><i class="fa fa-times"></i></span>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="chat-body">
+      <div class="chat-message-body">
+        <div id="loader-{{ room.room }}" class="chat-loader" *ngIf="room.loader">
+          <i class="fa fa-cog fa-spin"></i>
+          <br />
+          Fetching...
+        </div>
+        <ul class="chat-text-ul" id="chatMessageBody-{{ room.room }}" (scroll)="scrollChatHistory(room.room)">
+          <li *ngFor="let msg of room.messages; let i=index" class="message" [class.own]="msg.senderId==sendByPerson.id"
+            [class.friend]="msg.senderId!=sendByPerson.id">
+            <!-- <div class="msg-txt" [innerHTML]="msg.message"></div> -->
+            <div class="msg-txt" *ngIf="msg.type=='TEXT'">{{ msg.message}}</div>
+            <div class="msg-txt" *ngIf="msg.type=='MEDIA'"
+              >
+
+              <div *ngIf="msg.message.file_name" [class.mediaImage]="msg.message.is_image || msg.message.is_temp_image">
+
+                <div class="media-loader" *ngIf="msg.message.is_image || msg.message.is_temp_image">
+                  <i class="fa fa-cog fa-spin"></i>
+                </div>
+                <a href="{{ msg.message.file_name| picturepath:'chat' }}" target="_blank"
+                  *ngIf="msg.message.is_image"><img [src]="msg.message.file_name| picturepath:'chat'" />
+                </a>
+                <a *ngIf="msg.message.is_temp_image" href="{{ msg.message.file_name }}" target="_blank">
+                  <img [src]="msg.message.file_name" />
+                </a>
+                <a href="{{ msg.message.file_name| picturepath:'chat' }}" target="_blank"
+                  *ngIf="!msg.message.is_image && !msg.message.is_temp_image">
+                  {{ msg.message.name}}
+                </a>
+              </div>
+              <div *ngIf="!msg.message.file_name">
+                <span class="msg-err">🚫 Old file removed</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="emoji-container" *ngIf="toggleEmoji[room.room]">
+          <ul class="emoji-group-content" *ngIf="activeEmojiGroup">
+            <li *ngFor="let emoji of activeEmojiGroup.smilyList" (click)="appendEmojiText(room.room, emoji)">
+              <span [innerHTML]="emoji.code" title="{{emoji.title}}"></span>
+            </li>
+          </ul>
+          <ul class="emoji-group-container">
+            <li *ngFor="let group of emojiList" title="{{group.name}}" (click)="activeEmojiGroup=group"
+              [class.active]="activeEmojiGroup?.name == group.name">
+              <span [innerHTML]="group.icon"></span>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <div class="chat-action">
+        <div class="file-err" *ngIf="fileUploadErrorStatus[room.room] && fileUploadErrorStatus[room.room]==1">File is
+          not allowed</div>
+        <div class="file-err" *ngIf="fileUploadErrorStatus[room.room] && fileUploadErrorStatus[room.room]==2">Only less
+          than 2mb file is allowed </div>
+        <div class="chat-text" id="messageContent-{{ room.room }}" contenteditable="true" placeholder="Type here..."
+          (keydown)="sendMessage(room.room, $event)"></div>
+
+        <div class="chat-action-btns">
+          <span (click)="toggleEmojiContent(room.room)"><i class="fa fa-smile-o"></i></span>
+
+          <span (click)="openTransfarFileBox(room.room)"><i class="fa fa-paperclip"></i></span>
+          <input type="file" id="message-transfar-{{ room.room }}" class="chat-file"
+            (change)="submitTransfarFile(room.room, $event)" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

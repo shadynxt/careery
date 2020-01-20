@@ -1,0 +1,953 @@
+<div class="proEdit">
+  <div class="row">
+      <div class="col-lg-3">
+    
+          <div class="doughnut-chart-content">
+              <div class="c100  p{{ completePecent }} big green">
+                  <span>
+                  <small>{{ completePecent }}%</small>
+                  <br/> {{ 'CV.COMPLETED'| translate }}
+                  </span>
+                  <div class="slice">
+                      <div class="bar"></div>
+                      <div class="fill"></div>
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="editImage">
+            <div class="editImageMain">
+              <div class="editImagePop" (click)="openEditPicModal(content)"><i class="fa fa-plus-circle"
+                  aria-hidden="true"></i></div>
+              <img *ngIf="saveCvInfoData.profilePic" [src]="saveCvInfoData.profilePic" />
+            </div>
+            <div class="text-center">
+              <button type="button" name="button" (click)="openEditPicModal(content)">{{
+                'PROFILEEDIT.EDIT'|translate }}</button>
+              <button *ngIf="saveCvInfoData.profilePic" class="remove" type="button" name="button" (click)="removeProfilePic()">{{
+                'PROFILEEDIT.REMOVE'|translate }}</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-xs-12 profile-edit-form-main-content">
+              <ngb-tabset #tab="ngbTabset" (tabChange)="changeTabEvent($event)">
+                <!-- Personal Info -->
+                <ngb-tab id="personal" (load)="personalDetails()">
+                  <ng-template ngbTabTitle><i class="fa fa-info" aria-hidden="true"></i> {{ 'PROFILE.PERSONAL_INFO' | translate }}</ng-template>
+                  <ng-template ngbTabContent>
+                    <div *ngIf="loader.personal.list" class="loader-p"><i class="fa fa-cog fa-spin"></i></div>
+                    <div class="proEditForm">
+                     
+                        <div class="row">
+
+              
+                          <div class="col-lg-12">
+                            <div class="profile-edit-form-container">
+                            <div class="alert alert-success" *ngIf="personalSuccessMsg">{{ personalSuccessMsg }}</div>
+                            <div class="alert alert-danger" *ngIf="personalErrorMsg">{{ personalErrorMsg }}</div>
+                            <div class="row">
+                              <div class="col-lg-4">
+                                <div class="formWrap">
+                                  <label for="">{{ 'PROFILEEDIT.FIRST_NAME'|translate }} :</label>
+                                  <input class="inpField" type="text" [(ngModel)]="personalForm.first_name" value="" placeholder="">
+                                  <div *ngIf="personalForm.submit && (personalForm.first_name==null || personalForm.first_name =='')"
+                                    class="alert alert-danger">
+                                    {{ 'PROFILEEDIT.FIRST_NAME_REQUIRED'|translate }}
+                                  </div>
+              
+                                </div>
+                              </div>
+                              <div class="col-lg-4">
+                                <div class="formWrap">
+                                  <label for="">{{ 'PROFILEEDIT.LAST_NAME'|translate }} :</label>
+                                  <input class="inpField" type="text" [(ngModel)]="personalForm.last_name" value="" placeholder="">
+                                  <div *ngIf="personalForm.submit && (personalForm.last_name==null || personalForm.last_name =='')"
+                                    class="alert alert-danger">
+                                    {{ 'PROFILEEDIT.LAST_NAME_REQUIRED'|translate }}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-lg-4">
+                                <div class="formWrap">
+                                  <label for="">{{ 'PROFILEEDIT.FAMILY_NAME'|translate }} :</label>
+                                  <input class="inpField" type="text" [(ngModel)]="personalForm.family_name" value="" placeholder="">
+              
+              
+                                </div>
+                              </div>
+                            </div>
+              
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="formWrap">
+                                  <label for="">{{ 'PROFILEEDIT.DOB'|translate }} : <small><i class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                                  <select [(ngModel)]="personalForm.dob_date" class="inpField autoWidth withSpace">
+                                    <option *ngFor="let d of dayList" [value]="d.id">{{d.name}}</option>
+                                  </select>
+                                  <select [(ngModel)]="personalForm.dob_month" class="inpField autoWidth withSpace">
+                                    <option *ngFor="let d of monthList" [value]="d.id">{{d.name}}</option>
+                                  </select>
+                                  <select [(ngModel)]="personalForm.dob_year" class="inpField autoWidth withSpace">
+                                    <option *ngFor="let d of years" [value]="d">{{d}}</option>
+                                  </select>
+                                  <div *ngIf="personalForm.submit && (!personalForm.dob_date || !personalForm.dob_month || !personalForm.dob_year)"
+                                    class="alert alert-danger">
+                                    {{ 'PROFILEEDIT.DOB_REQUIRED'|translate }}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="formWrap">
+                                  <label for="">{{ 'PROFILEEDIT.LOCATION'|translate }} : <small><i class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                                  <span class="formWrap withSpace">
+                                    <ng-select class="inpField width200" [items]="countryList" [(ngModel)]="personalForm.country_id"
+                                      bindLabel="name" bindValue="id" (change)="getCityList()"></ng-select>
+                                    <div *ngIf="personalForm.submit && (personalForm.country_id==null || personalForm.country_id =='')"
+                                      class="alert alert-danger">
+                                      {{ 'PROFILEEDIT.COUNTRY_REQUIRED'|translate }}
+                                    </div>
+                                  </span>
+              
+                                  <span class="formWrap withSpace">
+                                    <ng-select class="inpField width200" [items]="cityList" [(ngModel)]="personalForm.city_id"
+                                      bindLabel="name" bindValue="id"></ng-select>
+                                    <div *ngIf="personalForm.submit && (personalForm.city_id==null || personalForm.city_id =='')"
+                                      class="alert alert-danger">
+                                      {{ 'PROFILEEDIT.CITY_REQUIRED'|translate }}
+                                    </div>
+                                  </span>
+              
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="formWrap">
+                                    <label for="">{{ 'PROFILEEDIT.ADDRESS'|translate }} : </label>
+                                    <span class="formSpan">
+                                      <input class="inpField largeWidth" type="text" [(ngModel)]="personalForm.address" value="" placeholder="">
+                                      <div *ngIf="personalForm.submit && (!personalForm.address)"
+                                      class="alert alert-danger">
+                                      {{ 'PROFILEEDIT.ADDRESS_REQUIRED'|translate }}
+                                    </div>
+                                    </span>
+                                    
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="formWrap">
+                                  <label for="">{{ 'PROFILEEDIT.EMAIL'|translate }} : <small><i class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                                  <span class="formSpan">
+                                    <input class="inpField largeWidth" type="email" [(ngModel)]="personalForm.email" value=""
+                                      placeholder="">
+                                    <div *ngIf="personalForm.submit && (personalForm.email==null || personalForm.email =='')" class="alert alert-danger">
+                                      {{ 'PROFILEEDIT.EMAIL_REQUIRED'|translate }}
+                                    </div>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="formWrap">
+                                  <label for="">{{ 'PROFILEEDIT.WEBSITE'|translate }} :</label>
+                                  <input class="inpField largeWidth" type="text" [(ngModel)]="personalForm.website" value=""
+                                    placeholder="">
+              
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+              
+                              <div class="col-lg-12">
+                                  <div class="formWrap">
+                                    <label for="">{{ 'PROFILEEDIT.MOBILE'|translate }} : <small><i class="fa fa-asterisk" aria-hidden="true"></i></small></label>
+                                    <span class="inpField largeWidth profile-edit-mobile">
+                                        <ng-select class="inpField phCodeSelect" [items]="countryCodes" bindLabel="code"
+                                        bindValue="code" [clearable]="false" [searchable]="false" [(ngModel)]="personalForm.mobile_code"
+                                        >
+                                        <ng-template ng-label-tmp let-item="item">
+                                          <img height="15" width="15" [src]="item.flag | picturepath:'flag'"/>&nbsp;
+                                          <b>{{item.code}}</b>
+                                          </ng-template>
+                                          <ng-template ng-option-tmp let-item="item" let-index="index">
+                                              <img height="15" width="15" [src]="item.flag | picturepath:'flag'"/>&nbsp;
+                                              <b>{{item.code}}</b>
+                                          </ng-template>
+                                        </ng-select>
+                                      <input appOnlynumaricinput maxlength="10" class="inpField" type="text" [(ngModel)]="personalForm.mobile_no" value=""
+                                        placeholder="">
+                                      <div *ngIf="personalForm.submit && (personalForm.mobile_no==null || personalForm.mobile_no =='')"
+                                        class="alert alert-danger">
+                                        {{ 'PROFILEEDIT.MOBILE_REQUIRED'|translate }}
+                                      </div>
+                                      <div *ngIf="personalForm.submit && (personalForm.mobile_no.length != 10)" class="alert alert-danger">
+                                        {{ 'PROFILEEDIT.MOBILE_LENGTH'|translate }}
+                                      </div>
+              
+                                    </span>
+                                  </div>
+                              </div>
+                            </div>
+                            
+                          </div>
+              
+              
+                          </div>
+                        </div>
+                     
+            
+                      <div class="buttonGr">
+                        <div class="row">
+                          <div class="col-6">
+                            <a  href="javascript:void(0)" class="btnWhite" (click)="gotToPayment(true)">{{ 'PROFILEEDIT.HELP_TOCREATE_CV'|translate }}</a>
+                          </div>
+                          <div class="col-6">
+                            <div class="text-right">
+            
+                              <button  type="button" class="btnGreen" name="button" (click)=updatePersonalFrom()>
+                                <span *ngIf="loader.personal.submit" class="loader-p"><i class="fa fa-cog fa-spin"></i></span>
+                                {{ 'PROFILEEDIT.SAVE' | translate}}
+                              </button>&nbsp;&nbsp; 
+                              <button  class="btnGreen" type="button" name="button" (click)="setActive(tab,'education')">{{
+                                'PROFILEEDIT.NEXT'|translate }} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+            
+                    </div>
+
+                    <div class="formTable">
+                      <table class="table table-borderless">
+                        <thead>
+                          <tr>
+                            <th>{{ 'CV.NAME'|translate }}</th>
+                            <th class="text-center">{{ 'CV.STATUS'|translate }}</th>
+                            <th class="text-center">{{ 'CV.ACTION'|translate }}</th>
+                            <th class="text-center">{{ 'CV.CURRENT'|translate }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let cv of userCvList">
+                            <td>{{ cv.cv_name }}</td>
+                            <td class="text-center">
+                              <span *ngIf="cv.status == 1">{{ 'CV.UNDER_PROCESS'|translate }}</span>
+                              <span *ngIf="cv.status == 2 && cv.is_consult == 1">{{ 'CV.COMPLETED'|translate }}</span>
+                              <span *ngIf="cv.status == 2 && (cv.is_consult == null || cv.is_consult == 0)">{{ 'CV.PAID'|translate }}</span>
+                              <span *ngIf="cv.status == 3">{{ 'CV.NOTE_PAID'|translate }}</span>
+                              
+                            </td>
+                            <td class="text-center">
+                              <div *ngIf="cv.status!=4">
+
+                                <a (click)="goToEditCv(cv)" *ngIf="cv.status != 1 && cv.is_consult== 1"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <a (click)="goToEditCv(cv)" *ngIf="cv.status == 3 && cv.is_consult== 0"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        
+                                <a href="{{ cv.cv_file| picturepath:'cv' }}" target="_blank" *ngIf="cv.status == 2"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a  *ngIf="cv.is_consult == 1" [routerLink]="['/cv/consulting',cv.id]"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                <a *ngIf="cv.status == 3" (click)="goToPayment(cv)" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                <a (click)="removeCV(cv)" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+                              </div>
+      
+                            </td>
+                            <td class="text-center">
+                              <label class="customRadio"  *ngIf="cv.status == 2 || cv.status == 4">
+                                <input type="radio" name="default" [checked]="cv.is_default" (click)="setIsDefault(cv)">
+                                <span class="checkmark"></span>
+                              </label>
+                            </td>
+                          </tr>
+                          <tr *ngIf="userCvList.length == 0" >
+                            <td colspan="4" class="text-center">{{ 'PROFILEEDIT.NO_RECORD_FOUND'| translate }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </ng-template>
+                </ngb-tab>
+                <!-- Personal Info -->
+            
+            
+                <!-- Education -->
+                <ngb-tab id="education">
+                  <ng-template ngbTabTitle>
+                    <div>
+                      <i class="fa fa-book" aria-hidden="true"></i> {{ 'PROFILE.EDUCATION' | translate }}
+                    </div>
+                  </ng-template>
+                  <ng-template ngbTabContent>
+            
+                    <div class="row">
+
+                      <div class="col-lg-12">
+                        <div class="alert alert-success" *ngIf="educationSuccessMsg">{{ educationSuccessMsg }}</div>
+                        <div class="profile-edit-form-container">
+          
+                          <div class="formWrap">
+                            <label class="col-xl-3 noGap" for="">{{'PROFILEEDIT.DEGREE' | translate }} :</label>
+                            <span class="formSpan col-xl-9">
+                              <ng-select class="inpField fullWidth" [items]="degreelist" [(ngModel)]="educationForm.degree_id"
+                                bindLabel="name" bindValue="id" (change)="getDegreeFields()"></ng-select>
+                              <div *ngIf="educationForm.submit && (educationForm.degree_id==null || educationForm.degree_id=='')"
+                                class="alert alert-danger">
+                                {{'PROFILEEDIT.DEGREE_REQUIRED' | translate }}
+                              </div>
+                            </span>
+                          </div>
+              
+                          <div class="formWrap">
+                            <label class="col-xl-3 noGap" for="">{{'PROFILEEDIT.FIELD' | translate }} :</label>
+                            <span class="formSpan col-xl-9">
+                              <ng-select class="inpField fullWidth" [items]="degreeFieldlist" [(ngModel)]="educationForm.field_id"
+                                bindLabel="name" bindValue="id"></ng-select>
+                              <div *ngIf="educationForm.submit && (educationForm.field_id==null || educationForm.field_id=='')" class="alert alert-danger">
+                                {{'PROFILEEDIT.DEGREE_FIELD_REQUIRED' | translate }}
+                              </div>
+                            </span>
+                          </div>
+              
+                          <div class="formWrap">
+                            <label class="col-xl-3 noGap" for="">{{'PROFILEEDIT.DATE_OF_DEGREE' | translate }} :</label>
+                            <span class="formSpan withSpace">
+                              <ng-select placeholder="{{ 'PROFILEEDIT.DURATION_FROM' | translate}}" class="inpField autoWidth"
+                                [items]="years" (change)="reDefineToYear($event)" [(ngModel)]="educationForm.from_year"></ng-select>
+                              <div *ngIf="educationForm.submit && (educationForm.from_year==null || educationForm.from_year=='')"
+                                class="alert alert-danger">
+                                {{'PROFILEEDIT.DEGREE_FROM_YEAR_REQUIRED' | translate }}
+                              </div>
+                            </span>
+                            <span class="formSpan">
+                              <ng-select placeholder="{{ 'PROFILEEDIT.DURATION_TO' | translate}}" class="inpField autoWidth withSpace"
+                                [items]="toYears" [(ngModel)]="educationForm.to_year"></ng-select>
+                              <div *ngIf="educationForm.submit && (educationForm.to_year==null || educationForm.to_year=='')" class="alert alert-danger">
+                                {{'PROFILEEDIT.DEGREE_TO_REQUIRED' | translate }}
+                              </div>
+                            </span>
+                          </div>
+              
+                          <div class="addField">
+                            <div class="text-right">
+                              <button type="button" name="button" (click)=submitEducationFrom()>
+                                <span *ngIf="loader.education.submit" class="loader-p"><i class="fa fa-cog fa-spin"></i></span>
+                                {{ 'PROFILEEDIT.SAVE' | translate}}</button>&nbsp;
+                              <button type="button" *ngIf="resetBtnDisplay" name="button" (click)="resetEducationForm()">{{
+                                'PROFILEEDIT.RESET' | translate}}</button>
+                            </div>
+                          </div>
+                          <div class="formTable">
+                            <table class="table table-borderless">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>{{'PROFILEEDIT.DEGREE' | translate }}</th>
+                                  <th>{{'PROFILEEDIT.FIELD' | translate }}</th>
+                                  <th>{{'PROFILEEDIT.DATE_OF_DEGREE' | translate }}</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngIf="loader.education.list">
+                                  <td colspan="5" class="loader-p"><i class="fa fa-cog fa-spin"></i></td>
+                                </tr>
+                                <tr *ngFor="let d of userDegreelist; let i=index">
+                                  <td>{{(i+1)}} </td>
+                                  <td>{{ d.degree_name }}</td>
+                                  <td>{{ d.degree_field_name }}</td>
+                                  <td>
+                                    {{ d.from_year }}
+                                    <span *ngIf="d.to_year">
+                                      -
+                                      {{ d.to_year }}
+                                    </span>
+                                  </td>
+                                  <td>
+                                    <a href="javascript:" (click)="editEducation(d)"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:" (click)="deleteEducation(i)"><i class="fa fa-trash"></i></a>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="userDegreelist.length === 0">
+                                  <td colspan="5">{{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+            
+                      </div>
+                    </div>
+            
+                    <div class="buttonGr">
+                      <div class="row">
+                        <div class="col-6">
+                          <a class="btnWhite" href="javascript:void(0)" (click)="gotToPayment(true)">{{ 'PROFILEEDIT.HELP_TOCREATE_CV'|translate }}</a>
+                        </div>
+                        <div class="col-6">
+                          <div class="text-right">
+                            <button class="btnOrange" type="button" name="button" (click)="setActive(tab,'personal')"><i class="fa fa-arrow-left"
+                                aria-hidden="true"></i> {{ 'PROFILEEDIT.BACK'|translate }}</button>
+                            <button class="btnGreen" type="button" name="button" (click)="setActive(tab,'skills')">{{
+                              'PROFILEEDIT.NEXT'|translate }} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            
+                  </ng-template>
+                </ngb-tab>
+                <!-- Skills -->
+            
+                <ngb-tab id="skills">
+                  <ng-template ngbTabTitle><i class="fa fa-star" aria-hidden="true"></i> {{ 'PROFILE.SKILLS' | translate }}</ng-template>
+                  <ng-template ngbTabContent>
+                    <div class="row">
+
+                      <div class="col-lg-12">
+                          <div class="profile-edit-form-container">
+                        <div class="alert alert-success" *ngIf="skillSuccessMsg">{{ skillSuccessMsg }}</div>
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap" for="">{{ "PROFILEEDIT.SKILLS"|translate }} :</label>
+                          <span class="formSpan col-xl-9">
+                            <!-- <input class="inpField fullWidth" type="text" [(ngModel)]="skillForm.skill_name" value="" placeholder="{{ 'PROFILEEDIT.SKILL_NAME'|translate }}"> -->
+                            <ng-select class="inpField fullWidth" [items]="skillsList" [(ngModel)]="skillForm.skill_id" bindLabel="name"
+                              bindValue="id"></ng-select>
+            
+                            <div *ngIf="skillForm.submit && (skillForm.skill_id==null || skillForm.skill_id =='')" class="alert alert-danger">
+                              {{'PROFILEEDIT.SKILL_NAME_REQUIRED' | translate }}
+                            </div>
+                            <div *ngIf="skillForm.submit && skillForm.error==2" class="alert alert-danger">
+                              {{'PROFILEEDIT.SKILL_ALREADY_ADDED' | translate }}
+                            </div>
+                          </span>
+                        </div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap" for="">{{ "PROFILEEDIT.DEGREE"|translate }} :</label>
+                          <span class="formSpan">
+                            <label class="diffRadio">
+                              <input type="radio" name="radio" [checked]="skillForm.status==1" (click)="skillForm.status=1">
+                              <span class="checkmark"></span>
+                              <span class="checkTxt">{{ "PROFILEEDIT.SKILLS_STATUS_EXCELLENT"|translate }}</span>
+                            </label>
+                            <label class="diffRadio">
+                              <input type="radio" name="radio" [checked]="skillForm.status==2" (click)="skillForm.status=2">
+                              <span class="checkmark"></span>
+                              <span class="checkTxt">{{ "PROFILEEDIT.SKILLS_STATUS_VERY_GOOD"|translate }}</span>
+                            </label>
+                            <label class="diffRadio">
+                              <input type="radio" name="radio" [checked]="skillForm.status==3" (click)="skillForm.status=3">
+                              <span class="checkmark"></span>
+                              <span class="checkTxt">{{ "PROFILEEDIT.SKILLS_STATUS_GOOD"|translate }}</span>
+                            </label>
+                            <label class="diffRadio">
+                              <input type="radio" name="radio" [checked]="skillForm.status==4" (click)="skillForm.status=4">
+                              <span class="checkmark"></span>
+                              <span class="checkTxt">{{ "PROFILEEDIT.SKILLS_STATUS_FRESH"|translate }}</span>
+                            </label>
+                            <div *ngIf="skillForm.submit && (skillForm.status==null || skillForm.status =='')" class="alert alert-danger">
+                              {{'PROFILEEDIT.SKILL_DEGREE_REQUIRED' | translate }}
+                            </div>
+                          </span>
+                        </div>
+            
+                        <div class="addField">
+                          <div class="text-right">
+                            <button type="button" name="button" (click)="submitSkillForm()">
+                              <span *ngIf="loader.skills.submit" class="loader-p"><i class="fa fa-cog fa-spin"></i></span>
+                              {{ "PROFILEEDIT.SAVE"|translate }}</button>
+                            &nbsp;
+                            <button type="button" *ngIf="resetBtnDisplay" name="button" (click)="resetSkillForm()">{{
+                              "PROFILEEDIT.RESET"|translate }}</button>
+                          </div>
+                        </div>
+            
+                        <div class="formTable">
+                          <table class="table table-borderless">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>{{ "PROFILEEDIT.SKILLS"|translate }}</th>
+                                <th>{{ "PROFILEEDIT.DEGREE"|translate }}</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngIf="loader.skills.list">
+                                <td colspan="5" class="loader-p"><i class="fa fa-cog fa-spin"></i></td>
+                              </tr>
+                              <tr *ngFor="let s of userSkilllist; let i = index">
+                                <td>{{ (i+1) }}</td>
+                                <td>{{ s.skill_name }}</td>
+                                <td>
+                                  <span *ngIf="s.status==1">{{ "PROFILEEDIT.SKILLS_STATUS_EXCELLENT"|translate }}</span>
+                                  <span *ngIf="s.status==2">{{ "PROFILEEDIT.SKILLS_STATUS_VERY_GOOD"|translate }}</span>
+                                  <span *ngIf="s.status==3">{{ "PROFILEEDIT.SKILLS_STATUS_GOOD"|translate }}</span>
+                                  <span *ngIf="s.status==4">{{ "PROFILEEDIT.SKILLS_STATUS_FRESH"|translate }}</span>
+                                </td>
+                                <td>
+                                  <a href="javascript:" (click)="editSkills(s)"><i class="fa fa-pencil"></i></a>
+                                  <a href="javascript:" (click)="deleteSkills(i)"><i class="fa fa-trash"></i></a>
+                                </td>
+                              </tr>
+                              <tr *ngIf="userSkilllist.length === 0">
+                                <td colspan="4">{{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+            
+                    <div class="buttonGr">
+                      <div class="row">
+                        <div class="col-6">
+                          <a class="btnWhite" href="javascript:void(0)" (click)="gotToPayment(true)">{{ 'PROFILEEDIT.HELP_TOCREATE_CV'|translate }}</a>
+                        </div>
+                        <div class="col-6">
+                          <div class="text-right">
+                            <button class="btnOrange" type="button" name="button" (click)="setActive(tab,'education')"><i class="fa fa-arrow-left"
+                                aria-hidden="true"></i> {{ 'PROFILEEDIT.BACK'|translate }}</button>
+                            <button class="btnGreen" type="button" name="button" (click)="setActive(tab,'experience')">{{
+                              'PROFILEEDIT.NEXT'|translate }} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            
+                  </ng-template>
+                </ngb-tab>
+                <!-- Experience -->
+                <ngb-tab id="experience">
+                  <ng-template ngbTabTitle><i class="fa fa-suitcase" aria-hidden="true"></i> {{ 'PROFILE.EXPERIENCE' | translate }}</ng-template>
+                  <ng-template ngbTabContent>
+                    <div class="row">
+
+                      <div class="col-lg-12">
+                          <div class="profile-edit-form-container">
+                        <div class="alert alert-success" *ngIf="experienceSuccessMsg">{{ experienceSuccessMsg }}</div>
+                        <div class="alert alert-danger" *ngIf="experienceErrorMsg">{{ experienceErrorMsg }}</div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap" for="">{{'PROFILEEDIT.EXPERIENCE_COMAPNY_NAME' | translate }} :</label>
+                          <span class="formSpan col-xl-9">
+                            <input class="inpField fullWidth" type="text" [(ngModel)]="experienceForm.company_name" value=""
+                              placeholder="{{'PROFILEEDIT.EXPERIENCE_COMAPNY_NAME' | translate }}">
+                            <div *ngIf="experienceForm.submit && (experienceForm.company_name==null || experienceForm.company_name =='')"
+                              class="alert alert-danger">
+                              {{'PROFILEEDIT.EXPERIENCE_COMAPNY_NAME_REQUIRED' | translate }}
+                            </div>
+                          </span>
+                        </div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap" for="">{{'PROFILEEDIT.POSITION' | translate }} :</label>
+                          <span class="formSpan col-xl-9">
+                            <ng-select class="inpField fullWidth" [items]="positionlist" [(ngModel)]="experienceForm.position_id"
+                              bindLabel="name" bindValue="id"></ng-select>
+                            <div *ngIf="experienceForm.submit && (experienceForm.position_id==null || experienceForm.position_id=='')"
+                              class="alert alert-danger">
+                              {{'PROFILEEDIT.POSITION_REQUIRED' | translate }}
+                            </div>
+                          </span>
+                        </div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap" for="">{{'PROFILEEDIT.DURATION' | translate }} :</label>
+                          <span class="formSpan withSpace">
+                            <ng-select placeholder="{{ 'PROFILEEDIT.DURATION_FROM' | translate}}" class="inpField autoWidth"
+                              [items]="years" [(ngModel)]="experienceForm.from_year" (change)="reDefineToYear($event)"></ng-select>
+                            <div *ngIf="experienceForm.submit && (experienceForm.from_year==null || experienceForm.from_year=='')"
+                              class="alert alert-danger">
+                              {{'PROFILEEDIT.DURATION_FROM_YEAR_REQUIRED' | translate }}
+                            </div>
+                          </span>
+            
+                          <ng-select [disabled]="experienceForm.is_current" placeholder="{{ 'PROFILEEDIT.DURATION_TO' | translate}}"
+                            class="inpField autoWidth withSpace" [items]="toYears" [(ngModel)]="experienceForm.to_year"></ng-select>
+            
+                          <label class="customCheck">{{'PROFILEEDIT.EXPERIENCE_CURRENT' | translate }}
+                            <input type="checkbox" [(ngModel)]="experienceForm.is_current" (click)="checkValue($event)">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap vertTop" for="">{{'PROFILEEDIT.EXPERIENCE_SUMMARY' | translate }} :</label>
+                          <textarea class="col-xl-9 inpField fullWidth" type="text" [(ngModel)]="experienceForm.summery" value=""
+                            placeholder="{{'PROFILEEDIT.EXPERIENCE_SUMMARY' | translate }}"></textarea>
+                        </div>
+            
+                        <div class="addField">
+                          <div class="text-right">
+                            <button type="button" name="button" (click)=submitExperienceFrom()>
+                              <span *ngIf="loader.experience.submit" class="loader-p"><i class="fa fa-cog fa-spin"></i></span>
+                              {{ 'PROFILEEDIT.SAVE' | translate}}</button>&nbsp;
+                            <button type="button" *ngIf="resetBtnDisplay" name="button" (click)=resetExperienceForm()>{{
+                              'PROFILEEDIT.RESET' | translate}}</button>
+                          </div>
+                        </div>
+            
+                        <div class="formTable">
+                          <table class="table table-borderless">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>{{'PROFILEEDIT.POSITION' | translate }}</th>
+                                <th>{{'PROFILEEDIT.EXPERIENCE_COMAPNY_NAME' | translate }}</th>
+                                <th>{{'PROFILEEDIT.DURATION_FROM' | translate }}</th>
+                                <th>{{'PROFILEEDIT.DURATION_TO' | translate }}</th>
+                                <th>{{'PROFILEEDIT.ACTION' | translate }}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngIf="loader.experience.list">
+                                <td colspan="5" class="loader-p"><i class="fa fa-cog fa-spin"></i></td>
+                              </tr>
+                              <tr *ngFor="let e of userExperiencelist; let i=index">
+                                <td>{{(i+1)}}</td>
+                                <td>{{ e.position_name }} </td>
+                                <td>{{ e.company_name }}</td>
+                                <td>{{ e.from_year }}</td>
+                                <td>{{ e.to_year }} <span *ngIf="e.is_current==1">{{ 'PROFILE.EXPERIENCE_CURRENT' | translate }}</span></td>
+            
+                                <td>
+                                  <a href="javascript:" (click)="editExperience(e)"><i class="fa fa-pencil"></i></a>
+                                  <a href="javascript:" (click)="deleteExperience(i)"><i class="fa fa-trash"></i></a>
+                                </td>
+                              </tr>
+                              <tr *ngIf="userExperiencelist.length === 0">
+                                <td colspan="6">{{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+            
+                    <div class="buttonGr">
+                      <div class="row">
+                        <div class="col-6">
+                          <a class="btnWhite" href="javascript:void(0)" (click)="gotToPayment(true)">{{ 'PROFILEEDIT.HELP_TOCREATE_CV'|translate }}</a>
+                        </div>
+                        <div class="col-6">
+                          <div class="text-right">
+                            <button class="btnOrange" type="button" name="button" (click)="setActive(tab,'skills')"><i class="fa fa-arrow-left"
+                                aria-hidden="true"></i> {{ 'PROFILEEDIT.BACK'|translate }}</button>
+                            <button class="btnGreen" type="button" name="button" (click)="setActive(tab,'certificate')">{{
+                              'PROFILEEDIT.NEXT'|translate }} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ngb-tab>
+                <!-- Experience -->
+            
+                <!-- Certificate -->
+                <ngb-tab id="certificate">
+                  <ng-template ngbTabTitle><i class="fa fa-graduation-cap" aria-hidden="true"></i> {{ 'PROFILEEDIT.CERTIFICATE' |
+                    translate }}</ng-template>
+                  <ng-template ngbTabContent>
+                    <div class="row">
+
+                      <div class="col-lg-12">
+                          <div class="profile-edit-form-container">
+                        <div class="alert alert-success" *ngIf="certificateSuccessMsg">{{ certificateSuccessMsg }}</div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap" for="">{{ 'PROFILEEDIT.CERTIFICATE' | translate }} :</label>
+                          <span class="formSpan col-xl-9">
+                            <input class="inpField fullWidth" type="text" [(ngModel)]="certificateForm.certificate_name" value=""
+                              placeholder="{{ 'PROFILEEDIT.CERTIFICATE' | translate }}">
+                            <div *ngIf="certificateForm.submit && (certificateForm.certificate_name==null || certificateForm.certificate_name =='')"
+                              class="alert alert-danger">
+                              {{ 'PROFILEEDIT.CERTIFICATE_NAME_REQUIRED' | translate }}
+                            </div>
+                          </span>
+                        </div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap vertTop" for="">{{ 'PROFILEEDIT.CERTIFICATE_SUMMARY' | translate }} :</label>
+                          <textarea class="col-xl-9 inpField fullWidth" [(ngModel)]="certificateForm.summery" placeholder="{{ 'PROFILEEDIT.CERTIFICATE_SUMMARY' | translate }}"></textarea>
+                        </div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap" for="">{{'PROFILEEDIT.DURATION' | translate }} :</label>
+                          <span class="formSpan withSpace">
+                            <ng-select placeholder="{{ 'PROFILEEDIT.DURATION_FROM' | translate}}" class="inpField autoWidth"
+                              [items]="years" [(ngModel)]="certificateForm.from_year" (change)="reDefineToYear($event)"></ng-select>
+                            <div *ngIf="certificateForm.submit && (certificateForm.from_year==null || certificateForm.from_year=='')"
+                              class="alert alert-danger">
+                              {{'PROFILEEDIT.DURATION_FROM_YEAR_REQUIRED' | translate }}
+                            </div>
+                          </span>
+            
+                          <span class="formSpan withSpace">
+                            <ng-select placeholder="{{ 'PROFILEEDIT.DURATION_TO' | translate}}" class="inpField autoWidth withSpace"
+                              [items]="toYears" [(ngModel)]="certificateForm.to_year"></ng-select>
+                            <div *ngIf="certificateForm.submit && (certificateForm.to_year==null || certificateForm.to_year=='')"
+                              class="alert alert-danger">
+                              {{'PROFILEEDIT.DEGREE_TO_REQUIRED' | translate }}
+                            </div>
+                          </span>
+                        </div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap" for="">{{'PROFILEEDIT.UPLOAD' | translate }} :</label>
+                          <div class="fileUpload">
+                            <label for="file-upload" class="custom-file-upload">{{'PROFILEEDIT.BROWSE' | translate }}</label>
+                            <input id="file-upload" type="file" accept=".png, .jpg, .jpeg, .gif" (change)="onFileChanged($event)" />
+                          </div>
+                          <span class="uploadPic" *ngIf="certificatePicture"><img [src]="certificatePicture" alt=""></span>
+            
+                          <div class="alert alert-danger" *ngIf="pictureError.status == 1">{{ pictureError.msg }}</div>
+                          <div class="alert alert-danger" *ngIf="pictureSizeError.status == 1">{{ pictureSizeError.msg }}</div>
+            
+                        </div>
+            
+                        <div class="addField">
+                          <div class="text-right">
+                            <button type="button" name="button" (click)=submitCertificateFrom()>
+                              <span *ngIf="loader.certificate.submit" class="loader-p"><i class="fa fa-cog fa-spin"></i></span>
+                              {{ 'PROFILEEDIT.SAVE' | translate}}</button>&nbsp;
+                            <button type="button" name="button" *ngIf="resetBtnDisplay" (click)="resetCertificateForm()">{{
+                              'PROFILEEDIT.RESET' | translate}}</button>
+                          </div>
+                        </div>
+            
+                        <div class="formTable">
+                          <table class="table table-borderless">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>{{'PROFILEEDIT.CERTIFICATE_NAME' | translate }}</th>
+                                <th class="text-center">{{'PROFILEEDIT.DURATION_FROM' | translate }}</th>
+                                <th class="text-center">{{'PROFILEEDIT.DURATION_TO' | translate }}</th>
+                                <th class="text-center">{{'PROFILEEDIT.ACTION' | translate }}</th>
+            
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngIf="loader.certificate.list">
+                                <td colspan="5" class="loader-p"><i class="fa fa-cog fa-spin"></i></td>
+                              </tr>
+                              <tr *ngFor="let c of userCertificatelist; let i=index">
+                                <td>{{(i+1)}}</td>
+                                <td>{{ c.certificate_name }}</td>
+                                <td class="text-center">{{ c.from_year }}</td>
+                                <td class="text-center">{{ c.to_year }}</td>
+            
+                                <td class="text-center">
+                                  <a href="javascript:" (click)="editCertificate(c)"><i class="fa fa-pencil"></i></a>
+                                  <a href="javascript:" (click)="deleteCertificate(i)"><i class="fa fa-trash"></i></a>
+                                </td>
+                              </tr>
+                              <tr *ngIf="userCertificatelist.length === 0">
+                                <td colspan="5">{{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+            
+                    <div class="buttonGr">
+                      <div class="row">
+                        <div class="col-6">
+                          <a class="btnWhite" href="javascript:void(0)" (click)="gotToPayment(true)">{{ 'PROFILEEDIT.HELP_TOCREATE_CV'|translate }}</a>
+                        </div>
+                        <div class="col-6">
+                          <div class="text-right">
+                            <button class="btnOrange" type="button" name="button" (click)="setActive(tab,'experience')"><i class="fa fa-arrow-left"
+                                aria-hidden="true"></i> {{ 'PROFILEEDIT.BACK'|translate }}</button>
+                            <button class="btnGreen" type="button" name="button"  (click)="setActive(tab,'projects')">{{
+                                'PROFILEEDIT.NEXT'|translate }} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            
+                  </ng-template>
+                </ngb-tab>
+            
+                <!-- Projects -->
+            
+                <ngb-tab id="projects">
+                  <ng-template ngbTabTitle><i class="fa fa-graduation-cap" aria-hidden="true"></i> {{ 'PROFILEEDIT.PROJECTS' |
+                    translate }}</ng-template>
+                  <ng-template ngbTabContent>
+                    <div class="row">
+
+                      <div class="col-lg-12">
+                          <div class="profile-edit-form-container">
+                        <div class="alert alert-success" *ngIf="projectSuccessMsg">{{ projectSuccessMsg }}</div>
+                        <div class="alert alert-danger" *ngIf="projectErrorMsg">{{ projectErrorMsg }}</div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap" for="">{{ 'PROFILEEDIT.PROJECT_NAME' | translate }} :</label>
+                          <span class="formSpan col-xl-9">
+                            <input class="inpField fullWidth" type="text" [(ngModel)]="projectForm.name" value="" placeholder="{{ 'PROFILEEDIT.PROJECT_NAME' | translate }}">
+                            <div *ngIf="projectForm.submit && (projectForm.name==null || projectForm.name =='')" class="alert alert-danger">
+                              {{ 'PROFILEEDIT.PROJECT_NAME_REQUIRED' | translate }}
+                            </div>
+                          </span>
+                        </div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap " for="">{{ 'PROFILEEDIT.PROJECT_COMPANY' | translate }} :</label>
+                          <span class="formSpan col-xl-9">
+                          <ng-select placeholder="{{ 'PROFILEEDIT.PROJECT_COMPANY' | translate }}"  class="inpField fullWidth" [items]="userCompanyList" bindLabel="name" bindValue="id" [(ngModel)]="projectForm.cId"></ng-select>
+            
+                          <div *ngIf="projectForm.submit && (projectForm.cId==null || projectForm.cId =='')" class="alert alert-danger">
+                            {{ 'PROFILEEDIT.PROJECT_COMPANY_REQUIRED' | translate }}
+                          </div>
+                          </span>
+                        </div>
+            
+                        <div class="formWrap">
+                          <label class="col-xl-3 noGap" for="">{{'PROFILEEDIT.DURATION' | translate }} :</label>
+                          <span class="formSpan withSpace">
+                            <input class="inpField autoWidth" type="text" [(ngModel)]="projectForm.from" value="" placeholder="{{ 'PROFILEEDIT.DURATION_FROM' | translate }}" bsDatepicker [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="maxDay" autocomplete="off" readonly>
+            
+                            <div *ngIf="projectForm.submit && (projectForm.from==null || projectForm.from=='')" class="alert alert-danger">
+                              {{'PROFILEEDIT.DURATION_FROM_YEAR_REQUIRED' | translate }}
+                            </div>
+                          </span>
+            
+                          <span class="formSpan withSpace">
+                            <input class="inpField autoWidth" type="text" [(ngModel)]="projectForm.to" value="" placeholder="{{ 'PROFILEEDIT.DURATION_TO' | translate }}" bsDatepicker [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="maxDay" autocomplete="off" readonly>
+            
+            
+                            <div *ngIf="projectForm.submit && (projectForm.to==null || projectForm.to=='')" class="alert alert-danger">
+                              {{'PROFILEEDIT.DEGREE_TO_REQUIRED' | translate }}
+                            </div>
+                          </span>
+                        </div>
+                        <div class="addField">
+                          <div class="text-right">
+                            <button type="button" name="button" (click)=submitProjectFrom()>
+                              <span *ngIf="loader.project.submit" class="loader-p"><i class="fa fa-cog fa-spin"></i></span>
+                              {{ 'PROFILEEDIT.SAVE' | translate}}</button>&nbsp;
+                            <button type="button" name="button" *ngIf="resetBtnDisplay" (click)="resetProjectForm()">{{
+                              'PROFILEEDIT.RESET' | translate}}</button>
+                          </div>
+                        </div>
+            
+                        <div class="formTable">
+                          <table class="table table-borderless">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>{{'PROFILEEDIT.PROJECT_NAME' | translate }}</th>
+                                <th>{{'PROFILEEDIT.PROJECT_COMPANY' | translate }}</th>
+                                <th class="text-center">{{'PROFILEEDIT.DURATION_FROM' | translate }}</th>
+                                <th class="text-center">{{'PROFILEEDIT.DURATION_TO' | translate }}</th>
+                                <th class="text-center">{{'PROFILEEDIT.ACTION' | translate }}</th>
+            
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngIf="loader.project.list">
+                                <td colspan="5" class="loader-p"><i class="fa fa-cog fa-spin"></i></td>
+                              </tr>
+                              <tr *ngFor="let project of userProjectlist; let i=index">
+                                <td>{{(i+1)}}</td>
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.company_name }}</td>
+                                <td class="text-center">{{ project.from|date }}</td>
+                                <td class="text-center">{{ project.to|date }}</td>
+            
+                                <td class="text-center">
+                                  <a href="javascript:" (click)="editProject(project)"><i class="fa fa-pencil"></i></a>
+                                  <a href="javascript:" (click)="deleteProject(i)"><i class="fa fa-trash"></i></a>
+                                </td>
+                              </tr>
+                              <tr *ngIf="userProjectlist.length === 0">
+                                <td colspan="6">{{ "PROFILEEDIT.NO_RECORD_FOUND" |translate }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+            
+                    <div class="buttonGr">
+                      <div class="row">
+                        <div class="col-6">
+                          <a class="btnWhite" href="javascript:void(0)" (click)="gotToPayment(true)">{{ 'PROFILEEDIT.HELP_TOCREATE_CV'|translate }}</a>
+                        </div>
+                        <div class="col-6">
+                          <div class="text-right">
+                            <button class="btnOrange" type="button" name="button" (click)="setActive(tab,'certificate')"><i class="fa fa-arrow-left"
+                                aria-hidden="true"></i> {{ 'PROFILEEDIT.BACK'|translate }}</button>
+            
+                            <button class="btnGreen" type="button" name="button"  (click)="gotToPayment()">{{ 'PROFILEEDIT.NEXT'|translate }} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            
+                  </ng-template>
+                </ngb-tab>
+              </ngb-tabset>
+        </div>
+  </div>
+
+</div>
+
+
+<ng-template #content let-modal>
+  <h2><span>{{ 'PROFILEEDIT.EDIT_cv_PHOTO' |translate }}</span></h2>
+  <span class="modalClose" (click)="modal.dismiss('Cross click')"></span>
+  <div class="modal-body">
+
+    <div>
+      <div class="alert alert-success" *ngIf="successMsg">{{ successMsg }}</div>
+      <div class="alert alert-danger" *ngIf="errorMsg">{{ errorMsg }}</div>
+    </div>
+
+    <span class="file-upload-all">
+      <label class="custom-file-upload" for="custom-input">Upload Photo</label>
+      <input id="custom-input" type="file" accept=".png, .jpg, .jpeg, .gif" (change)="fileChangeListener($event, cropper)">
+    </span>
+    <button class="cropSave" (click)="savePhoto()">Save</button>
+
+    <div class="imgCrop">
+      <div class="">
+        <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+      </div>
+      <div class="cropDisp" *ngIf="data.image">
+        <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+      </div>
+
+      <!-- <div class="" *ngIf="data.image">
+        <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+      </div>
+      <div class="cropDisp" *ngIf="data.image">
+        <img  [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+      </div> -->
+      <div class="clearfix"></div>
+
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #alertPopup let-modal >
+  <span class="modalClose" (click)="modal.dismiss('Cross click')" *ngIf="!alertPopupMsg.page"></span>
+  <div class="modal-body" >
+    <div [innerHTML]="alertPopupMsg.message"></div>
+    <div class="profileDesc" *ngIf="alertPopupMsg.page">
+      <div class="profileAward">
+        <span>
+          <a [routerLink]="['/profile/edit']" *ngIf="alertPopupMsg.page == 'edit_profile'">{{ 'PROFILEEDIT.EDIT_PROFILE'|translate }}</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</ng-template>
